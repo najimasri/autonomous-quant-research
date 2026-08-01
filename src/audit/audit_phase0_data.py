@@ -6,6 +6,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pyarrow.parquet as pq
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -44,6 +46,28 @@ def audit_source_checkout() -> int:
     return 0
 
 
+def verify_canonical_shards(data_manifest: dict[str, str]) -> tuple[int, int]:
+    """Verify every recorded yearly shard by hash and physical row count."""
+    shard_count = 0
+    row_count = 0
+    for instrument in ("btc", "xau"):
+        batch_path = ROOT / f"manifests/{instrument}_batch_manifest.json"
+        batch = json.loads(batch_path.read_text(encoding="utf-8"))
+        for relative, recorded in sorted(batch["shards"].items()):
+            path = ROOT / relative
+            if not path.exists():
+                raise SystemExit(f"Phase 0 data audit FAIL: absent shard ({relative})")
+            digest = sha256(path)
+            if digest != recorded["sha256"] or digest != data_manifest.get(relative):
+                raise SystemExit(f"Phase 0 data audit FAIL: shard hash ({relative})")
+            rows = pq.ParquetFile(path).metadata.num_rows
+            if rows != recorded["rows"]:
+                raise SystemExit(f"Phase 0 data audit FAIL: shard rows ({relative})")
+            shard_count += 1
+            row_count += rows
+    return shard_count, row_count
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -55,31 +79,28 @@ def main() -> int:
     if args.source_checkout:
         return audit_source_checkout()
 
-    archives = sorted((ROOT / "data/raw/btc").glob("*.zip"))
+    data_manifest = json.loads((ROOT / "manifests/DATA_SHA256.json").read_text(encoding="utf-8"))
+    recorded_archives = sorted(relative for relative in data_manifest
+                               if relative.startswith("data/raw/btc/") and relative.endswith(".zip"))
+    archives = [ROOT / relative for relative in recorded_archives]
     if not archives:
         raise SystemExit("Phase 0 data audit FAIL: no BTC archives")
     for archive in archives:
+        if not archive.exists():
+            raise SystemExit(f"Phase 0 data audit FAIL: absent BTC archive ({archive.name})")
         checksum = archive.with_suffix(".zip.CHECKSUM")
         expected = checksum.read_text(encoding="utf-8").split()[0].lower()
-        if sha256(archive) != expected:
+        digest = sha256(archive)
+        if digest != expected or digest != data_manifest[str(archive.relative_to(ROOT))]:
             raise SystemExit(f"Phase 0 data audit FAIL: {archive.name}")
-    if not any(path.stat().st_size for path in (ROOT / "data/raw/xau").rglob("*.bi5")):
-        raise SystemExit("Phase 0 data audit FAIL: no XAU ticks")
-    for instrument in ("btc", "xau"):
-        metadata_path = ROOT / f"data/canonical/tape_metadata_{instrument}.json"
-        if not metadata_path.exists():
-            raise SystemExit(f"Phase 0 data audit FAIL: {instrument} canonical artifacts absent")
-        metadata = json.loads(metadata_path.read_text())
-        hashes = metadata.get("canonical_shards_sha256")
-        if hashes is None:
-            hashes = {f"data/canonical/{instrument}_1m.parquet": metadata["canonical_sha256"]}
-        for relative, expected in hashes.items():
-            tape = ROOT / relative
-            if not tape.exists() or sha256(tape) != expected:
-                raise SystemExit(f"Phase 0 data audit FAIL: {instrument} canonical hash ({relative})")
-        if metadata["rows"] <= 0:
-            raise SystemExit(f"Phase 0 data audit FAIL: {instrument} empty tape")
-    print(f"Phase 0 data audit: PASS ({len(archives)} BTC checksums; both canonical tapes)")
+    shards, rows = verify_canonical_shards(data_manifest)
+    costs = json.loads((ROOT / "manifests/xau_cost_observations.json").read_text(encoding="utf-8"))
+    if (costs.get("candle", {}).get("label") != "CANDLE_DERIVED_APPROXIMATION"
+            or costs.get("tick", {}).get("label") != "TICK_OBSERVED"
+            or costs["candle"].get("rows", 0) <= 0 or costs["tick"].get("rows", 0) <= 0):
+        raise SystemExit("Phase 0 data audit FAIL: XAU cost observations")
+    print(f"Phase 0 data audit: PASS ({len(archives)} BTC checksums; "
+          f"{shards} canonical shards; {rows} canonical rows; XAU cost observations)")
     return 0
 
 
