@@ -143,10 +143,20 @@ jobs:
           data_manifest_path.write_text(json.dumps(data_hashes, indent=2, sort_keys=True) + "\n")
           PY
 
-      - name: Update artifact manifest
-        run: python src/audit/build_manifest.py
+      - name: Regenerate manifests and clean acquisition inputs
+        run: |
+          # Drop ignored downloads, then restore the tracked source-checkout
+          # metadata before inventorying the repository.
+          find data/raw/xau -type f \( -name '*.bi5' -o -name '*.part' \) -delete
+          git checkout -- data/raw/xau
+          python src/audit/build_manifest.py
 
-      - name: Commit canonical shards and manifests to main
+      - name: Audit source checkout before publishing
+        run: |
+          python src/audit/audit_ci.py
+          python src/audit/audit_phase0_data.py --source-checkout
+
+      - name: Commit, rebase, re-audit, and push to main
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -161,11 +171,13 @@ jobs:
           fi
           git commit -m "data: acquire XAU yearly canonical shards"
           git pull --rebase origin main
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
-
-      - name: Audit post-commit source checkout
-        run: |
-          git reset --hard HEAD
-          git clean -ffdx
+          # A concurrent main update changes the source inventory. Regenerate and
+          # amend so the rebased commit is exactly what the final audits inspect.
+          python src/audit/build_manifest.py
+          git add manifests/MANIFEST_SHA256.json
+          if ! git diff --cached --quiet; then
+            git commit --amend --no-edit
+          fi
           python src/audit/audit_ci.py
           python src/audit/audit_phase0_data.py --source-checkout
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main

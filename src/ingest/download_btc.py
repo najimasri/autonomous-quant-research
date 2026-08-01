@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE = "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m"
 
 
-def months(start_year: int, start_month: int, end: date):
-    year, month = start_year, start_month
+def months(start: date, end: date):
+    year, month = start.year, start.month
     while (year, month) <= (end.year, end.month):
         yield f"{year:04d}-{month:02d}"
         year, month = (year + 1, 1) if month == 12 else (year, month + 1)
@@ -50,6 +50,7 @@ def fetch_month(month: str, target: Path) -> tuple[str, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--start", type=date.fromisoformat, default=date(2017, 8, 1))
     parser.add_argument("--through", type=date.fromisoformat, default=date.today())
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
@@ -57,7 +58,10 @@ def main() -> int:
     target.mkdir(parents=True, exist_ok=True)
     # Monthly archives exist only after a month closes.
     end = args.through.replace(day=1) - __import__("datetime").timedelta(days=1)
-    expected = list(months(2017, 8, end))
+    start = args.start.replace(day=1)
+    if start < date(2017, 8, 1) or start > end:
+        raise SystemExit("range must contain closed months starting on/after 2017-08")
+    expected = list(months(start, end))
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         for name, digest in pool.map(lambda month: fetch_month(month, target), expected):
             print(f"verified {name} {digest}")
