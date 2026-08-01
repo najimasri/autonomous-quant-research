@@ -1,5 +1,6 @@
 {
   ".github/workflows/audit.yml": "d502294bb894a492c7468373f52180a3bddc68617979d15f992e5de62f5dac37",
+  ".github/workflows/xau-data-acquisition.yml": "a3913c86fa26e79b3fc291d0983e1e7c53bda5ce422cfc521c5f9fe65d750331",
   ".gitignore": "1761187d8704ef28a0a88ec9969d44cad1a9cafbd6e4db93e57860884177a7ed",
   ".gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "CODEX_BOOTSTRAP_GOLDBTC_A1.md": "ab40c9afcdd0b0b939fe008ebaee5bf48a100a39dc4a1c85742e4e3cf7297646",
