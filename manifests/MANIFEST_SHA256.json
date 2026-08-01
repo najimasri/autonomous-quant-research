@@ -118,7 +118,6 @@
   "data/raw/btc/BTCUSDT-1m-2026-06.zip.CHECKSUM": "1b97197f34f7e2794f3defa8e93ec2c02f1496303aec1aaf200ded1f3daf9741",
   "data/raw/btc/ingest_metadata.json": "6891c5776c866ab380230530163ecb5bdaeb944fd4e0e794756d049539e9af25",
   "data/raw/xau/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-  "data/raw/xau_ticks/ingest_metadata.json": "5a33a8f6269d8ad3d2b31579157c532c575b8d45f1f39519751e995911dcda29",
   "governance/cost_contract.yaml": "61681018cf7fdc8b60076971e81a9a06cdafc444b10bd35ef42c14cf0e25646a",
   "governance/families.yaml": "b7323c8009bbef0f0941457f8cafc5a5749112a326c23ccb615844aa7d2968a6",
   "governance/ftmo_geometry.yaml": "ee44588619b3bba8132514a12eb484536bc8162c88af59e9ef3b85b0f270c3a8",
