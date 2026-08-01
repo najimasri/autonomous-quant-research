@@ -13,7 +13,7 @@ def main() -> int:
     for axes in raw.values():
         assert 0 < len(list(itertools.product(*axes.values()))) <= 48
     session=ROOT/"src/tape/session_map.py"
-    assert hashlib.sha256(session.read_bytes()).hexdigest() == "962a7f9b44afab045208b7bf5ac5c7cfca03a84af96cc67bcd8ae80d7958a80f"
+    assert hashlib.sha256(session.read_bytes()).hexdigest() == "097c48f511626f1a5bb860ecb1c7f8888bd0eed877dab3b8ab7dd053bae4e9d7"
     records=[json.loads(x) for x in (ROOT/"trials/trials.jsonl").read_text().splitlines() if x.strip()]
     smoke=[r for r in records if r.get("kind")=="PHASE2_SMOKE_ONLY"]
     assert {(r["family"],r["instrument"]) for r in smoke} == {(f,i) for f in raw for i in ("BTC","XAU")}

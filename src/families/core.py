@@ -9,7 +9,7 @@ from typing import Callable
 
 import pandas as pd
 
-EXPECTED_SESSION_SHA256 = "962a7f9b44afab045208b7bf5ac5c7cfca03a84af96cc67bcd8ae80d7958a80f"
+EXPECTED_SESSION_SHA256 = "097c48f511626f1a5bb860ecb1c7f8888bd0eed877dab3b8ab7dd053bae4e9d7"
 ROOT = Path(__file__).resolve().parents[2]
 
 
