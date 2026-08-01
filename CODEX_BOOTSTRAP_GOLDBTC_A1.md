@@ -324,3 +324,12 @@ list (empty except at LOCK points and on auditor FAILs). Plain language, no
 hype, uncertainty stated numerically where possible.
 
 BEGIN WITH PHASE 0 AND PROCEED UNDER THE v1.1 PROMOTION MODEL.
+
+---
+
+OPERATOR-AUTHORIZED AMENDMENT v1.2.2 — record verbatim in the root mission contract; no /governance or gate changes:
+
+Reimplement XAU acquisition as Dukascopy daily 1-minute candle files: BID_candles_min_1.bi5 and ASK_candles_min_1.bi5 per trading day, pattern https://datafeed.dukascopy.com/datafeed/XAUUSD/{YYYY}/{MM}/{DD}/… with zero-based months (00 = January). HARD-CODE pacing inside the downloader: maximum 4 concurrent requests, ≥200ms spacing, exponential backoff with strict Retry-After compliance, and the script must refuse any workers argument above 4. The previous session's --workers 128 run violated pacing and caused the 429 — this must be impossible to repeat.
+DURABLE BATCHING: acquire and commit in batches of at most 4 calendar years, starting 2010. For each batch: download candles, build that batch's yearly shards, record row counts and SHA-256 per shard in the data manifest, and immediately create one PR containing only that batch's shards (keep each PR under ~40MB; split a batch if needed). Never start the next batch before the current batch's PR exists. Code changes (downloader, contract amendment) go in their own code-only PR first.
+After all batches through the present are merged by the operator, a final pass verifies every shard hash from main, builds cost_observations_xau.json (candle ask−bid proxy labeled CANDLE_DERIVED_APPROXIMATION, plus March/September tick-week validation samples at the same hard-coded pacing), runs all auditors, writes the Phase 0 report, and issues the verdict. On PHASE0_PASS auto-promote per v1.1. BTC stays rebuild-on-demand, never committed.
+Create a PR at every stopping point, including partial progress. Never end a session with unpushed work.
