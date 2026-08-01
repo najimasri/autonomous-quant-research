@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+"""Source-only Phase 2 grid and trial-contract audit."""
+import hashlib, itertools, json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+def main() -> int:
+    grid = ROOT/"src/families/frozen_grids.json"
+    expected = (ROOT/"src/families/frozen_grids.sha256").read_text().split()[0]
+    assert hashlib.sha256(grid.read_bytes()).hexdigest() == expected
+    raw=json.loads(grid.read_text())
+    assert set(raw) == {"F1","F2","F3","F4"}
+    for axes in raw.values():
+        assert 0 < len(list(itertools.product(*axes.values()))) <= 48
+    session=ROOT/"src/tape/session_map.py"
+    assert hashlib.sha256(session.read_bytes()).hexdigest() == "962a7f9b44afab045208b7bf5ac5c7cfca03a84af96cc67bcd8ae80d7958a80f"
+    records=[json.loads(x) for x in (ROOT/"trials/trials.jsonl").read_text().splitlines() if x.strip()]
+    smoke=[r for r in records if r.get("kind")=="PHASE2_SMOKE_ONLY"]
+    assert {(r["family"],r["instrument"]) for r in smoke} == {(f,i) for f in raw for i in ("BTC","XAU")}
+    assert all(r["entries"] == r["exits"] == r["r_accounting_count"] > 0 and not r["performance_claim"] for r in smoke)
+    print("Phase 2 source audit: PASS (4 frozen grids, 8 mechanical smokes)")
+    return 0
+if __name__ == "__main__": raise SystemExit(main())

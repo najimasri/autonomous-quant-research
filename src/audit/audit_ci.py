@@ -10,6 +10,7 @@ CHECKS = (
     "audit_holdout_seal.py",
     "audit_governance.py",
     "verify_trials.py",
+    "audit_phase2.py",
     "build_manifest.py",
 )
 
