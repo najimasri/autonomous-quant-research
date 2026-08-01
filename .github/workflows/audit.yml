@@ -8,7 +8,5 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - run: python src/audit/audit_holdout_seal.py
-      - run: python src/audit/audit_governance.py
-      - run: python src/audit/verify_trials.py
-      - run: python src/audit/build_manifest.py --check
+      # Deliberately source-only.  The Phase 0 data audit is a phase-verdict gate.
+      - run: python src/audit/audit_ci.py
