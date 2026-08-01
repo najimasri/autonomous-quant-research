@@ -1,0 +1,21 @@
+families:
+  F1_session_breakout:      # time-anchored range breakout (session open ranges)
+    instruments: [BTC, XAU]
+    param_budget_max_combos: 48
+  F2_vol_compression_expansion:   # squeeze -> expansion continuation
+    instruments: [BTC, XAU]
+    param_budget_max_combos: 48
+  F3_momentum_continuation:  # multi-bar momentum with time-of-day filter
+    instruments: [BTC, XAU]
+    param_budget_max_combos: 48
+  F4_extreme_mean_reversion: # stretched-move fade with hard invalidation
+    instruments: [BTC, XAU]
+    param_budget_max_combos: 48
+hard_rules:
+  - every entry/exit decidable on bar close (no intrabar lookahead)
+  - every position has a stop defined at entry; fixed R-multiple or
+    structural target defined at entry
+  - no parameter added after results are seen; grid frozen in Phase 2
+    before the first backtest and hashed
+  - total trial cap across the whole mission: 2000 configs; exceeding it
+    requires an operator entry in approvals.log

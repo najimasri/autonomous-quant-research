@@ -1,0 +1,6 @@
+btc_holdout: ["2025-07-01", "present"]
+xau_holdout: ["2024-07-01", "present"]
+rule: >
+  Holdout data may be downloaded and hashed in Phase 0 but must not be read by
+  any code path except src/validation/phase5_holdout_runner.py, which may be
+  executed exactly once per finalist, in Phase 5, after LOCK_B approval.

@@ -1,0 +1,45 @@
+walk_forward:
+  scheme: expanding_window_by_year
+  selection_data: development_years_only
+  confirmation_years_never_used_for_selection: true
+sample_floors:            # family-relative, per instrument
+  min_trades: 100
+  or_alternative: {min_years_contributing: 8, min_trades: 60}
+  max_share_single_year: 0.40
+  min_calendar_years_contributing: 3
+statistics:
+  deflated_sharpe_ratio: ">= 95% confidence positive, accounting for the
+                          full number of trials in trials.jsonl"
+  pbo_cscv: "<= 0.25"
+controls:
+  null_random_entry_ensembles: 200   # candidate must beat the 95th percentile
+  shuffled_signal_test: required
+  corrupted_data_smoke_test: required
+degradation:
+  live_haircut_win_rate_multiplier: 0.70   # pre-registered from the operator's
+                                           # measured live/research gap (~0.65)
+  all_gates_must_pass_after_haircut: true
+robustness:
+  leave_one_year_out: all_folds_non_negative_expectancy
+  cost_stress: pass_at_2x_costs
+  xau_extra: results_must_hold_on_both_sides_of_any_data_seam
+ftmo_monte_carlo:
+  method: block_bootstrap_of_oos_trade_sequence
+  paths: 20000
+  gates:
+    p_account_breach: "<= 0.05"
+    p_daily_loss_breach: "<= 0.02"
+    median_days_pass_phase1: "<= 20 trading days"
+    median_days_pass_phase2: "<= 20 trading days"
+    funded_survival_90d: ">= 0.85"
+  policy_variables_optimized_inside_mc: [risk_pct_per_trade, max_trades_per_day,
+                                         daily_stop_after_n_losses,
+                                         phase_specific_risk_scaling]
+reconciliation:            # Phase 6 gates (broker feed vs research feed)
+  bar_level: "per-minute close differences: report full distribution; no
+              silent alignment fixes"
+  signal_level: ">= 90% of research-feed entry signals must also fire on the
+                 broker feed within a 1-bar tolerance"
+  outcome_level: "finalist expectancy on broker feed must remain positive and
+                  within the block-bootstrap 90% interval of the research-feed
+                  OOS expectancy; otherwise verdict RECONCILIATION_FAIL"

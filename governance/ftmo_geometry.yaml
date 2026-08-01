@@ -1,0 +1,19 @@
+account_size_usd: 100000
+phase1_profit_target_pct: 10.0
+phase2_profit_target_pct: 5.0
+max_daily_loss_pct: 5.0          # anchored to balance/equity at midnight CET
+max_overall_loss_pct: 10.0       # STATIC, not trailing (2-Step)
+min_trading_days_per_phase: 4
+no_time_limit: true
+first_payout_day: 14
+profit_split: 0.80
+weekend_holding:                 # modeled PER STAGE in the Monte Carlo
+  evaluation_phase1: allowed     # overnight + weekend holding permitted
+  evaluation_phase2: allowed
+  funded_standard: must_be_flat_before_weekend_close
+  funded_swing: allowed
+  note: >
+    Crypto symbols quote on weekends (maintenance windows possible). Any
+    candidate whose funded-stage policy requires overnight/weekend holds is
+    flagged SWING_REQUIRED, because Standard vs Swing is fixed at Challenge
+    purchase and cannot be changed later.
