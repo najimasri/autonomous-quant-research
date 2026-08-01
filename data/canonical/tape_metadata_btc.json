@@ -1,0 +1,183 @@
+{
+  "canonical_sha256": "8ea91c8dda4f14b6b4b26bff5833da0fb3f85a8f9aaa3119667c6a1157d14ac6",
+  "exchange_maintenance_gaps": [
+    {
+      "after_utc": "2017-09-06T15:59:00+00:00",
+      "before_utc": "2017-09-06T23:00:00+00:00",
+      "missing_minutes": 420
+    },
+    {
+      "after_utc": "2017-12-18T10:00:00+00:00",
+      "before_utc": "2017-12-18T10:14:00+00:00",
+      "missing_minutes": 13
+    },
+    {
+      "after_utc": "2017-12-18T12:29:00+00:00",
+      "before_utc": "2017-12-18T13:34:00+00:00",
+      "missing_minutes": 64
+    },
+    {
+      "after_utc": "2018-01-04T03:00:00+00:00",
+      "before_utc": "2018-01-04T05:06:00+00:00",
+      "missing_minutes": 125
+    },
+    {
+      "after_utc": "2018-02-08T00:28:00+00:00",
+      "before_utc": "2018-02-09T09:59:00+00:00",
+      "missing_minutes": 2010
+    },
+    {
+      "after_utc": "2018-02-10T05:59:00+00:00",
+      "before_utc": "2018-02-10T06:15:00+00:00",
+      "missing_minutes": 15
+    },
+    {
+      "after_utc": "2018-02-11T04:00:00+00:00",
+      "before_utc": "2018-02-11T04:35:00+00:00",
+      "missing_minutes": 34
+    },
+    {
+      "after_utc": "2018-06-26T01:59:00+00:00",
+      "before_utc": "2018-06-26T12:00:00+00:00",
+      "missing_minutes": 600
+    },
+    {
+      "after_utc": "2018-06-27T12:59:00+00:00",
+      "before_utc": "2018-06-27T14:45:00+00:00",
+      "missing_minutes": 105
+    },
+    {
+      "after_utc": "2018-07-04T00:22:00+00:00",
+      "before_utc": "2018-07-04T08:00:00+00:00",
+      "missing_minutes": 457
+    },
+    {
+      "after_utc": "2018-10-19T05:59:00+00:00",
+      "before_utc": "2018-10-19T09:30:00+00:00",
+      "missing_minutes": 210
+    },
+    {
+      "after_utc": "2018-11-14T01:59:00+00:00",
+      "before_utc": "2018-11-14T09:00:00+00:00",
+      "missing_minutes": 420
+    },
+    {
+      "after_utc": "2019-03-12T01:59:00+00:00",
+      "before_utc": "2019-03-12T08:00:00+00:00",
+      "missing_minutes": 360
+    },
+    {
+      "after_utc": "2019-05-15T02:59:00+00:00",
+      "before_utc": "2019-05-15T13:00:00+00:00",
+      "missing_minutes": 600
+    },
+    {
+      "after_utc": "2019-06-07T21:13:00+00:00",
+      "before_utc": "2019-06-07T22:15:00+00:00",
+      "missing_minutes": 61
+    },
+    {
+      "after_utc": "2019-08-15T01:59:00+00:00",
+      "before_utc": "2019-08-15T10:00:00+00:00",
+      "missing_minutes": 480
+    },
+    {
+      "after_utc": "2019-11-13T01:59:00+00:00",
+      "before_utc": "2019-11-13T04:20:00+00:00",
+      "missing_minutes": 140
+    },
+    {
+      "after_utc": "2019-11-13T05:29:00+00:00",
+      "before_utc": "2019-11-13T05:33:00+00:00",
+      "missing_minutes": 3
+    },
+    {
+      "after_utc": "2019-11-25T01:59:00+00:00",
+      "before_utc": "2019-11-25T04:00:00+00:00",
+      "missing_minutes": 120
+    },
+    {
+      "after_utc": "2020-02-09T01:59:00+00:00",
+      "before_utc": "2020-02-09T03:00:00+00:00",
+      "missing_minutes": 60
+    },
+    {
+      "after_utc": "2020-02-19T11:35:00+00:00",
+      "before_utc": "2020-02-19T17:30:00+00:00",
+      "missing_minutes": 354
+    },
+    {
+      "after_utc": "2020-03-04T09:21:00+00:00",
+      "before_utc": "2020-03-04T11:30:00+00:00",
+      "missing_minutes": 128
+    },
+    {
+      "after_utc": "2020-04-25T01:59:00+00:00",
+      "before_utc": "2020-04-25T04:30:00+00:00",
+      "missing_minutes": 150
+    },
+    {
+      "after_utc": "2020-06-28T01:59:00+00:00",
+      "before_utc": "2020-06-28T05:30:00+00:00",
+      "missing_minutes": 210
+    },
+    {
+      "after_utc": "2020-11-30T05:59:00+00:00",
+      "before_utc": "2020-11-30T07:00:00+00:00",
+      "missing_minutes": 60
+    },
+    {
+      "after_utc": "2020-12-21T14:09:00+00:00",
+      "before_utc": "2020-12-21T18:00:00+00:00",
+      "missing_minutes": 230
+    },
+    {
+      "after_utc": "2020-12-25T01:59:00+00:00",
+      "before_utc": "2020-12-25T03:00:00+00:00",
+      "missing_minutes": 60
+    },
+    {
+      "after_utc": "2021-02-11T03:40:00+00:00",
+      "before_utc": "2021-02-11T05:00:00+00:00",
+      "missing_minutes": 79
+    },
+    {
+      "after_utc": "2021-03-06T01:59:00+00:00",
+      "before_utc": "2021-03-06T03:30:00+00:00",
+      "missing_minutes": 90
+    },
+    {
+      "after_utc": "2021-04-20T01:59:00+00:00",
+      "before_utc": "2021-04-20T04:30:00+00:00",
+      "missing_minutes": 150
+    },
+    {
+      "after_utc": "2021-04-25T04:00:00+00:00",
+      "before_utc": "2021-04-25T08:45:00+00:00",
+      "missing_minutes": 284
+    },
+    {
+      "after_utc": "2021-08-13T01:59:00+00:00",
+      "before_utc": "2021-08-13T06:30:00+00:00",
+      "missing_minutes": 270
+    },
+    {
+      "after_utc": "2021-09-29T06:59:00+00:00",
+      "before_utc": "2021-09-29T09:00:00+00:00",
+      "missing_minutes": 120
+    },
+    {
+      "after_utc": "2023-03-24T12:39:00+00:00",
+      "before_utc": "2023-03-24T14:00:00+00:00",
+      "missing_minutes": 80
+    }
+  ],
+  "first_utc": "2017-08-17T04:00:00+00:00",
+  "instrument": "BTCUSDT spot",
+  "last_utc": "2026-06-30T23:59:00+00:00",
+  "missing_minutes": 8562,
+  "off_grid_source_timestamps_normalized_to_minute": 21602,
+  "rows": 4656799,
+  "timeframe": "1m",
+  "timezone": "UTC"
+}

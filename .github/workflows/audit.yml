@@ -9,5 +9,6 @@ jobs:
         with:
           python-version: "3.11"
       - run: python src/audit/audit_holdout_seal.py
+      - run: python src/audit/audit_governance.py
       - run: python src/audit/verify_trials.py
       - run: python src/audit/build_manifest.py --check
