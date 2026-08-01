@@ -45,6 +45,7 @@ def http_session() -> requests.Session:
         # Retries are deliberately implemented by fetch(): adapter-level retries
         # could evade the process-wide request pacer.
         THREAD_STATE.session = requests.Session()
+        THREAD_STATE.session.headers["User-Agent"] = "autonomous-quant-research/phase0"
     return THREAD_STATE.session
 
 
