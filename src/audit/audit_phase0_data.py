@@ -28,13 +28,17 @@ def main() -> int:
     if not any(path.stat().st_size for path in (ROOT / "data/raw/xau").rglob("*.bi5")):
         raise SystemExit("Phase 0 data audit FAIL: no XAU ticks")
     for instrument in ("btc", "xau"):
-        tape = ROOT / f"data/canonical/{instrument}_1m.parquet"
         metadata_path = ROOT / f"data/canonical/tape_metadata_{instrument}.json"
-        if not tape.exists() or not metadata_path.exists():
+        if not metadata_path.exists():
             raise SystemExit(f"Phase 0 data audit FAIL: {instrument} canonical artifacts absent")
         metadata = json.loads(metadata_path.read_text())
-        if sha256(tape) != metadata["canonical_sha256"]:
-            raise SystemExit(f"Phase 0 data audit FAIL: {instrument} canonical hash")
+        hashes = metadata.get("canonical_shards_sha256")
+        if hashes is None:
+            hashes = {f"data/canonical/{instrument}_1m.parquet": metadata["canonical_sha256"]}
+        for relative, expected in hashes.items():
+            tape = ROOT / relative
+            if not tape.exists() or sha256(tape) != expected:
+                raise SystemExit(f"Phase 0 data audit FAIL: {instrument} canonical hash ({relative})")
         if metadata["rows"] <= 0:
             raise SystemExit(f"Phase 0 data audit FAIL: {instrument} empty tape")
     print(f"Phase 0 data audit: PASS ({len(archives)} BTC checksums; both canonical tapes)")

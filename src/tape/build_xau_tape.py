@@ -68,36 +68,36 @@ def aggregate(paths: list[Path]) -> pd.DataFrame:
 def build(output: Path, metadata: Path, costs: Path) -> None:
     all_paths = sorted((ROOT / "data/raw/xau").rglob("*.bi5"))
     years = sorted({int(path.relative_to(ROOT / "data/raw/xau").parts[0]) for path in all_paths})
-    temporary = output.with_suffix(".parquet.part")
-    writer = pq.ParquetWriter(temporary, SCHEMA, compression="zstd", version="2.6")
     count = 0
     first = last = None
     missing = 0
     observations = []
-    try:
-        for year in years:
-            frame = aggregate([path for path in all_paths if path.relative_to(ROOT / "data/raw/xau").parts[0] == str(year)])
-            if frame.empty:
-                continue
-            stamps = frame.timestamp.astype("int64") // 1_000_000
-            diffs = stamps.diff().dropna()
-            missing += int(np.maximum(0, diffs // 60_000 - 1).sum())
-            first = frame.timestamp.iloc[0].isoformat() if first is None else first
-            last = frame.timestamp.iloc[-1].isoformat()
-            session = pd.cut(frame.timestamp.dt.hour, [-1, 6, 12, 20, 23], labels=["asia", "europe", "us", "late"])
-            for label, values in frame.groupby(session, observed=True).spread_median:
-                observations.append({"year": year, "session_utc": str(label), "observations": int(values.count()),
-                                     "median_spread": float(values.median()), "p95_spread": float(values.quantile(.95))})
-            writer.write_table(pa.Table.from_pandas(frame, schema=SCHEMA, preserve_index=False), row_group_size=100_000)
-            count += len(frame)
-    finally:
-        writer.close()
-    temporary.replace(output)
+    shard_hashes = {}
+    for year in years:
+        frame = aggregate([path for path in all_paths if path.relative_to(ROOT / "data/raw/xau").parts[0] == str(year)])
+        if frame.empty:
+            continue
+        shard = output.with_name(f"{output.stem}_{year}{output.suffix}")
+        temporary = shard.with_suffix(".parquet.part")
+        table = pa.Table.from_pandas(frame, schema=SCHEMA, preserve_index=False)
+        pq.write_table(table, temporary, compression="zstd", version="2.6", row_group_size=100_000)
+        temporary.replace(shard)
+        shard_hashes[str(shard.relative_to(ROOT))] = sha256(shard)
+        stamps = frame.timestamp.astype("int64") // 1_000_000
+        diffs = stamps.diff().dropna()
+        missing += int(np.maximum(0, diffs // 60_000 - 1).sum())
+        first = frame.timestamp.iloc[0].isoformat() if first is None else first
+        last = frame.timestamp.iloc[-1].isoformat()
+        session = pd.cut(frame.timestamp.dt.hour, [-1, 6, 12, 20, 23], labels=["asia", "europe", "us", "late"])
+        for label, values in frame.groupby(session, observed=True).spread_median:
+            observations.append({"year": year, "session_utc": str(label), "observations": int(values.count()),
+                                 "median_spread": float(values.median()), "p95_spread": float(values.quantile(.95))})
+        count += len(frame)
     metadata.write_text(json.dumps({"instrument": "XAUUSD Dukascopy", "price_side": "BID", "volume_type": "tick volume",
                                     "timeframe": "1m", "timezone": "UTC", "rows": count, "first_utc": first,
                                     "last_utc": last, "missing_minutes_between_observed_minutes": missing,
                                     "known_limits": ["single liquidity provider feed", "bid-side prices", "tick volume only", "occasional gaps"],
-                                    "canonical_sha256": sha256(output)}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                                    "canonical_shards_sha256": shard_hashes}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     costs.write_text(json.dumps({"instrument": "XAUUSD", "spread_unit": "USD per ounce", "sessions": observations},
                                 indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -109,7 +109,7 @@ def main() -> int:
     parser.add_argument("--costs", type=Path, default=ROOT / "data/canonical/cost_observations_xau.json")
     args = parser.parse_args()
     build(args.output, args.metadata, args.costs)
-    print(sha256(args.output))
+    print(args.metadata.read_text(encoding="utf-8"))
     return 0
 
 
