@@ -1,6 +1,8 @@
 import argparse
 import importlib.util
+import lzma
 import sys
+import tempfile
 import unittest
 from datetime import date
 from pathlib import Path
@@ -16,6 +18,7 @@ def load(name, relative):
 
 download = load("download_xau", "src/ingest/download_xau.py")
 tape = load("build_xau_tape", "src/tape/build_xau_tape.py")
+ticks = load("download_xau_ticks", "src/ingest/download_xau_ticks.py")
 
 
 class XauIngestTests(unittest.TestCase):
@@ -36,9 +39,32 @@ class XauIngestTests(unittest.TestCase):
         ])
 
     def test_candle_record_layout(self):
-        packed = tape.RECORD.pack(60, 1.0, 2.0, 0.5, 2.5, 12.0)
-        self.assertEqual(len(packed), 44)
+        packed = tape.RECORD.pack(60, 1000, 2000, 500, 2500, 12.0)
+        self.assertEqual(len(packed), 24)
         self.assertEqual(tape.RECORD.unpack(packed)[0], 60)
+
+    def test_candle_decoder_scales_integer_prices(self):
+        packed = tape.RECORD.pack(60, 1234567, 1234570, 1234500, 1234600, 12.5)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / "data/raw/xau/2010/00/04/BID_candles_min_1.bi5"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(lzma.compress(packed))
+            original_root, tape.ROOT = tape.ROOT, root
+            try:
+                row = tape.decode(path).iloc[0]
+            finally:
+                tape.ROOT = original_root
+        self.assertEqual(row.open, 1234.567)
+        self.assertEqual(row.close, 1234.57)
+
+    def test_tick_sample_paths_are_zero_based_and_hourly(self):
+        paths = list(ticks.relative_paths(date(2024, 3, 1)))
+        self.assertEqual(paths[0], "2024/02/01/00h_ticks.bi5")
+        self.assertEqual(paths[-1], "2024/02/01/23h_ticks.bi5")
+
+    def test_sample_months_are_march_and_september(self):
+        self.assertEqual([day.month for day in ticks.sample_days(2024)], [3, 9])
 
     def test_retry_after_seconds_and_http_date(self):
         self.assertEqual(download.retry_after_seconds("7"), 7.0)

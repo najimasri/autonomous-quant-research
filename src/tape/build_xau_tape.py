@@ -15,9 +15,10 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 ROOT = Path(__file__).resolve().parents[2]
-# Dukascopy candle record: seconds from UTC day start, open, close, low, high,
-# volume. All prices and volume are already floating-point values.
-RECORD = struct.Struct(">I5d")
+# Dukascopy XAU candle record: seconds from UTC day start, four integer prices,
+# then floating-point volume. XAUUSD is published in thousandths.
+RECORD = struct.Struct(">5If")
+PRICE_SCALE = 1_000
 SCHEMA = pa.schema([
     ("timestamp", pa.timestamp("ms", tz="UTC")), ("open", pa.float64()),
     ("high", pa.float64()), ("low", pa.float64()), ("close", pa.float64()),
@@ -52,6 +53,7 @@ def decode(path: Path) -> pd.DataFrame:
         raise ValueError(f"invalid Dukascopy candle length: {path} ({len(content)} bytes)")
     values = list(RECORD.iter_unpack(content))
     frame = pd.DataFrame(values, columns=["offset", "open", "close", "low", "high", "volume"])
+    frame[["open", "close", "low", "high"]] /= PRICE_SCALE
     base = datetime(year, month0 + 1, day, tzinfo=timezone.utc)
     frame["timestamp"] = pd.to_datetime(base) + pd.to_timedelta(frame.pop("offset"), unit="s")
     return frame
@@ -81,6 +83,8 @@ def build_year(year: int) -> pd.DataFrame:
 def build(start_year: int, through_year: int, output_dir: Path, manifest: Path) -> None:
     if start_year < 2010 or through_year < start_year or through_year - start_year + 1 > 4:
         raise ValueError("build range must contain 1-4 calendar years starting no earlier than 2010")
+    output_dir = output_dir.resolve()
+    manifest = manifest.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     shards = {}
     for year in range(start_year, through_year + 1):
