@@ -8,11 +8,6 @@ on:
         required: true
         default: "2017"
         type: string
-      through_year:
-        description: Last complete UTC calendar year to acquire
-        required: true
-        default: "2025"
-        type: string
 
 permissions:
   contents: write
@@ -37,26 +32,49 @@ jobs:
       - name: Install pinned requirements
         run: python -m pip install --requirement requirements.txt
 
-      - name: Download, verify, and build missing yearly shards
+      - name: Download, verify, and build stale or missing yearly shards
         env:
           START_YEAR: ${{ inputs.start_year }}
-          THROUGH_YEAR: ${{ inputs.through_year }}
         run: |
           python - <<'PY'
+          import calendar
           import hashlib
           import json
           import os
           import subprocess
           import sys
-          from datetime import date
+          from datetime import date, datetime, timedelta, timezone
           from pathlib import Path
+
+          import requests
 
           root = Path.cwd()
           start_year = int(os.environ["START_YEAR"])
-          through_year = int(os.environ["THROUGH_YEAR"])
-          last_complete_year = date.today().year - 1
-          if start_year < 2017 or through_year < start_year or through_year > last_complete_year:
-              raise SystemExit(f"range must be 2017..{last_complete_year} and contain complete years")
+          if start_year < 2017 or start_year > date.today().year:
+              raise SystemExit(f"start_year must be in 2017..{date.today().year}")
+
+          # Publication can lag the calendar. Probe checksums rather than assuming
+          # that the previous month (or only the previous year) is available.
+          candidate = date.today().replace(day=1) - timedelta(days=1)
+          for _ in range(24):
+              published_month = candidate.strftime("%Y-%m")
+              checksum_url = (
+                  "https://data.binance.vision/data/spot/monthly/klines/"
+                  f"BTCUSDT/1m/BTCUSDT-1m-{published_month}.zip.CHECKSUM"
+              )
+              response = requests.get(checksum_url, timeout=30)
+              if response.status_code == 200:
+                  break
+              if response.status_code != 404:
+                  response.raise_for_status()
+              candidate = candidate.replace(day=1) - timedelta(days=1)
+          else:
+              raise SystemExit("could not find a published BTC monthly archive")
+
+          through_year = candidate.year
+          if through_year < start_year:
+              raise SystemExit(f"no published archive at or after start_year {start_year}")
+          print(f"Latest published BTC monthly archive: {published_month}")
 
           def sha256(path):
               digest = hashlib.sha256()
@@ -64,6 +82,31 @@ jobs:
                   for block in iter(lambda: handle.read(8 * 1024 * 1024), b""):
                       digest.update(block)
               return digest.hexdigest()
+
+          def expected_bounds(year):
+              first = datetime(year, 1, 1, tzinfo=timezone.utc)
+              if year == 2017:
+                  first = datetime(2017, 8, 17, 4, tzinfo=timezone.utc)
+              last_month = candidate.month if year == through_year else 12
+              last = datetime(
+                  year, last_month, calendar.monthrange(year, last_month)[1],
+                  23, 59, tzinfo=timezone.utc,
+              )
+              return first.isoformat(), last.isoformat()
+
+          def shard_is_current(year, data_hashes, batch):
+              relative = f"data/canonical/btc_1m_{year}.parquet"
+              shard = root / relative
+              expected = data_hashes.get(relative)
+              metadata = batch["shards"].get(relative)
+              first_utc, last_utc = expected_bounds(year)
+              return bool(
+                  shard.is_file() and expected and metadata
+                  and sha256(shard) == expected == metadata.get("sha256")
+                  and metadata.get("rows", 0) > 0
+                  and metadata.get("first_utc") == first_utc
+                  and metadata.get("last_utc") == last_utc
+              )
 
           data_path = root / "manifests/DATA_SHA256.json"
           data_hashes = json.loads(data_path.read_text())
@@ -82,11 +125,9 @@ jobs:
           missing = []
           for year in range(start_year, through_year + 1):
               relative = f"data/canonical/btc_1m_{year}.parquet"
-              shard = root / relative
-              expected = data_hashes.get(relative)
-              metadata = batch["shards"].get(relative)
-              if (shard.is_file() and expected and metadata
-                      and sha256(shard) == expected == metadata.get("sha256")):
+              # The newest shard is deliberately rebuilt: another monthly archive
+              # may have appeared since the preceding run.
+              if year != through_year and shard_is_current(year, data_hashes, batch):
                   print(f"Skipping verified shard {relative}")
               else:
                   missing.append(year)
@@ -97,10 +138,13 @@ jobs:
                   archive.unlink()
               for partial in raw.glob("*.part"):
                   partial.unlink()
+              last_month = candidate.month if year == through_year else 12
+              month_after = date(year + (last_month == 12), last_month % 12 + 1, 1)
               subprocess.run([
                   sys.executable, "src/ingest/download_btc.py",
                   "--start", "2017-08-01" if year == 2017 else f"{year}-01-01",
-                  "--through", f"{year}-12-31",
+                  # download_btc treats --through as an exclusive month boundary.
+                  "--through", month_after.isoformat(),
               ], check=True)
               relative = f"data/canonical/btc_1m_{year}.parquet"
               metadata_path = root / f"manifests/.btc_{year}.json"
@@ -123,10 +167,7 @@ jobs:
 
           for year in range(start_year, through_year + 1):
               relative = f"data/canonical/btc_1m_{year}.parquet"
-              shard = root / relative
-              metadata = batch["shards"].get(relative)
-              if (not shard.is_file() or not metadata
-                      or not (sha256(shard) == data_hashes.get(relative) == metadata.get("sha256"))):
+              if not shard_is_current(year, data_hashes, batch):
                   raise SystemExit(f"final shard verification failed: {relative}")
 
           batch_path.write_text(json.dumps(batch, indent=2, sort_keys=True) + "\n")

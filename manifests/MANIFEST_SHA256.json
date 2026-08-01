@@ -1,6 +1,6 @@
 {
   ".github/workflows/audit.yml": "d502294bb894a492c7468373f52180a3bddc68617979d15f992e5de62f5dac37",
-  ".github/workflows/btc-data-acquisition.yml": "d6f98eed88a85b917a48f8dde35669837ff515eb7f31d8e2b13ab03af75a3aba",
+  ".github/workflows/btc-data-acquisition.yml": "98c6407b9355905346c6cbbcb5b06c7ed38c374c734bef0826257d8b18efdc6e",
   ".github/workflows/xau-data-acquisition.yml": "6d670c687c862d50dae3a81733a00a79ac906644f9780d0f26bc6f0ba6a35758",
   ".gitignore": "1761187d8704ef28a0a88ec9969d44cad1a9cafbd6e4db93e57860884177a7ed",
   ".gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
