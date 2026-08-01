@@ -1,0 +1,7 @@
+# Conservative defaults. The operator replaces these with real FTMO cTrader
+# Symbols-window evidence at LOCK_A. Until replaced, every Phase 4 result is
+# labeled COSTS_PROVISIONAL.
+btcusd: {spread_usd: 25.0, commission_per_lot_usd: 0.0, slippage_usd: 10.0}
+xauusd: {spread_usd: 0.25, commission_per_lot_usd: 6.0, slippage_usd: 0.10,
+         swap_long_usd_per_lot_night: -35.0, swap_short_usd_per_lot_night: 10.0}
+stress_multiplier: 2.0   # all gates must also pass at doubled costs

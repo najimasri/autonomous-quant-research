@@ -1,0 +1,15 @@
+{
+  "attempted_at_utc": "2026-08-01T07:41:43Z",
+  "btc": {
+    "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2017-08.zip",
+    "proxy_result": "HTTP CONNECT rejected with status 403",
+    "direct_result": "TCP connection to port 443 failed"
+  },
+  "xau": {
+    "url": "https://datafeed.dukascopy.com/datafeed/XAUUSD/2010/00/04/00h_ticks.bi5",
+    "proxy_result": "HTTP CONNECT rejected with status 403",
+    "direct_result": "TCP connection to port 443 failed"
+  },
+  "bytes_downloaded": 0,
+  "raw_files_downloaded": 0
+}

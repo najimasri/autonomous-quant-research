@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+data/raw/**/*.zip
+data/raw/**/*.bi5
+data/canonical/*.parquet
