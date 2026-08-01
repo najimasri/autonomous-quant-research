@@ -1,15 +1,22 @@
 {
-  "attempted_at_utc": "2026-08-01T07:41:43Z",
+  "attempted_at_utc": "2026-08-01T09:00:00Z",
   "btc": {
-    "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2017-08.zip",
-    "proxy_result": "HTTP CONNECT rejected with status 403",
-    "direct_result": "TCP connection to port 443 failed"
+    "preflight_http_status": 200,
+    "complete_months_verified": 107,
+    "first_month": "2017-08",
+    "last_published_complete_month": "2026-06",
+    "archive_bytes": 228703455,
+    "canonical_rows": 4656799,
+    "canonical_sha256": "8ea91c8dda4f14b6b4b26bff5833da0fb3f85a8f9aaa3119667c6a1157d14ac6",
+    "byte_identical_rebuild": true
   },
   "xau": {
-    "url": "https://datafeed.dukascopy.com/datafeed/XAUUSD/2010/00/04/00h_ticks.bi5",
-    "proxy_result": "HTTP CONNECT rejected with status 403",
-    "direct_result": "TCP connection to port 443 failed"
-  },
-  "bytes_downloaded": 0,
-  "raw_files_downloaded": 0
+    "preflight_http_status": 200,
+    "required_market_hour_files": 104687,
+    "files_received_before_throttle": 4091,
+    "nonempty_files_received": 3896,
+    "bytes_received": 72294502,
+    "terminal_response": "HTTP 429 persisted through eight exponential-backoff retries in each of four resumable workers",
+    "complete": false
+  }
 }

@@ -2,7 +2,7 @@
   "mission": "GOLDBTC-A1",
   "contract_version": "1.1",
   "phase": 0,
-  "status": "BLOCKED_SOURCE_NETWORK_ACCESS",
+  "status": "BLOCKED_DUKASCOPY_RATE_LIMIT",
   "random_seed": 20260801,
   "completed_phases": []
 }

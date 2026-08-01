@@ -10,12 +10,14 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "manifests" / "MANIFEST_SHA256.json"
 EXCLUDED_PARTS = {".git", "__pycache__"}
 EXCLUDED_FILES = {OUTPUT}
+EXCLUDED_SUFFIXES = {".zip", ".bi5", ".parquet", ".part"}
 
 
 def inventory() -> dict[str, str]:
     result = {}
     for path in sorted(ROOT.rglob("*")):
-        if not path.is_file() or set(path.parts) & EXCLUDED_PARTS or path in EXCLUDED_FILES:
+        if (not path.is_file() or set(path.parts) & EXCLUDED_PARTS or path in EXCLUDED_FILES
+                or path.suffix in EXCLUDED_SUFFIXES):
             continue
         result[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
     return result

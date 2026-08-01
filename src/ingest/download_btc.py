@@ -3,6 +3,8 @@
 
 import argparse
 import hashlib
+import json
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 
@@ -33,23 +35,36 @@ def download(session: requests.Session, url: str, destination: Path) -> None:
     partial.replace(destination)
 
 
+def fetch_month(month: str, target: Path) -> tuple[str, str]:
+    name = f"BTCUSDT-1m-{month}.zip"
+    archive, checksum = target / name, target / f"{name}.CHECKSUM"
+    with requests.Session() as session:
+        download(session, f"{BASE}/{name}", archive)
+        download(session, f"{BASE}/{name}.CHECKSUM", checksum)
+    expected = checksum.read_text(encoding="utf-8").split()[0].lower()
+    actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+    if actual != expected:
+        raise ValueError(f"checksum mismatch: {name}")
+    return name, actual
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--through", type=date.fromisoformat, default=date.today())
+    parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
     target = ROOT / "data" / "raw" / "btc"
     target.mkdir(parents=True, exist_ok=True)
-    with requests.Session() as session:
-        for month in months(2017, 8, args.through):
-            name = f"BTCUSDT-1m-{month}.zip"
-            archive, checksum = target / name, target / f"{name}.CHECKSUM"
-            download(session, f"{BASE}/{name}", archive)
-            download(session, f"{BASE}/{name}.CHECKSUM", checksum)
-            expected = checksum.read_text(encoding="utf-8").split()[0].lower()
-            actual = hashlib.sha256(archive.read_bytes()).hexdigest()
-            if actual != expected:
-                raise ValueError(f"checksum mismatch: {name}")
-            print(f"verified {name}")
+    # Monthly archives exist only after a month closes.
+    end = args.through.replace(day=1) - __import__("datetime").timedelta(days=1)
+    expected = list(months(2017, 8, end))
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        for name, digest in pool.map(lambda month: fetch_month(month, target), expected):
+            print(f"verified {name} {digest}")
+    (target / "ingest_metadata.json").write_text(json.dumps({
+        "source": BASE, "first_month": expected[0], "last_complete_month": expected[-1],
+        "archives_verified": len(expected), "checksum_files": len(expected),
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return 0
 
 
