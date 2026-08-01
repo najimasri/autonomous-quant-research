@@ -30,12 +30,12 @@ every contiguous missing interval and distinguishes windows that exactly match
 the Phase 0 exchange-maintenance inventory. The observed interval starts at
 2017-08-17 04:00 UTC and ends at 2025-11-30 23:59 UTC.
 
-The important seam is a complete 44,640-minute December absence in every
-intermediate year 2017–2024. These are unclassified acquisition-coverage seams,
-not exchange maintenance, and must be treated as unavailable time rather than
-filled bars downstream. Apart from those seams, the census counts 8,195
-maintenance minutes and no other unclassified internal missing minutes. The
-2017 partial-year start and 2025 endpoint are explicit coverage boundaries.
+The previously reported 44,640-minute December acquisition seam in each year
+from 2017 through 2024 has been repaired in the canonical yearly shards. The
+refreshed census now counts 8,562 missing minutes across 34 events, all of which
+exactly match the Phase 0 exchange-maintenance inventory; there are no remaining
+unclassified internal missing minutes. The 2017 partial-year start and 2025
+endpoint remain explicit coverage boundaries.
 
 ### XAUUSD
 
@@ -86,8 +86,8 @@ robustness gate in later validation.
 | `src/tape/session_map.py` | `962a7f9b44afab045208b7bf5ac5c7cfca03a84af96cc67bcd8ae80d7958a80f` |
 | `src/tape/build_phase1_qc.py` | `e4d780761212114260737152314731a1a0ef032fb1f95ff00033b387abde5012` |
 | `tests/test_session_map.py` | `512ddf24be3a1c14226a747d9f5e6d906f3fc7752abe22d9fad69bf37841f782` |
-| `reports/phase1_tables/btc_gap_windows.csv` | `ca5264ed169e962f0199e09449cecf45cc486326a9a383ba406d6a7099375ced` |
-| `reports/phase1_tables/gap_census_btc.csv` | `d2383185cad9cbeaa14b7a20586c2c35bc799210447a418ce6b84311c338c4e1` |
+| `reports/phase1_tables/btc_gap_windows.csv` | `06ad860ddc57171c3be3b0caa1a223835749ad536e8b232b66f0b41752339720` |
+| `reports/phase1_tables/gap_census_btc.csv` | `31edf61860cc9e76fce3f931aad27c68255c538a91b73201aae022e375721cea` |
 | `reports/phase1_tables/gap_census_xau.csv` | `475b613b0bd345a6ba6caa0b7c28f510cd6b41f6a434cabfc1d34066417d6718` |
 | `reports/phase1_tables/xau_inactive_weekdays.csv` | `8e4c5e8982f96dafaab986eae8fddbc98c59b5fdb1adcf1f384cf3423480cf1c` |
 | `reports/phase1_tables/xau_session_spreads.csv` | `334f9b71377955acb9c0ad5712817fe630dfe8beaad68690d29f78b76bfc5d4e` |
@@ -97,8 +97,9 @@ report and is the authoritative inventory for all non-binary tracked artifacts.
 
 ## Deviations
 
-None from the Phase 1 contract. The December BTC coverage seam is a data finding,
-not silently repaired or reclassified. No strategy code was introduced.
+None from the Phase 1 contract. The December BTC coverage seam has been repaired
+in the canonical shards and the deterministic QC evidence refreshed. No strategy
+code was introduced.
 
 ## Auditor sections
 
