@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Verify Phase 0 source checksums and canonical metadata hashes."""
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -16,7 +17,44 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def verify_present_files(paths: list[Path], manifest: dict[str, str]) -> int:
+    """Verify every locally present data artifact against its recorded hash."""
+    count = 0
+    for path in paths:
+        relative = str(path.relative_to(ROOT))
+        expected = manifest.get(relative)
+        if expected is None:
+            raise SystemExit(f"Phase 0 data audit FAIL: unrecorded data ({relative})")
+        if sha256(path) != expected:
+            raise SystemExit(f"Phase 0 data audit FAIL: manifest hash ({relative})")
+        count += 1
+    return count
+
+
+def audit_source_checkout() -> int:
+    """Audit policy-optional data without requiring ignored BTC artifacts."""
+    manifest = json.loads((ROOT / "manifests/DATA_SHA256.json").read_text(encoding="utf-8"))
+    btc_paths = sorted((ROOT / "data/raw/btc").glob("*.zip"))
+    btc_paths += sorted((ROOT / "data/canonical").glob("btc*.parquet"))
+    xau_paths = sorted((ROOT / "data/raw/xau").rglob("*.bi5"))
+    xau_paths += sorted((ROOT / "data/canonical").glob("xau*.parquet"))
+    btc = verify_present_files(btc_paths, manifest)
+    xau = verify_present_files(xau_paths, manifest)
+    print(f"Phase 0 source-checkout data audit: PASS ({btc} BTC; {xau} XAU files present)")
+    return 0
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--source-checkout",
+        action="store_true",
+        help="allow policy-absent data, while hashing every recorded data file that is present",
+    )
+    args = parser.parse_args()
+    if args.source_checkout:
+        return audit_source_checkout()
+
     archives = sorted((ROOT / "data/raw/btc").glob("*.zip"))
     if not archives:
         raise SystemExit("Phase 0 data audit FAIL: no BTC archives")
