@@ -1,0 +1,62 @@
+{
+  "instrument": "BTCUSDT spot",
+  "shards": {
+    "data/canonical/btc_1m_2017.parquet": {
+      "first_utc": "2017-08-17T04:00:00+00:00",
+      "last_utc": "2017-11-30T23:59:00+00:00",
+      "rows": 151980,
+      "sha256": "ecc9eaadacb9355e75d96b1fc447c9f58fc6e11ab94a2c5b55de13223b5d4628"
+    },
+    "data/canonical/btc_1m_2018.parquet": {
+      "first_utc": "2018-01-01T00:00:00+00:00",
+      "last_utc": "2018-11-30T23:59:00+00:00",
+      "rows": 476984,
+      "sha256": "f345b2e3227ad1b56e01cb57ed67450d483354c4ac4d6e2347450b0df110df04"
+    },
+    "data/canonical/btc_1m_2019.parquet": {
+      "first_utc": "2019-01-01T00:00:00+00:00",
+      "last_utc": "2019-11-30T23:59:00+00:00",
+      "rows": 479196,
+      "sha256": "bee7deb1de03c2dcdc74c9089591c3110586b9eb9373fc1bf122101cb9faf51e"
+    },
+    "data/canonical/btc_1m_2020.parquet": {
+      "first_utc": "2020-01-01T00:00:00+00:00",
+      "last_utc": "2020-11-30T23:59:00+00:00",
+      "rows": 481438,
+      "sha256": "ee477eb7cd1c188a16cd930bbbf269f949ecdc0dc44b549e35fbb42f56f7569f"
+    },
+    "data/canonical/btc_1m_2021.parquet": {
+      "first_utc": "2021-01-01T00:00:00+00:00",
+      "last_utc": "2021-11-30T23:59:00+00:00",
+      "rows": 479967,
+      "sha256": "4061dc73a6ed6858ec7adf51a9f70d945e874173062c0ec6844db7bd73e6d45d"
+    },
+    "data/canonical/btc_1m_2022.parquet": {
+      "first_utc": "2022-01-01T00:00:00+00:00",
+      "last_utc": "2022-11-30T23:59:00+00:00",
+      "rows": 480960,
+      "sha256": "4984146af3aea920847b8fd95f38d5c49810327871899717a278431c3b001477"
+    },
+    "data/canonical/btc_1m_2023.parquet": {
+      "first_utc": "2023-01-01T00:00:00+00:00",
+      "last_utc": "2023-11-30T23:59:00+00:00",
+      "rows": 480880,
+      "sha256": "66a59a64d976be04169cc1a36abff563c5571756e6ea5ab8d106a6f29e9ed94e"
+    },
+    "data/canonical/btc_1m_2024.parquet": {
+      "first_utc": "2024-01-01T00:00:00+00:00",
+      "last_utc": "2024-11-30T23:59:00+00:00",
+      "rows": 482400,
+      "sha256": "b14a57117d5d957465db8c48f3b7c38f253dd3fc51a6374a8e295691f09d07dd"
+    },
+    "data/canonical/btc_1m_2025.parquet": {
+      "first_utc": "2025-01-01T00:00:00+00:00",
+      "last_utc": "2025-11-30T23:59:00+00:00",
+      "rows": 480960,
+      "sha256": "c7702039bb984803878b1b1764708e24719ce827718bf40d1f8142996efe1718"
+    }
+  },
+  "source": "Binance Vision monthly klines",
+  "timeframe": "1m",
+  "timezone": "UTC"
+}
