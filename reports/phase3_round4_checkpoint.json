@@ -1,19 +1,14 @@
 {
   "round": 4,
-  "checkpoint": "IMPLEMENTATION_COMPLETE_GAUNTLET_PENDING",
-  "completed": [
-    "operator_contract_amendment_v1.3",
-    "F13_governance_registration",
-    "frozen_feature_registration",
-    "frozen_48_combo_grid",
-    "prior_only_feature_builder_and_shift_audits",
-    "mechanical_candidate_generator",
-    "expanding_year_outer_predictor_with_model_hashes",
-    "outer_action_execution_wiring"
-  ],
-  "economics_computed": false,
+  "checkpoint": "COMPUTE_BUDGET_CHECKPOINT",
+  "instrument": "BTC",
+  "stage": "outer_expectancy_ranking",
+  "completed_configs": 0,
   "controls_run": 0,
   "holdout_read": false,
-  "next_step": "Implement and run the resumable Round-4 gauntlet on BTC outer actions, beginning with all 48 registered configurations; do not compute economics from development observations.",
-  "resume_command": "python -m pytest -q tests/test_f13_causal_ml.py"
+  "holdout_asserted_before_attempt": true,
+  "elapsed_before_checkpoint_minutes": 13,
+  "reason": "The full registered 300-tree walk-forward fit set exceeded the available session before all 48 outer expectancies could be ranked. No incomplete ranking was used and no control was synthesized or gate weakened.",
+  "next_step": "Resume BTC outer-expectancy ranking, complete real 200-member controls for the top quartile, then complete remaining BTC and XAU in registered order.",
+  "resume_command": "python -m src.validation.round4_gauntlet --instrument BTC --controls top-quartile"
 }
