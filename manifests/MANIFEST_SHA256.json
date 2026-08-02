@@ -135,6 +135,7 @@
   "reports/PHASE3_REPORT.md": "fb61e9eea382ef1d250f1ac08b194269dad67a684ae202d2db99d747f290ab76",
   "reports/PHASE3_ROUND2_REPORT.md": "781734fe1c3155e1f9583bedfba3b3e50ced02ddd40ecc7b38411681d39f4224",
   "reports/PHASE3_ROUND3_REPORT.md": "1794389274f5af71a60855203fff565124e3a0c11de2b74a2b9d0d2302356a99",
+  "reports/PHASE3_ROUND4_REPORT.md": "4f3b84c8c622124158c6966e4c1ca803f6b192f0daabd0a24ee71f8e870de528",
   "reports/phase0_ingest_attempt.json": "ef7112bd2f35ca6d7bbd940bff77d97eec2ef681f8650e3884f302b152bf4575",
   "reports/phase1_tables/btc_gap_windows.csv": "06ad860ddc57171c3be3b0caa1a223835749ad536e8b232b66f0b41752339720",
   "reports/phase1_tables/gap_census_btc.csv": "31edf61860cc9e76fce3f931aad27c68255c538a91b73201aae022e375721cea",
@@ -147,7 +148,8 @@
   "reports/phase3_forensics_tables/stop_cost_summary.csv": "0062dd577047927590a2e02411f54f8c8e9f3a73ce773f901483604fb66d4c93",
   "reports/phase3_round2_checkpoint.json": "429cd8599b9ef3323901ea9113da91577b1c491237dd51a8bcf62cd5051781b1",
   "reports/phase3_round3_checkpoint.json": "e0934ee66e78dbade24558116cc190a688d21ec16dfb5f99da57286d6931e219",
-  "reports/phase3_round4_checkpoint.json": "6f440db6fc9ca45d42dddb240cd4e35be6dfec52c2afb8997bde6d51e31b136f",
+  "reports/phase3_round4_checkpoint.json": "ee76213513e3261b084e279f271d05a56c82ee8c5e08910ef65c9698542704c1",
+  "reports/phase3_round4_resume.json": "5fe161674be116a35c0a123302a42e57c51d59853b30e7fca9ca99271946ae1a",
   "requirements.txt": "f36b7204bf9760274620038ce125ca443e445939e93a5af6da1227fd75b533d6",
   "src/audit/audit_ci.py": "5cc167d89abc337154c292f331adc1157fa7613427046fe367176726683cc743",
   "src/audit/audit_governance.py": "6c59fd17f9479c822e95325845740565c5f9a75413ee3b9f395a62e468745c67",
@@ -205,5 +207,5 @@
   "tests/test_round3_families.py": "37af20a4414410b885c5bf5143174b408187df727de6b650bcdb7f8adeb8b5a3",
   "tests/test_session_map.py": "6efa731cb1300799333baa424d78b2687b80053610c2b089d2cc52d4bde0664a",
   "tests/test_xau_ingest.py": "84e4a96e78dc28ecf020ec521887c38b255ec4c05812e6fe7972da0417259178",
-  "trials/trials.jsonl": "4b44c34cba13ad2702e88a7cc8ebbd060250a82b2b952c4cf6f9fe9fce3c4976"
+  "trials/trials.jsonl": "c543eb5a811ccf0f19aa420f9898c0e58e996762d3c9a246853d0c25ca548a39"
 }

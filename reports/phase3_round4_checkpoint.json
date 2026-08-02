@@ -1,14 +1,11 @@
 {
+  "completed_configs": 48,
+  "holdout_asserted_this_run": true,
+  "instrument": "XAU",
+  "resume_command": "python -m src.validation.round4_gauntlet --instrument XAU",
   "round": 4,
-  "checkpoint": "COMPUTE_BUDGET_CHECKPOINT",
-  "instrument": "BTC",
-  "stage": "outer_expectancy_ranking",
-  "completed_configs": 0,
-  "controls_run": 0,
-  "holdout_read": false,
-  "holdout_asserted_before_attempt": true,
-  "elapsed_before_checkpoint_minutes": 13,
-  "reason": "The full registered 300-tree walk-forward fit set exceeded the available session before all 48 outer expectancies could be ranked. No incomplete ranking was used and no control was synthesized or gate weakened.",
-  "next_step": "Resume BTC outer-expectancy ranking, complete real 200-member controls for the top quartile, then complete remaining BTC and XAU in registered order.",
-  "resume_command": "python -m src.validation.round4_gauntlet --instrument BTC --controls top-quartile"
+  "stage": "complete",
+  "status": "in_progress",
+  "total_configs": 48,
+  "verdict_written": false
 }
