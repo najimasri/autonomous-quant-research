@@ -130,6 +130,7 @@
   "reports/PHASE0_REPORT.md": "419e73711c151a8f22a3c3c0f405f62e20f4f5382345079aa98461325e87c387",
   "reports/PHASE1_REPORT.md": "b7a8bc247af5abcce8234438ae1f08120d7cd816182e6936f6ab354606963029",
   "reports/PHASE2_REPORT.md": "98c44d38d72fd3ae97a474720b80bd8de91c4223df875cd85c648f778dba1fa2",
+  "reports/PHASE3_REPORT.md": "fb61e9eea382ef1d250f1ac08b194269dad67a684ae202d2db99d747f290ab76",
   "reports/phase0_ingest_attempt.json": "ef7112bd2f35ca6d7bbd940bff77d97eec2ef681f8650e3884f302b152bf4575",
   "reports/phase1_tables/btc_gap_windows.csv": "06ad860ddc57171c3be3b0caa1a223835749ad536e8b232b66f0b41752339720",
   "reports/phase1_tables/gap_census_btc.csv": "31edf61860cc9e76fce3f931aad27c68255c538a91b73201aae022e375721cea",
@@ -142,6 +143,7 @@
   "src/audit/audit_holdout_seal.py": "5233e3707b0164611dbebf1bc353785d95e998bc66ee1f2842172a01e23b83fe",
   "src/audit/audit_phase0_data.py": "968dc69d966a17cafa3d4a0087a734e01bc538a6ad1931ed1dc664b3225b4bf0",
   "src/audit/audit_phase2.py": "99e2d591b1eda7d2b1a9e3cf412d0108b0fe1f75fdd249dff95d2d4910b0e05e",
+  "src/audit/audit_phase3.py": "3c49638130d2bf8e3095bf3cd5ee9fed139a851b2beac3795d39705e67122a49",
   "src/audit/build_data_manifest.py": "65af6064e1588bf8a1169044bb47272b56fe4d62a34dc392e13da8835c543958",
   "src/audit/build_manifest.py": "fca9d6cbd29c37789aee70695b73dc8313112636251c305b2a8f217cb5836a06",
   "src/audit/verify_trials.py": "412c1822eac78c80843b0227c0075de5cce08a0d8b4330d02ba073d40a3c366a",
@@ -168,10 +170,12 @@
   "src/tape/build_xau_tape.py": "aa26e182a7e02eafb1a528842058c23a800c9bed7178bc7c4b6cd07ea2ab16d5",
   "src/tape/session_map.py": "097c48f511626f1a5bb860ecb1c7f8888bd0eed877dab3b8ab7dd053bae4e9d7",
   "src/validation/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+  "src/validation/__init__.py": "dbe869103450e52ba89fdf0207e729120082f70d110904e84c88e3353e8f4802",
+  "src/validation/phase3_gauntlet.py": "c123de1bd63a4c1ac09a41b5f16595940b6bff20543fd4c7044a223ca2cc5f57",
   "state/approvals.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-  "state/state.json": "f9f09e608a617f9e9b18147eed633fe7dd2bd5c4b45be84620bf4af8ce25d212",
+  "state/state.json": "5abdff1528a8f46457cc40d461674c7857bb0bda4eaccb3ee3dc9e3b6a663b3a",
   "tests/test_families.py": "a1d43341ca8441cff8782df0292a2f3b2d4a58d8453362b4dedc3396a48914e1",
   "tests/test_session_map.py": "6efa731cb1300799333baa424d78b2687b80053610c2b089d2cc52d4bde0664a",
   "tests/test_xau_ingest.py": "84e4a96e78dc28ecf020ec521887c38b255ec4c05812e6fe7972da0417259178",
-  "trials/trials.jsonl": "c4986be142ad9e0726956ad9a8f2e296780bca1b4cbd328ea8a0cd50816ecd46"
+  "trials/trials.jsonl": "793099227e46d87027de71757035845cb909df942c1d6911f51c0f59046ab50f"
 }
