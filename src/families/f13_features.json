@@ -1,0 +1,4 @@
+{
+  "base": ["ret_1", "ret_3", "ret_12", "momentum_6", "momentum_24", "atr_14", "atr_to_close", "vol_12", "vol_48", "compression", "day_position", "week_position", "stretch_z", "hour_sin", "hour_cos", "dow_sin", "dow_cos"],
+  "btc_only": ["volume_z", "volume_ratio"]
+}

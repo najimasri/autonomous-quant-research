@@ -1,4 +1,4 @@
-# Round 3 registration — operator-authorized 2026-08-02.
+# Round 4 registration — operator-authorized 2026-08-02.
 # Round 1 (1m scale): EMPTY_SET, costs structurally fatal.
 # Round 2 (HTF singles): EMPTY_SET, no single generic pattern beats
 # matched random entries. Round 3 tests CONDITIONING & COMBINATION.
@@ -11,53 +11,41 @@ retired_families:
   F6_htf_trend_continuation: {verdict: EMPTY_SET_ROUND2}
   F7_htf_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND2}
   F8_htf_compression_expansion: {verdict: EMPTY_SET_ROUND2}
+  F9_confluence_vote: {verdict: EMPTY_SET_ROUND3}
+  F10_trend_conditioned_breakout: {verdict: EMPTY_SET_ROUND3}
+  F11_trend_conditioned_mean_reversion: {verdict: EMPTY_SET_ROUND3}
+  F12_calendar_conditioned: {verdict: EMPTY_SET_ROUND3}
 families:
-  F9_confluence_vote:
+  F13_causal_ml:
     description: >
-      K-of-N voting over independent mechanical detectors computed on
-      prior-only data at the decision bar: HTF momentum sign, volatility
-      compression state, position within session/day range, mean-reversion
-      stretch z-score, prior-day structure break, volume regime (BTC only).
-      Admission when >=K detectors agree on one side, optionally
-      session-conditioned.
+      Machine-learned GO/NO-GO scoring over a frozen prior-only feature
+      set, evaluated strictly on walk-forward outer predictions.
     instruments: [BTC, XAU]
     decision_timeframes: [1h, 4h]
+    candidate_generator: >
+      mechanical, registered before evaluation: every decision bar
+      passing (a) minimum volatility floor and (b) the cost-to-stop
+      ratio gate for an ATR-multiple stop; both directions scored.
+    feature_classes: >
+      multi-horizon returns and momentum; ATR/vol ratios and compression
+      metrics; position within session/day/week ranges; stretch z-scores;
+      session and day-of-week encodings from the frozen session map;
+      volume-regime features BTC-only. All prior-only, shift-audited,
+      frozen and hashed before any training.
+    model_grid: >
+      RandomForestRegressor and GradientBoosting; small registered grid
+      (depth 3-4, min_samples_leaf 50-100, 300 trees, fixed seeds);
+      targets 2.5R and 3.0R; GO threshold values registered in the grid.
     param_budget_max_combos: 48
-  F10_trend_conditioned_breakout:
-    description: >
-      Round-2 breakout logic admitted ONLY when the higher-timeframe trend
-      direction agrees and a volatility-regime filter passes.
-    instruments: [BTC, XAU]
-    decision_timeframes: [1h, 4h]
-    param_budget_max_combos: 48
-  F11_trend_conditioned_mean_reversion:
-    description: >
-      Extreme-stretch mean reversion admitted ONLY with dominant-trend
-      alignment or at session-boundary times.
-    instruments: [BTC, XAU]
-    decision_timeframes: [1h, 4h]
-    param_budget_max_combos: 48
-  F12_calendar_conditioned:
-    description: >
-      Momentum/reversion entries conditioned on day-of-week and session-
-      of-day interactions (BTC weekend/Monday structure; XAU London/NY
-      interactions), using the frozen session map only.
-    instruments: [BTC, XAU]
-    decision_timeframes: [1h, 4h]
-    param_budget_max_combos: 48
-hard_rules:
-  - decision bars aggregate the canonical 1m tape; every decision on
-    bar close; no intrabar lookahead; all detector inputs prior-only
-  - every position has stop and target defined at entry; declared
-    maximum holding period per configuration
-  - cost-to-stop ratio gate: provisional base round-trip cost <= 0.15 x
-    stop distance at entry; configurations with median realized ratio
-    above 0.15 are ineligible
-  - controls must be real: random-entry ensembles re-simulated on the
-    tape with matched holding-time distribution and full costs; shuffle
-    controls permute the realized trade sequence
-  - volume-based detectors are BTC-only
-  - funded-stage weekend holds flag SWING_REQUIRED
-  - grids frozen and hashed before any evaluation; no parameter added
-    after results are seen
-  - round-3 trial cap: 2000 configs including control reruns
+    protocol: >
+      expanding-window walk-forward by year: train on all years <= t,
+      predict year t+1 only; outer actions accumulate across folds;
+      economics, controls, and every gate computed on outer actions only;
+      hyperparameter selection nested within development folds; DSR
+      multiplicity includes the full historical ledger.
+hard_rules_addendum:
+  - all round-3 hard rules remain in force (cost-to-stop <= 0.15, real
+    re-simulated controls, frozen grids before evaluation, prior-only
+    inputs, SWING_REQUIRED flagging, trial cap 2000)
+  - model binaries hashed per fold; feature-order hash recorded; any
+    feature added after results are seen voids the round
