@@ -1,8 +1,4 @@
 {
-  "last_completed": [
-    "BTC",
-    "F8",
-    3
-  ],
-  "status": "in_progress"
+  "status": "complete",
+  "evaluated": 56
 }

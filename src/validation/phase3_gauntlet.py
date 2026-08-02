@@ -58,6 +58,7 @@ def pbo(matrix):
     return bad/total
 
 def append(row):
+    row=json.loads(json.dumps(row,default=lambda value:value.item() if isinstance(value,np.generic) else value))
     path=ROOT/"trials/trials.jsonl"; prior=json.loads(path.read_text().splitlines()[-1])["record_sha256"] if path.stat().st_size else GENESIS
     row["previous_sha256"]=prior; row["record_sha256"]=hashlib.sha256(canonical(row)).hexdigest()
     with path.open("a") as f:f.write(json.dumps(row,sort_keys=True,separators=(",",":"))+"\n")
