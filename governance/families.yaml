@@ -1,46 +1,63 @@
-# Round 2 registration — operator-authorized 2026-08-02.
-# Round 1 (F1-F4, 1-minute scale) closed: PHASE3_EMPTY_SET.
-# Forensic diagnosis: costs structurally fatal vs stop scale
-# (BTC median stop $19.87 vs $70 round-trip); F4 gross-positive.
+# Round 3 registration — operator-authorized 2026-08-02.
+# Round 1 (1m scale): EMPTY_SET, costs structurally fatal.
+# Round 2 (HTF singles): EMPTY_SET, no single generic pattern beats
+# matched random entries. Round 3 tests CONDITIONING & COMBINATION.
 retired_families:
   F1_session_breakout: {verdict: EMPTY_SET_ROUND1}
   F2_vol_compression_expansion: {verdict: EMPTY_SET_ROUND1}
   F3_momentum_continuation: {verdict: EMPTY_SET_ROUND1}
   F4_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND1_GROSS_POSITIVE}
+  F5_htf_session_range_breakout: {verdict: EMPTY_SET_ROUND2}
+  F6_htf_trend_continuation: {verdict: EMPTY_SET_ROUND2}
+  F7_htf_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND2}
+  F8_htf_compression_expansion: {verdict: EMPTY_SET_ROUND2}
 families:
-  F5_htf_session_range_breakout:   # 1h decisions; session/day range breakout
+  F9_confluence_vote:
+    description: >
+      K-of-N voting over independent mechanical detectors computed on
+      prior-only data at the decision bar: HTF momentum sign, volatility
+      compression state, position within session/day range, mean-reversion
+      stretch z-score, prior-day structure break, volume regime (BTC only).
+      Admission when >=K detectors agree on one side, optionally
+      session-conditioned.
     instruments: [BTC, XAU]
     decision_timeframes: [1h, 4h]
     param_budget_max_combos: 48
-  F6_htf_trend_continuation:       # 4h/daily momentum, multi-day holds
-    instruments: [BTC, XAU]
-    decision_timeframes: [4h, 1d]
-    param_budget_max_combos: 48
-  F7_htf_extreme_mean_reversion:   # F4's gross-positive logic at 1h/4h scale
+  F10_trend_conditioned_breakout:
+    description: >
+      Round-2 breakout logic admitted ONLY when the higher-timeframe trend
+      direction agrees and a volatility-regime filter passes.
     instruments: [BTC, XAU]
     decision_timeframes: [1h, 4h]
     param_budget_max_combos: 48
-  F8_htf_compression_expansion:    # squeeze->expansion at 1h scale
+  F11_trend_conditioned_mean_reversion:
+    description: >
+      Extreme-stretch mean reversion admitted ONLY with dominant-trend
+      alignment or at session-boundary times.
     instruments: [BTC, XAU]
-    decision_timeframes: [1h]
+    decision_timeframes: [1h, 4h]
+    param_budget_max_combos: 48
+  F12_calendar_conditioned:
+    description: >
+      Momentum/reversion entries conditioned on day-of-week and session-
+      of-day interactions (BTC weekend/Monday structure; XAU London/NY
+      interactions), using the frozen session map only.
+    instruments: [BTC, XAU]
+    decision_timeframes: [1h, 4h]
     param_budget_max_combos: 48
 hard_rules:
-  - decision bars are aggregations of the canonical 1m tape; every
-    entry/exit decidable on decision-bar close (no intrabar lookahead)
-  - every position has a stop defined at entry; fixed R-multiple or
-    structural target defined at entry; maximum holding period declared
-    per configuration
-  - COST-TO-STOP RATIO GATE (new, from round-1 forensics): at entry,
-    provisional base round-trip cost must be <= 0.15 x stop distance;
-    configurations whose median realized ratio exceeds 0.15 are
-    ineligible regardless of expectancy
+  - decision bars aggregate the canonical 1m tape; every decision on
+    bar close; no intrabar lookahead; all detector inputs prior-only
+  - every position has stop and target defined at entry; declared
+    maximum holding period per configuration
+  - cost-to-stop ratio gate: provisional base round-trip cost <= 0.15 x
+    stop distance at entry; configurations with median realized ratio
+    above 0.15 are ineligible
   - controls must be real: random-entry ensembles re-simulated on the
-    tape with matched holding-time distribution and full costs;
-    shuffle controls permute the realized trade sequence; synthetic
-    payoff draws are forbidden
-  - any configuration whose funded-stage policy would hold over a
-    weekend is flagged SWING_REQUIRED
-  - no parameter added after results are seen; grids frozen and hashed
-    before the first backtest
-  - total trial cap for round 2: 2000 configs including controls
-    reruns; exceeding requires an operator entry in approvals.log
+    tape with matched holding-time distribution and full costs; shuffle
+    controls permute the realized trade sequence
+  - volume-based detectors are BTC-only
+  - funded-stage weekend holds flag SWING_REQUIRED
+  - grids frozen and hashed before any evaluation; no parameter added
+    after results are seen
+  - round-3 trial cap: 2000 configs including control reruns
