@@ -1,6 +1,6 @@
 {
-  "F1": {"range_bars": [15, 30], "entry_window": [30, 60], "stop_range": [0.5, 1.0], "target_r": [1.0, 2.0]},
-  "F2": {"short_window": [10, 20], "long_window": [60], "compression": [0.5, 0.75], "expansion": [1.0, 1.5], "stop_atr": [1.0], "target_r": [1.0, 2.0]},
-  "F3": {"lookback": [15, 30], "threshold": [0.001, 0.002], "sessions": [["london"], ["new_york"]], "risk_window": [30], "stop_atr": [1.0], "target_r": [1.0, 2.0]},
-  "F4": {"window": [30, 60], "z_entry": [1.5, 2.0], "stop_sigma": [1.0, 1.5], "target_r": [1.0, 2.0]}
+  "F5": {"timeframe":["1h","4h"],"range_bars":[6,12],"stop_atr":[2.0],"target_r":[1.5,2.0],"max_holding_bars":[12]},
+  "F6": {"timeframe":["4h","1d"],"lookback":[6,12],"stop_atr":[2.5],"target_r":[1.5,2.0],"max_holding_bars":[18]},
+  "F7": {"timeframe":["1h","4h"],"window":[12,24],"z_entry":[1.5],"stop_sigma":[2.5],"target_r":[1.0,1.5],"max_holding_bars":[12]},
+  "F8": {"timeframe":["1h"],"short_window":[6,12],"long_window":[24],"compression":[0.6],"expansion":[1.0,1.5],"stop_atr":[2.5],"target_r":[1.5],"max_holding_bars":[18]}
 }
