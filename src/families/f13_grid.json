@@ -1,0 +1,9 @@
+{
+  "model": ["random_forest", "gradient_boosting"],
+  "max_depth": [3, 4],
+  "min_samples_leaf": [50, 100],
+  "n_estimators": [300],
+  "seed": [1304],
+  "target_r": [2.5, 3.0],
+  "go_threshold": [0.0, 0.15, 0.3]
+}

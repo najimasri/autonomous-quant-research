@@ -56,9 +56,7 @@ modeled per account stage.
    number is labeled in-sample / out-of-sample / holdout / broker-reconciled.
    Edges are always described as instrument-, timeframe- and regime-specific —
    never "market-agnostic".
-8. **No ML in this mission.** Static mechanical rule families only. An ML
-   overlay is a separate future mission that may only begin after a static
-   candidate reaches `DEPLOY-CANDIDATE` and survives paper trading.
+8. **ML models are permitted ONLY as registered families under A28I-grade causal protocol:** feature set frozen and hashed before any training; strictly walk-forward outer predictions with economics computed EXCLUSIVELY on outer held-out actions (training-period or in-fold scores may never enter economics); all hyperparameter selection nested inside development folds; every gate of validation_rules.yaml applies unchanged.
 9. **Reproducibility.** Pin every dependency (`requirements.txt` with exact
    versions), set and record all random seeds, hash every data file and every
    artifact into `manifests/MANIFEST_SHA256.json`, and make every phase
@@ -333,3 +331,8 @@ Reimplement XAU acquisition as Dukascopy daily 1-minute candle files: BID_candle
 DURABLE BATCHING: acquire and commit in batches of at most 4 calendar years, starting 2010. For each batch: download candles, build that batch's yearly shards, record row counts and SHA-256 per shard in the data manifest, and immediately create one PR containing only that batch's shards (keep each PR under ~40MB; split a batch if needed). Never start the next batch before the current batch's PR exists. Code changes (downloader, contract amendment) go in their own code-only PR first.
 After all batches through the present are merged by the operator, a final pass verifies every shard hash from main, builds cost_observations_xau.json (candle ask−bid proxy labeled CANDLE_DERIVED_APPROXIMATION, plus March/September tick-week validation samples at the same hard-coded pacing), runs all auditors, writes the Phase 0 report, and issues the verdict. On PHASE0_PASS auto-promote per v1.1. BTC stays rebuild-on-demand, never committed.
 Create a PR at every stopping point, including partial progress. Never end a session with unpushed work.
+
+OPERATOR-AUTHORIZED CONTRACT AMENDMENT v1.3 — 2026-08-02: governance rule 8
+was superseded to permit only registered A28I-grade causal ML families. The
+operator authorized this amendment after three static empty sets totaling 344
+configurations.
