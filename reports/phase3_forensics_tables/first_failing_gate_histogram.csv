@@ -1,0 +1,10 @@
+scope,first_failing_gate,config_count
+overall,random_entry_95,128
+BTC/F1,random_entry_95,16
+BTC/F2,random_entry_95,16
+BTC/F3,random_entry_95,16
+BTC/F4,random_entry_95,16
+XAU/F1,random_entry_95,16
+XAU/F2,random_entry_95,16
+XAU/F3,random_entry_95,16
+XAU/F4,random_entry_95,16
