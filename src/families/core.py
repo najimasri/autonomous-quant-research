@@ -106,4 +106,6 @@ def execute(tape: pd.DataFrame, decisions: pd.DataFrame, family: str,
 
 
 from .round2 import f5, f6, f7, f8
+from .round3 import f9, f10, f11, f12
 FAMILY_BUILDERS: dict[str, Callable] = {"F5": f5, "F6": f6, "F7": f7, "F8": f8}
+ROUND3_BUILDERS: dict[str, Callable] = {"F9": f9, "F10": f10, "F11": f11, "F12": f12}
