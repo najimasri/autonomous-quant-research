@@ -1,0 +1,6 @@
+{
+  "F9": {"timeframe":["1h","4h"],"lookback":[12],"k":[2,3],"session_filter":["all","active"],"stop_atr":[2.5],"target_r":[1.5,2.0],"max_holding_bars":[12]},
+  "F10": {"timeframe":["1h","4h"],"lookback":[6,12],"trend_lookback":[24,48],"vol_floor":[0.5],"stop_atr":[2.5],"target_r":[1.5,2.0],"max_holding_bars":[12]},
+  "F11": {"timeframe":["1h","4h"],"lookback":[12,24],"trend_lookback":[24],"z_entry":[1.5,2.0],"allow_boundary":[true,false],"stop_atr":[2.5],"target_r":[1.25],"max_holding_bars":[12]},
+  "F12": {"timeframe":["1h","4h"],"lookback":[12,24],"mode":["momentum","reversion"],"calendar":["focused","complement"],"stop_atr":[2.5],"target_r":[1.5,2.0],"max_holding_bars":[12]}
+}

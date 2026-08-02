@@ -17,7 +17,10 @@ def aggregate_decision_bars(tape: pd.DataFrame, timeframe: str) -> pd.DataFrame:
     required = {"timestamp", "open", "high", "low", "close"}
     if missing := required.difference(tape.columns):
         raise ValueError(f"canonical tape missing columns: {sorted(missing)}")
-    f = tape.loc[:, ["timestamp", "open", "high", "low", "close"]].copy()
+    columns = ["timestamp", "open", "high", "low", "close"]
+    if "volume" in tape.columns:  # real Binance volume; never XAU tick volume
+        columns.append("volume")
+    f = tape.loc[:, columns].copy()
     f["timestamp"] = pd.to_datetime(f.timestamp, utc=True)
     f = f.sort_values("timestamp").reset_index(drop=True)
     if f.timestamp.duplicated().any():
@@ -25,9 +28,12 @@ def aggregate_decision_bars(tape: pd.DataFrame, timeframe: str) -> pd.DataFrame:
     rule = f"{MINUTES[timeframe]}min"
     f["bucket"] = f.timestamp.dt.floor(rule)
     grouped = f.groupby("bucket", sort=True)
-    out = grouped.agg(timestamp=("timestamp", "last"), open=("open", "first"),
-                      high=("high", "max"), low=("low", "min"), close=("close", "last"),
-                      minute_count=("timestamp", "size"))
+    aggregations = dict(timestamp=("timestamp", "last"), open=("open", "first"),
+                        high=("high", "max"), low=("low", "min"), close=("close", "last"),
+                        minute_count=("timestamp", "size"))
+    if "volume" in columns:
+        aggregations["volume"] = ("volume", "sum")
+    out = grouped.agg(**aggregations)
     expected_last = out.index + pd.to_timedelta(MINUTES[timeframe] - 1, unit="min")
     complete = (out.minute_count == MINUTES[timeframe]) & (out.timestamp.array == expected_last.array)
     return out.loc[complete].reset_index(drop=True)
