@@ -49,9 +49,12 @@ class Trade:
     exit: float
     exit_reason: str
     r: float
+    cost_to_stop: float
+    holding_bars: int
 
 
-def execute(tape: pd.DataFrame, decisions: pd.DataFrame, family: str) -> list[Trade]:
+def execute(tape: pd.DataFrame, decisions: pd.DataFrame, family: str,
+            max_holding_bars: int = 10**9, provisional_round_trip_cost: float = 0.0) -> list[Trade]:
     """Execute signals on the next open and evaluate hard exits on later closes.
 
     A decision on row i can only enter at row i+1. Stop and target are fixed from
@@ -73,35 +76,34 @@ def execute(tape: pd.DataFrame, decisions: pd.DataFrame, family: str) -> list[Tr
             direction = int(sides[i - 1])
             entry = float(opens[i])
             distance = float(risks[i - 1])
+            ratio = provisional_round_trip_cost / distance
+            if ratio > .15:
+                continue
             position = {
                 "side": direction, "decision_time": pd.Timestamp(timestamps[i - 1]),
                 "entry_time": timestamp, "entry": entry,
                 "stop": entry - direction * distance,
                 "target": entry + direction * distance * float(targets[i - 1]),
-                "risk": distance,
+                "risk": distance, "ratio": ratio, "entry_index": i,
             }
         if position is None:
             continue
         signed = position["side"] * (float(closes[i]) - position["entry"])
-        reason = "stop" if signed <= -position["risk"] else "target" if signed >= abs(position["target"] - position["entry"]) else None
+        reason = "stop" if signed <= -position["risk"] else "target" if signed >= abs(position["target"] - position["entry"]) else "max_hold" if i-position["entry_index"] >= max_holding_bars else None
         if reason:
-            exit_price = position[reason]
+            exit_price = float(closes[i]) if reason == "max_hold" else position[reason]
             trades.append(Trade(family, position["side"], position["decision_time"], position["entry_time"], timestamp,
                                 position["entry"], position["stop"], position["target"], exit_price, reason,
-                                position["side"] * (exit_price - position["entry"]) / position["risk"]))
+                                position["side"] * (exit_price - position["entry"]) / position["risk"], position["ratio"], i-position["entry_index"]+1))
             position = None
     if position is not None:
         timestamp = pd.Timestamp(timestamps[-1])
         exit_price = float(closes[-1])
         trades.append(Trade(family, position["side"], position["decision_time"], position["entry_time"], timestamp,
                             position["entry"], position["stop"], position["target"], exit_price, "slice_end",
-                            position["side"] * (exit_price - position["entry"]) / position["risk"]))
+                            position["side"] * (exit_price - position["entry"]) / position["risk"], position["ratio"], len(frame)-position["entry_index"]))
     return trades
 
 
-from .f1_session_breakout import decisions as f1
-from .f2_vol_compression_expansion import decisions as f2
-from .f3_momentum_continuation import decisions as f3
-from .f4_extreme_mean_reversion import decisions as f4
-
-FAMILY_BUILDERS: dict[str, Callable] = {"F1": f1, "F2": f2, "F3": f3, "F4": f4}
+from .round2 import f5, f6, f7, f8
+FAMILY_BUILDERS: dict[str, Callable] = {"F5": f5, "F6": f6, "F7": f7, "F8": f8}
