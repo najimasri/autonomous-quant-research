@@ -1,21 +1,46 @@
+# Round 2 registration — operator-authorized 2026-08-02.
+# Round 1 (F1-F4, 1-minute scale) closed: PHASE3_EMPTY_SET.
+# Forensic diagnosis: costs structurally fatal vs stop scale
+# (BTC median stop $19.87 vs $70 round-trip); F4 gross-positive.
+retired_families:
+  F1_session_breakout: {verdict: EMPTY_SET_ROUND1}
+  F2_vol_compression_expansion: {verdict: EMPTY_SET_ROUND1}
+  F3_momentum_continuation: {verdict: EMPTY_SET_ROUND1}
+  F4_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND1_GROSS_POSITIVE}
 families:
-  F1_session_breakout:      # time-anchored range breakout (session open ranges)
+  F5_htf_session_range_breakout:   # 1h decisions; session/day range breakout
     instruments: [BTC, XAU]
+    decision_timeframes: [1h, 4h]
     param_budget_max_combos: 48
-  F2_vol_compression_expansion:   # squeeze -> expansion continuation
+  F6_htf_trend_continuation:       # 4h/daily momentum, multi-day holds
     instruments: [BTC, XAU]
+    decision_timeframes: [4h, 1d]
     param_budget_max_combos: 48
-  F3_momentum_continuation:  # multi-bar momentum with time-of-day filter
+  F7_htf_extreme_mean_reversion:   # F4's gross-positive logic at 1h/4h scale
     instruments: [BTC, XAU]
+    decision_timeframes: [1h, 4h]
     param_budget_max_combos: 48
-  F4_extreme_mean_reversion: # stretched-move fade with hard invalidation
+  F8_htf_compression_expansion:    # squeeze->expansion at 1h scale
     instruments: [BTC, XAU]
+    decision_timeframes: [1h]
     param_budget_max_combos: 48
 hard_rules:
-  - every entry/exit decidable on bar close (no intrabar lookahead)
+  - decision bars are aggregations of the canonical 1m tape; every
+    entry/exit decidable on decision-bar close (no intrabar lookahead)
   - every position has a stop defined at entry; fixed R-multiple or
-    structural target defined at entry
-  - no parameter added after results are seen; grid frozen in Phase 2
-    before the first backtest and hashed
-  - total trial cap across the whole mission: 2000 configs; exceeding it
-    requires an operator entry in approvals.log
+    structural target defined at entry; maximum holding period declared
+    per configuration
+  - COST-TO-STOP RATIO GATE (new, from round-1 forensics): at entry,
+    provisional base round-trip cost must be <= 0.15 x stop distance;
+    configurations whose median realized ratio exceeds 0.15 are
+    ineligible regardless of expectancy
+  - controls must be real: random-entry ensembles re-simulated on the
+    tape with matched holding-time distribution and full costs;
+    shuffle controls permute the realized trade sequence; synthetic
+    payoff draws are forbidden
+  - any configuration whose funded-stage policy would hold over a
+    weekend is flagged SWING_REQUIRED
+  - no parameter added after results are seen; grids frozen and hashed
+    before the first backtest
+  - total trial cap for round 2: 2000 configs including controls
+    reruns; exceeding requires an operator entry in approvals.log
