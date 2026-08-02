@@ -1,0 +1,9 @@
+instrument,family,candidate_rows,development_year_columns,cscv_splits,pbo_cscv,empty_selection_set
+BTC,F1,16,6,20,0.0,False
+BTC,F2,16,6,20,0.0,False
+BTC,F3,16,6,20,0.0,False
+BTC,F4,16,6,20,0.0,False
+XAU,F1,16,13,1716,0.0,False
+XAU,F2,16,13,1716,0.0,False
+XAU,F3,16,13,1716,0.0,False
+XAU,F4,16,13,1716,0.0,False

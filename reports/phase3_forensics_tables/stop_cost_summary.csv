@@ -1,0 +1,3 @@
+instrument,config_count,base_cost_ge_median_stop_configs,base_cost_ge_p25_stop_configs,cost_2x_ge_median_stop_configs,cost_2x_ge_p25_stop_configs
+BTC,64,60,64,64,64
+XAU,64,49,56,60,64
