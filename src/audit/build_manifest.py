@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "manifests" / "MANIFEST_SHA256.json"
 EXCLUDED_PARTS = {".git", ".pytest_cache", "__pycache__"}
 EXCLUDED_FILES = {OUTPUT}
-EXCLUDED_SUFFIXES = {".zip", ".bi5", ".parquet", ".part"}
+EXCLUDED_SUFFIXES = {".zip", ".bi5", ".parquet", ".part", ".npy"}
 
 
 def inventory() -> dict[str, str]:

@@ -6,3 +6,4 @@ data/raw/**/*.zip
 data/raw/**/*.bi5
 data/raw/xau_ticks/
 data/canonical/*.parquet
+reports/round4_returns/

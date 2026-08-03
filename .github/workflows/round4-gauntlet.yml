@@ -56,7 +56,11 @@ jobs:
 
       - name: Assert seals and run checkpoint-driven compute windows
         if: steps.state.outputs.done != 'true'
+        id: compute
         run: |
+          set +e
+          exec 3>&1
+          {
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
           # Spend at most 290 minutes in the runner. Each invocation is capped at
@@ -85,6 +89,18 @@ jobs:
           done
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
+          } 2>&1 | tee /tmp/round4-compute.log >&3
+          compute_status=${PIPESTATUS[0]}
+          echo "status=$compute_status" >> "$GITHUB_OUTPUT"
+          if (( compute_status != 0 )); then
+            tail -n 200 /tmp/round4-compute.log > reports/round4_last_failure.log.tmp
+            mv reports/round4_last_failure.log.tmp reports/round4_last_failure.log
+          else
+            rm -f reports/round4_last_failure.log
+          fi
+          # Failure is banked and published only after the same audit gate as a
+          # successful checkpoint.  The final step propagates this status.
+          exit 0
 
       - name: Publish end-of-run summary
         if: always() && steps.state.outputs.done != 'true'
@@ -104,14 +120,14 @@ jobs:
           PY
 
       - name: Regenerate manifest and audit source checkout
-        if: steps.state.outputs.done != 'true'
+        if: always() && steps.state.outputs.done != 'true'
         run: |
           python src/audit/build_manifest.py
           python src/audit/audit_ci.py
           python src/audit/audit_phase0_data.py --source-checkout
 
       - name: Commit, rebase, re-audit, and push to main
-        if: steps.state.outputs.done != 'true'
+        if: always() && steps.state.outputs.done != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -132,3 +148,7 @@ jobs:
           python src/audit/audit_ci.py
           python src/audit/audit_phase0_data.py --source-checkout
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+
+      - name: Propagate compute failure
+        if: always() && steps.state.outputs.done != 'true'
+        run: exit "${{ steps.compute.outputs.status || '1' }}"
