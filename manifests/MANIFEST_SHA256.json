@@ -1,7 +1,7 @@
 {
   ".github/workflows/audit.yml": "d502294bb894a492c7468373f52180a3bddc68617979d15f992e5de62f5dac37",
   ".github/workflows/btc-data-acquisition.yml": "98c6407b9355905346c6cbbcb5b06c7ed38c374c734bef0826257d8b18efdc6e",
-  ".github/workflows/round4-gauntlet.yml": "49fe91811bf3e47d2f1369325325ffb0243d59b1fffc06ffd78f00a71284dae4",
+  ".github/workflows/round4-gauntlet.yml": "0bf1a615b38f3f4a5390a7e3bb3f263c89b2ae7af0905d3523db3351523d5e3c",
   ".github/workflows/xau-data-acquisition.yml": "6d670c687c862d50dae3a81733a00a79ac906644f9780d0f26bc6f0ba6a35758",
   ".gitignore": "1761187d8704ef28a0a88ec9969d44cad1a9cafbd6e4db93e57860884177a7ed",
   ".gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -203,6 +203,7 @@
   "tests/test_f13_causal_ml.py": "5005dfabee646679114552d2b1a34a236f7290bfda6da89b65822be3d05f9c2c",
   "tests/test_families.py": "3698514d1681e5b7e5d1d5b91febde2fa415c4a25b060751d41d3c563f617236",
   "tests/test_round3_families.py": "37af20a4414410b885c5bf5143174b408187df727de6b650bcdb7f8adeb8b5a3",
+  "tests/test_round4_workflow.py": "03abb120cbf2885bea3cf63a0162d070cdb0c64494cfbe995d5bae72569c4415",
   "tests/test_session_map.py": "6efa731cb1300799333baa424d78b2687b80053610c2b089d2cc52d4bde0664a",
   "tests/test_xau_ingest.py": "84e4a96e78dc28ecf020ec521887c38b255ec4c05812e6fe7972da0417259178",
   "trials/trials.jsonl": "4b44c34cba13ad2702e88a7cc8ebbd060250a82b2b952c4cf6f9fe9fce3c4976"
