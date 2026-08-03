@@ -1,6 +1,7 @@
 """Registered F13 causal-ML pipeline: frozen features, outer predictions only."""
 from __future__ import annotations
 
+import gc
 import hashlib
 import itertools
 import json
@@ -75,7 +76,11 @@ def build_features(tape: pd.DataFrame, instrument: str) -> pd.DataFrame:
             raise ValueError("BTC feature registration requires volume")
         vmean = p.volume.rolling(48, min_periods=48).mean(); vstd = p.volume.rolling(48, min_periods=48).std()
         out["volume_z"] = (p.volume-vmean)/vstd; out["volume_ratio"] = p.volume/vmean
-    return out.loc[:, feature_names(instrument)].replace([np.inf, -np.inf], np.nan)
+    # Tree estimators consume float32 internally.  Converting once here avoids
+    # retaining a second float64 feature matrix during every outer fold.
+    return out.loc[:, feature_names(instrument)].replace(
+        [np.inf, -np.inf], np.nan
+    ).astype(np.float32)
 
 
 def assert_shift_audit(tape: pd.DataFrame, instrument: str) -> None:
@@ -134,14 +139,25 @@ def walk_forward_outer(features: pd.DataFrame, candidates: pd.DataFrame, target:
         test_rows = valid[years.loc[valid].to_numpy() == outer_year]
         if not len(train_rows) or not len(test_rows):
             continue
-        model = _model(config); model.fit(features.loc[train_rows], target.loc[train_rows])
+        # Construct only the current fold's matrices and explicitly discard them
+        # before advancing.  This bounds XAU's expanding-window peak RSS.
+        train_x = features.loc[train_rows]
+        train_y = target.loc[train_rows].to_numpy(copy=False)
+        model = _model(config); model.fit(train_x, train_y)
         model_sha = hashlib.sha256(pickle.dumps(model, protocol=5)).hexdigest()
-        scores = model.predict(features.loc[test_rows])
+        # Prediction is chunked so sklearn never materializes a second full outer
+        # matrix.  The output vector is compact and required for execution.
+        scores = np.empty(len(test_rows), dtype=np.float64)
+        for start in range(0, len(test_rows), 16_384):
+            stop = min(start + 16_384, len(test_rows))
+            scores[start:stop] = model.predict(features.loc[test_rows[start:stop]])
         sides_by_row = candidates[candidates.bar_index.isin(test_rows)].groupby("bar_index").side.apply(list)
         for row, score in zip(test_rows, scores):
             for side in sides_by_row.loc[row]:
                 outputs.append(OuterPrediction(config_id, outer_year-1, outer_year, int(row), int(side),
                                                float(score*side), model_sha, feature_hash(instrument)))
+        del model, train_x, train_y, scores
+        gc.collect()
     return outputs
 
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import hashlib
 import itertools
 import json
@@ -38,8 +39,7 @@ REPORT = ROOT / "reports/PHASE3_ROUND4_REPORT.md"
 PHASE4_REPORT = ROOT / "reports/PHASE4_FTMO_ECONOMICS.md"
 CACHE = ROOT / "reports/phase3_round4_resume.json"
 KIND = "PHASE3_R4_CONFIG"
-_PREPARED: dict[tuple[str, str], tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series]] = {}
-_PREDICTIONS: dict[tuple, list] = {}
+RETURNS = ROOT / "reports/phase3_round4_returns"
 
 
 def load_year(instrument: str, year: int) -> pd.DataFrame:
@@ -81,34 +81,24 @@ def pbo(matrix: np.ndarray) -> float:
     return bad / total
 
 
-def _outer_actions(instrument: str, tapes: dict[int, pd.DataFrame], config: dict):
+def _outer_actions(instrument: str, tapes: dict[int, pd.DataFrame], config: dict,
+                   collect_control_bars: bool = False):
     """Return trades and fold hashes; training targets are never included in economics."""
     trades: dict[int, list] = {year: [] for year in tapes}
     bars_for_controls = []
     fold_hashes = []
     for timeframe in TIMEFRAMES:
-        prepared_key = (instrument, timeframe)
-        if prepared_key not in _PREPARED:
-            bars = pd.concat([aggregate_decision_bars(tapes[y], timeframe) for y in sorted(tapes)], ignore_index=True)
-            # Keep one continuous frame so lag features cross year boundaries without
-            # allowing an outer observation into its own training fold.
-            features = build_features(bars, instrument)
-            candidates = generate_candidates(bars, ATR_MULTIPLE, VOLATILITY_FLOOR, COST[instrument])
-            prior = bars.shift(1)
-            tr = pd.concat([(prior.high-prior.low), (prior.high-prior.close.shift()).abs(),
-                            (prior.low-prior.close.shift()).abs()], axis=1).max(axis=1)
-            atr = tr.rolling(14, min_periods=14).mean()
-            target = (bars.close.shift(-MAX_HOLDING_BARS) - bars.close) / atr
-            _PREPARED[prepared_key] = bars, features, candidates, target
-        bars, features, candidates, target = _PREPARED[prepared_key]
-        # target_r and go_threshold change action/execution, not the fitted estimator.
-        # Reusing the byte-identical predictions avoids refitting the same registered
-        # estimator six times and preserves every per-fold model hash.
-        model_key = (instrument, timeframe, config["model"], config["max_depth"],
-                     config["min_samples_leaf"], config["n_estimators"], config["seed"])
-        if model_key not in _PREDICTIONS:
-            _PREDICTIONS[model_key] = walk_forward_outer(features, candidates, target, bars.timestamp, config, instrument)
-        predictions = _PREDICTIONS[model_key]
+        # A decision timeframe is the largest useful lifetime.  Never retain both
+        # complete feature/candidate matrices across configurations.
+        bars = pd.concat([aggregate_decision_bars(tapes[y], timeframe) for y in sorted(tapes)], ignore_index=True)
+        features = build_features(bars, instrument)
+        candidates = generate_candidates(bars, ATR_MULTIPLE, VOLATILITY_FLOOR, COST[instrument])
+        prior = bars.shift(1)
+        tr = pd.concat([(prior.high-prior.low), (prior.high-prior.close.shift()).abs(),
+                        (prior.low-prior.close.shift()).abs()], axis=1).max(axis=1)
+        atr = tr.rolling(14, min_periods=14).mean()
+        target = (bars.close.shift(-MAX_HOLDING_BARS) - bars.close) / atr
+        predictions = walk_forward_outer(features, candidates, target, bars.timestamp, config, instrument)
         for item in predictions:
             fold_hashes.append({"timeframe": timeframe, "outer_year": int(item.outer_year),
                                 "train_through_year": int(item.train_through_year),
@@ -127,15 +117,20 @@ def _outer_actions(instrument: str, tapes: dict[int, pd.DataFrame], config: dict
                                  for p in predictions if p.outer_year == year]
             trades[year].extend(execute_outer(local, local_predictions, config, local_candidates,
                                               COST[instrument], MAX_HOLDING_BARS))
-            if year in YEARS[instrument]["development"] and year != min(YEARS[instrument]["development"]):
+            if (collect_control_bars and year in YEARS[instrument]["development"]
+                    and year != min(YEARS[instrument]["development"])):
                 bars_for_controls.append(local)
+        del predictions, features, candidates, target, prior, tr, atr, bars
+        gc.collect()
     unique_hashes = sorted({json.dumps(x, sort_keys=True) for x in fold_hashes})
-    return trades, pd.concat(bars_for_controls, ignore_index=True), [json.loads(x) for x in unique_hashes]
+    control_bars = pd.concat(bars_for_controls, ignore_index=True) if bars_for_controls else None
+    return trades, control_bars, [json.loads(x) for x in unique_hashes]
 
 
-def _base_row(instrument: str, config_id: int, config: dict, tapes: dict, full_trials: int) -> dict:
+def _base_row(instrument: str, config_id: int, config: dict, tapes: dict, full_trials: int,
+              collect_control_bars: bool = False) -> dict:
     policy = YEARS[instrument]
-    trades, control_bars, hashes = _outer_actions(instrument, tapes, config)
+    trades, control_bars, hashes = _outer_actions(instrument, tapes, config, collect_control_bars)
     outer_years = policy["development"][1:]
     yearly = {y: values(trades[y], instrument) for y in tapes}
     raw = {y: np.asarray([t.r for t in trades[y]]) for y in tapes}
@@ -163,7 +158,7 @@ def _base_row(instrument: str, config_id: int, config: dict, tapes: dict, full_t
 
 def _finish_controls(row: dict) -> dict:
     instrument = row["instrument"]; config = row["config"]; dev = row.pop("_dev")
-    row["_mc_returns"] = dev.tolist()
+    _persist_returns(instrument, row["config_id"], dev)
     raw = row.pop("_raw"); yearly = row.pop("_yearly"); trades = row.pop("_trades")
     bars = row.pop("_control_bars"); years = row["outer_years"]
     null = random_entry_controls(bars, trades, instrument, config["target_r"], members=200)
@@ -208,6 +203,23 @@ def _finish_controls(row: dict) -> dict:
     return row
 
 
+def _return_path(instrument: str, config_id: int) -> Path:
+    return RETURNS / f"{instrument.lower()}_{config_id:02d}.json"
+
+
+def _persist_returns(instrument: str, config_id: int, returns: np.ndarray) -> None:
+    """Persist Phase-4 inputs independently so the resume cache stays compact."""
+    RETURNS.mkdir(parents=True, exist_ok=True)
+    path = _return_path(instrument, config_id)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    with temporary.open("w") as stream:
+        stream.write("[")
+        for index, value in enumerate(returns):
+            stream.write(("," if index else "") + json.dumps(float(value)))
+        stream.write("]\n")
+    temporary.replace(path)
+
+
 def _public(row: dict) -> dict:
     return {k: v for k, v in row.items() if not k.startswith("_")}
 
@@ -239,7 +251,8 @@ def _phase4(rows: list[dict]) -> None:
              "|---|---:|---|---:|---:|---:|---:|"]
     rng = np.random.default_rng(SEED)
     for row in survivors:
-        returns = np.asarray(row.get("_mc_returns", []), dtype=float)
+        path = _return_path(row["instrument"], row["config_id"])
+        returns = np.asarray(json.loads(path.read_text()), dtype=float) if path.exists() else np.array([])
         if not len(returns):
             continue
         for scenario, multiplier in (("base", 1.0), ("2x-cost proxy", .75), ("30% win haircut proxy", .70)):
@@ -276,8 +289,17 @@ def main() -> None:
         _checkpoint(args.instrument, "complete", len(grid), len(grid))
         subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
         return
-    tapes = {y: load_year(args.instrument, y) for y in YEARS[args.instrument]["development"]+[YEARS[args.instrument]["confirmation"]]}
     cache = json.loads(CACHE.read_text()) if CACHE.exists() else {"version": 1, "ranking": {}, "controls": {}}
+    migrated_returns = False
+    for cached_instrument, cached_controls in cache.get("controls", {}).items():
+        for cached_id, cached_row in cached_controls.items():
+            legacy_returns = cached_row.pop("_mc_returns", None)
+            if legacy_returns is not None:
+                _persist_returns(cached_instrument, int(cached_id), np.asarray(legacy_returns, dtype=float))
+                migrated_returns = True
+    if migrated_returns:
+        _write_json(CACHE, cache)
+    tapes = {y: load_year(args.instrument, y) for y in YEARS[args.instrument]["development"]+[YEARS[args.instrument]["confirmation"]]}
     ranking = cache["ranking"].setdefault(args.instrument, {})
     controls = cache["controls"].setdefault(args.instrument, {})
     # One atomic write follows every fitted configuration. A cancellation can
@@ -298,8 +320,9 @@ def main() -> None:
     for summary in selected:
         cid = summary["config_id"]
         if str(cid) not in controls:
-            row = _finish_controls(_base_row(args.instrument, cid, grid[cid], tapes, full_trials))
-            controls[str(cid)] = {**_public(row), "_mc_returns": row["_mc_returns"]}
+            row = _finish_controls(_base_row(args.instrument, cid, grid[cid], tapes, full_trials,
+                                             collect_control_bars=True))
+            controls[str(cid)] = _public(row)
             _write_json(CACHE, cache)
             _checkpoint(args.instrument, "top_quartile_controls", len(controls), len(selected))
         if time.monotonic() >= deadline:

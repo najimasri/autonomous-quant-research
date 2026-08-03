@@ -3,7 +3,7 @@ name: Round 4 resumable gauntlet
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -54,28 +54,79 @@ jobs:
         if: steps.state.outputs.done != 'true'
         run: python -m pip install --requirement requirements.txt
 
-      - name: Assert seals and run one resumable compute window
+      - name: Assert seals and run checkpoint-driven compute windows
+        id: compute
         if: steps.state.outputs.done != 'true'
         run: |
+          set +e
+          (
+          set -e
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
-          # The runner checks its deadline only between atomic config groups. The
-          # job retains an hour for manifesting, audits, rebase, and publication.
-          python -m src.validation.round4_gauntlet \
-            --instrument "${{ steps.state.outputs.instrument }}" \
-            --controls top-quartile --max-runtime-seconds 17400
+          # Spend at most 290 minutes in the runner. Each invocation is capped at
+          # 40 minutes so checkpoint publication is frequent and cancellation
+          # loses no more than one atomic configuration group.
+          deadline=$((SECONDS + 17400))
+          instrument="${{ steps.state.outputs.instrument }}"
+          while (( SECONDS < deadline )); do
+            remaining=$((deadline - SECONDS))
+            slice=$((remaining < 2400 ? remaining : 2400))
+            python -m src.validation.round4_gauntlet \
+              --instrument "$instrument" \
+              --controls top-quartile --max-runtime-seconds "$slice"
+
+            read -r status instrument verdict_written < <(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          checkpoint = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          print(checkpoint.get("status"), checkpoint.get("instrument"), checkpoint.get("verdict_written"))
+          PY
+            )
+            if [[ "$status" == complete && "$verdict_written" == True ]]; then
+              break
+            fi
+          done
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
+          ) > >(tee /tmp/round4-compute.log) 2>&1
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          if (( status != 0 )); then
+            tail -n 200 /tmp/round4-compute.log > reports/round4_last_failure.log
+            echo "Round 4 failed with exit code $status; banking its last checkpoint." >&2
+          else
+            rm -f reports/round4_last_failure.log
+          fi
+          # Publication and its audits must run before a failed compute job exits.
+          exit 0
+
+      - name: Publish end-of-run summary
+        if: always() && steps.state.outputs.done != 'true'
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+
+          checkpoint = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          print("## Round 4 gauntlet")
+          print()
+          print(f"- Status: `{checkpoint.get('status')}`")
+          print(f"- Next instrument: `{checkpoint.get('instrument')}`")
+          print(f"- Stage: `{checkpoint.get('stage')}`")
+          print(f"- Completed configs: `{checkpoint.get('completed_configs')}/{checkpoint.get('total_configs')}`")
+          print(f"- Verdict written: `{checkpoint.get('verdict_written')}`")
+          PY
 
       - name: Regenerate manifest and audit source checkout
-        if: steps.state.outputs.done != 'true'
+        if: always() && steps.state.outputs.done != 'true'
         run: |
           python src/audit/build_manifest.py
           python src/audit/audit_ci.py
           python src/audit/audit_phase0_data.py --source-checkout
 
       - name: Commit, rebase, re-audit, and push to main
-        if: steps.state.outputs.done != 'true'
+        if: always() && steps.state.outputs.done != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -96,3 +147,7 @@ jobs:
           python src/audit/audit_ci.py
           python src/audit/audit_phase0_data.py --source-checkout
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+
+      - name: Exit after recorded compute failure
+        if: always() && steps.compute.outputs.status != '0' && steps.compute.outputs.status != ''
+        run: exit "${{ steps.compute.outputs.status }}"

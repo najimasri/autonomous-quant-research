@@ -29,7 +29,9 @@ def test_registration_is_frozen_and_exactly_48_combinations():
 def test_every_registered_feature_passes_current_bar_shift_audit(instrument):
     frame = tape()
     assert_shift_audit(frame, instrument)
-    assert tuple(build_features(frame, instrument).columns) == feature_names(instrument)
+    features = build_features(frame, instrument)
+    assert tuple(features.columns) == feature_names(instrument)
+    assert features.dtypes.eq(np.dtype("float32")).all()
 
 
 def test_candidate_generator_scores_both_directions_and_applies_cost_gate():
