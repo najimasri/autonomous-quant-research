@@ -1,6 +1,7 @@
 {
   ".github/workflows/audit.yml": "d502294bb894a492c7468373f52180a3bddc68617979d15f992e5de62f5dac37",
   ".github/workflows/btc-data-acquisition.yml": "98c6407b9355905346c6cbbcb5b06c7ed38c374c734bef0826257d8b18efdc6e",
+  ".github/workflows/round4-gauntlet.yml": "49fe91811bf3e47d2f1369325325ffb0243d59b1fffc06ffd78f00a71284dae4",
   ".github/workflows/xau-data-acquisition.yml": "6d670c687c862d50dae3a81733a00a79ac906644f9780d0f26bc6f0ba6a35758",
   ".gitignore": "1761187d8704ef28a0a88ec9969d44cad1a9cafbd6e4db93e57860884177a7ed",
   ".gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -195,7 +196,7 @@
   "src/validation/__init__.py": "dbe869103450e52ba89fdf0207e729120082f70d110904e84c88e3353e8f4802",
   "src/validation/phase3_gauntlet.py": "85bef7fa82aaec117e0f4d699630b1552537fe193e64d033b722ba2aa5183759",
   "src/validation/round3_gauntlet.py": "1d12eaa448bd612e219f819ec5c5d0a3087dfdb4e503ecb845bbc406fa599c8f",
-  "src/validation/round4_gauntlet.py": "f93d792ce8ba9ec2307e76fb970dc4aa8da9946840107434744be859fb2b241b",
+  "src/validation/round4_gauntlet.py": "9a0d824744d0650847aafafade3c5a89eaeaa4f42767f7b654513be4d228f9d5",
   "state/approvals.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
   "state/state.json": "5abdff1528a8f46457cc40d461674c7857bb0bda4eaccb3ee3dc9e3b6a663b3a",
   "tests/test_decision_bars.py": "5512d7494402ff0a1a2832d333a6863de90d936fb535e59a9807f3e1b7e5caba",

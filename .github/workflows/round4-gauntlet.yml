@@ -1,0 +1,113 @@
+name: Round 4 resumable gauntlet
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: round4-gauntlet-main
+  cancel-in-progress: false
+
+jobs:
+  gauntlet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Stop after the final verdict
+        id: state
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          checkpoint = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          done = checkpoint.get("status") == "complete" and checkpoint.get("verdict_written") is True
+          instrument = checkpoint.get("instrument", "BTC")
+          if instrument not in {"BTC", "XAU"}:
+              raise SystemExit(f"invalid checkpoint instrument: {instrument!r}")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"done={'true' if done else 'false'}\n")
+              output.write(f"instrument={instrument}\n")
+          if done:
+              print("Round 4 verdict is already committed; scheduled run is a no-op.")
+          PY
+
+      - name: Set up pinned Python
+        if: steps.state.outputs.done != 'true'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install pinned requirements
+        if: steps.state.outputs.done != 'true'
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Run and publish resumable compute windows
+        if: steps.state.outputs.done != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          run_started=$(date +%s)
+          compute_deadline=$((run_started + 17400))
+
+          publish() {
+            python src/audit/build_manifest.py
+            python src/audit/audit_ci.py
+            python src/audit/audit_phase0_data.py --source-checkout
+            git add manifests/MANIFEST_SHA256.json reports trials/trials.jsonl
+            if git diff --cached --quiet; then
+              echo "No new Round 4 checkpoint was produced."
+              return
+            fi
+            git commit -m "validation: advance resumable Round 4 gauntlet"
+            git pull --rebase origin main
+            python src/audit/build_manifest.py
+            git add manifests/MANIFEST_SHA256.json
+            if ! git diff --cached --quiet; then
+              git commit --amend --no-edit
+            fi
+            python src/audit/audit_ci.py
+            python src/audit/audit_phase0_data.py --source-checkout
+            git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+          }
+
+          # Use <=40-minute slices so an audit-gated checkpoint is published at
+          # least every ~45 minutes. Re-read the checkpoint after every slice:
+          # completing BTC must continue immediately with XAU in the same job.
+          while (( $(date +%s) < compute_deadline )); do
+            read -r done instrument < <(python - <<'PY'
+          import json
+          from pathlib import Path
+          state = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          print(str(state.get("status") == "complete" and state.get("verdict_written") is True).lower(),
+                state.get("instrument", "BTC"))
+          PY
+            )
+            if [[ "$done" == "true" ]]; then
+              break
+            fi
+            remaining=$((compute_deadline - $(date +%s)))
+            slice=$((remaining < 2400 ? remaining : 2400))
+            (( slice > 0 )) || break
+            python -m src.validation.round4_gauntlet --instrument "$instrument" \
+              --controls top-quartile --max-runtime-seconds "$slice"
+            publish
+          done
+
+          python -m src.validation.round4_gauntlet --write-run-summary \
+            --run-start-epoch "$run_started"
+          publish

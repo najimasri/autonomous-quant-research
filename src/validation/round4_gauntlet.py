@@ -9,6 +9,8 @@ import json
 import math
 import subprocess
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from statistics import NormalDist
 
@@ -34,6 +36,8 @@ VOLATILITY_FLOOR = .0001
 MAX_HOLDING_BARS = 12
 CHECKPOINT = ROOT / "reports/phase3_round4_checkpoint.json"
 REPORT = ROOT / "reports/PHASE3_ROUND4_REPORT.md"
+PHASE4_REPORT = ROOT / "reports/PHASE4_FTMO_ECONOMICS.md"
+CACHE = ROOT / "reports/phase3_round4_resume.json"
 KIND = "PHASE3_R4_CONFIG"
 _PREPARED: dict[tuple[str, str], tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series]] = {}
 _PREDICTIONS: dict[tuple, list] = {}
@@ -160,6 +164,7 @@ def _base_row(instrument: str, config_id: int, config: dict, tapes: dict, full_t
 
 def _finish_controls(row: dict) -> dict:
     instrument = row["instrument"]; config = row["config"]; dev = row.pop("_dev")
+    row["_mc_returns"] = dev.tolist()
     raw = row.pop("_raw"); yearly = row.pop("_yearly"); trades = row.pop("_trades")
     bars = row.pop("_control_bars"); years = row["outer_years"]
     null = random_entry_controls(bars, trades, instrument, config["target_r"], members=200)
@@ -208,47 +213,165 @@ def _public(row: dict) -> dict:
     return {k: v for k, v in row.items() if not k.startswith("_")}
 
 
+def _write_json(path: Path, value: object) -> None:
+    """Atomically persist a compact, diffable resume artifact."""
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    temporary.replace(path)
+
+
+def _checkpoint(instrument: str, stage: str, completed: int, total: int) -> None:
+    next_instrument = "XAU" if instrument == "BTC" and stage == "complete" else instrument
+    status = "complete" if instrument == "XAU" and stage == "complete" else "in_progress"
+    _write_json(CHECKPOINT, {
+        "round": 4, "status": status, "instrument": next_instrument, "stage": stage,
+        "completed_configs": completed, "total_configs": total,
+        "verdict_written": status == "complete",
+        "holdout_asserted_this_run": True,
+        "resume_command": f"python -m src.validation.round4_gauntlet --instrument {next_instrument}",
+    })
+
+
+def _phase4(rows: list[dict]) -> None:
+    """Run deterministic compact bootstrap economics for Round-4 survivors."""
+    survivors = [row for row in rows if row.get("survivor")]
+    lines = ["# Phase 4 — FTMO economics", "", "All results are **COSTS_PROVISIONAL**.", "",
+             "|Instrument|Config|Scenario|10% target probability|5% target probability|10% breach probability|Median sampled return|",
+             "|---|---:|---|---:|---:|---:|---:|"]
+    rng = np.random.default_rng(SEED)
+    for row in survivors:
+        returns = np.asarray(row.get("_mc_returns", []), dtype=float)
+        if not len(returns):
+            continue
+        for scenario, multiplier in (("base", 1.0), ("2x-cost proxy", .75), ("30% win haircut proxy", .70)):
+            paths = rng.choice(returns * multiplier, size=(10_000, len(returns)), replace=True).sum(axis=1)
+            lines.append(f"|{row['instrument']}|{row['config_id']}|{scenario}|{np.mean(paths >= 10):.4f}|{np.mean(paths >= 5):.4f}|{np.mean(paths <= -10):.4f}|{np.median(paths):.4f}|")
+    if not survivors:
+        lines += ["", "No Round-4 candidate survived; STEP 4 terminates on the governed empty-set branch."]
+    else:
+        lines += ["", "The deterministic bootstrap is a provisional risk-policy screen under `governance/ftmo_geometry.yaml`; broker costs remain locked pending LOCK_A."]
+    PHASE4_REPORT.write_text("\n".join(lines) + "\n")
+
+
+def write_run_summary(started_epoch: int) -> None:
+    """Append per-instrument progress to the checkpoint and print it for Actions."""
+    checkpoint = json.loads(CHECKPOINT.read_text())
+    cache = json.loads(CACHE.read_text()) if CACHE.exists() else {"ranking": {}, "controls": {}}
+    ledger = [json.loads(line) for line in (ROOT / "trials/trials.jsonl").read_text().splitlines() if line]
+    grid_size = len(registered_grid())
+    selected_size = math.ceil(grid_size / 4)
+    instruments = {}
+    for instrument in ("BTC", "XAU"):
+        ranked = len(cache.get("ranking", {}).get(instrument, {}))
+        controlled = len(cache.get("controls", {}).get(instrument, {}))
+        recorded = len({row["config_id"] for row in ledger
+                        if row.get("kind") == KIND and row.get("instrument") == instrument})
+        instruments[instrument] = {
+            "configs_completed": recorded,
+            "configs_remaining": max(0, selected_size - recorded),
+            "ranking_groups_completed": ranked,
+            "ranking_groups_remaining": max(0, grid_size - ranked),
+            "control_groups_completed": controlled,
+            "control_groups_remaining": max(0, selected_size - controlled),
+        }
+    checkpoint["last_run_summary"] = {
+        "started_utc": datetime.fromtimestamp(started_epoch, timezone.utc).isoformat(),
+        "elapsed_minutes": round((time.time() - started_epoch) / 60, 1),
+        "instruments": instruments,
+    }
+    _write_json(CHECKPOINT, checkpoint)
+    print("ROUND 4 END-OF-RUN SUMMARY")
+    for instrument, progress in instruments.items():
+        print(f"{instrument}: configs {progress['configs_completed']} completed / "
+              f"{progress['configs_remaining']} remaining; ranking "
+              f"{progress['ranking_groups_completed']}/{grid_size}; controls "
+              f"{progress['control_groups_completed']}/{selected_size}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--instrument", choices=("BTC", "XAU"), default="BTC")
-    parser.add_argument("--controls", choices=("top-quartile", "all"), default="top-quartile")
+    parser.add_argument("--controls", choices=("top-quartile", "all"), default="top-quartile",
+                        help="'all' is retained for compatibility; the registered policy is top-quartile")
+    parser.add_argument("--max-runtime-seconds", type=int, default=0,
+                        help="Stop cleanly between config groups after this wall-clock budget")
+    parser.add_argument("--write-run-summary", action="store_true")
+    parser.add_argument("--run-start-epoch", type=int)
     args = parser.parse_args()
+    if args.write_run_summary:
+        if args.run_start_epoch is None:
+            parser.error("--write-run-summary requires --run-start-epoch")
+        write_run_summary(args.run_start_epoch)
+        return
+    started = time.monotonic()
+    deadline = started + args.max_runtime_seconds if args.max_runtime_seconds else math.inf
     corrupted_data_smoke_test()
     subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT/"src/audit/verify_trials.py")], check=True)
     assert_frozen_session_map()
     grid = registered_grid(); grid_sha = hashlib.sha256((ROOT/"src/families/f13_grid.json").read_bytes()).hexdigest()
     existing = [json.loads(x) for x in (ROOT/"trials/trials.jsonl").read_text().splitlines() if x.strip()]
-    full_trials = len(existing) + len(grid) * 2
+    # Keep multiplicity invariant across resumptions and partial ledger writes.
+    full_trials = sum(row.get("kind") != KIND for row in existing) + len(grid) * 2
     completed = {x["config_id"] for x in existing if x.get("kind") == KIND and x["instrument"] == args.instrument}
+    expected_ledger_rows = len(grid) if args.controls == "all" else math.ceil(len(grid) / 4)
+    if len(completed) >= expected_ledger_rows:
+        _checkpoint(args.instrument, "complete", len(grid), len(grid))
+        subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
+        return
     tapes = {y: load_year(args.instrument, y) for y in YEARS[args.instrument]["development"]+[YEARS[args.instrument]["confirmation"]]}
-    base = [_base_row(args.instrument, cid, cfg, tapes, full_trials) for cid, cfg in enumerate(grid) if cid not in completed]
+    cache = json.loads(CACHE.read_text()) if CACHE.exists() else {"version": 1, "ranking": {}, "controls": {}}
+    ranking = cache["ranking"].setdefault(args.instrument, {})
+    controls = cache["controls"].setdefault(args.instrument, {})
+    # One atomic write follows every fitted configuration. A cancellation can
+    # therefore discard no more than the currently executing config group.
+    for cid, cfg in enumerate(grid):
+        if str(cid) not in ranking:
+            row = _base_row(args.instrument, cid, cfg, tapes, full_trials)
+            ranking[str(cid)] = _public(row)
+            _write_json(CACHE, cache)
+            _checkpoint(args.instrument, "outer_expectancy_ranking", len(ranking), len(grid))
+        if time.monotonic() >= deadline:
+            subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
+            return
+    selected = sorted((ranking[str(cid)] for cid in range(len(grid))),
+                      key=lambda row: row["development_expectancy"], reverse=True)
     if args.controls == "top-quartile":
-        base = sorted(base, key=lambda x: x["development_expectancy"], reverse=True)[:math.ceil(len(grid)/4)]
-    rows = []
-    for row in base:
-        row = _finish_controls(row); rows.append(row)
-    if rows:
-        matrix = np.asarray([[r["year_expectancy"][str(y)] for y in r["outer_years"]] for r in rows])
-        probability = pbo(matrix)
-        for row in rows:
-            row["pbo_cscv"] = probability
-            row["survivor"] = row["pre_pbo_pass"] and probability <= .25
+        selected = selected[:math.ceil(len(grid) / 4)]
+    for summary in selected:
+        cid = summary["config_id"]
+        if str(cid) not in controls:
+            row = _finish_controls(_base_row(args.instrument, cid, grid[cid], tapes, full_trials))
+            controls[str(cid)] = {**_public(row), "_mc_returns": row["_mc_returns"]}
+            _write_json(CACHE, cache)
+            _checkpoint(args.instrument, "top_quartile_controls", len(controls), len(selected))
+        if time.monotonic() >= deadline:
+            subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
+            return
+    rows = [controls[str(row["config_id"])] for row in selected]
+    matrix = np.asarray([[r["year_expectancy"][str(y)] for y in r["outer_years"]] for r in rows])
+    probability = pbo(matrix)
+    for row in rows:
+        row["pbo_cscv"] = probability
+        row["survivor"] = row["pre_pbo_pass"] and probability <= .25
+        if row["config_id"] not in completed:
             append_trial({"kind": KIND, "grid_sha256": grid_sha, "selection_scope": "outer_actions_only",
                           "confirmation_used_for_selection": False, **_public(row)})
     subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
-    remaining = len(grid) - len(completed) - len(rows)
-    CHECKPOINT.write_text(json.dumps({"round": 4, "instrument": args.instrument,
-        "status": "complete" if remaining == 0 else "compute_budget_checkpoint",
-        "completed_this_run": len(rows), "remaining": remaining, "controls_per_config": 400,
-        "holdout_asserted_before_and_after": True,
-        "resume_command": f"python -m src.validation.round4_gauntlet --instrument {args.instrument} --controls all"}, indent=2)+"\n")
-    write_report(existing + [{"kind": KIND, **_public(r)} for r in rows])
+    all_records = existing + [{"kind": KIND, **_public(r)} for r in rows]
+    _checkpoint(args.instrument, "complete", len(grid), len(grid))
+    write_report(all_records)
+    if args.instrument == "XAU":
+        # Include compact return vectors from both instruments when available.
+        phase4_rows = [item for values_ in cache["controls"].values() for item in values_.values()]
+        _phase4(phase4_rows)
 
 
 def write_report(records: list[dict]) -> None:
     rows = [r for r in records if r.get("kind") == KIND]
     survivors = [r for r in rows if r.get("survivor")]
-    verdict = f"PHASE3_R4_PASS_{len(survivors)}_SURVIVORS" if survivors else "PHASE3_R4_IN_PROGRESS"
+    complete = {r["instrument"] for r in rows} == {"BTC", "XAU"}
+    verdict = (f"PHASE3_R4_PASS_{len(survivors)}_SURVIVORS" if survivors else "PHASE3_R4_EMPTY_SET") if complete else "PHASE3_R4_IN_PROGRESS"
     lines = ["# Phase 3 Round 4 — F13 causal ML", "", f"## Verdict\n\n`{verdict}`", "",
              "All economics are from expanding-window **outer actions only**. Costs are **COSTS_PROVISIONAL**.", "",
              "## Evidence", "", "|Instrument|Config|Trades|Outer E|Confirm E|DSR|PBO|Haircut|2x cost|LOYO|First failure|Verdict|",
@@ -256,7 +379,7 @@ def write_report(records: list[dict]) -> None:
     for r in rows:
         lines.append(f"|{r['instrument']}|{r['config_id']}|{r['development_trades']}|{r['development_expectancy']:.4f}|{r['confirmation_expectancy']:.4f}|{r['dsr_confidence']:.4f}|{r['pbo_cscv']:.4f}|{r['haircut_expectancy']:.4f}|{r['cost_2x_expectancy']:.4f}|{r['loyo_min_expectancy']:.4f}|{r['first_failing_gate'] or 'none'}|{'SURVIVE' if r['survivor'] else 'KILL'}|")
     lines += ["", "## Audit status", "", "Holdout seal is asserted immediately before and after every resumable run. Each completed configuration has 200 matched tape-replay random-entry controls and 200 real sequence shuffles. Model hashes are recorded per timeframe and outer fold. DSR uses full-ledger multiplicity; CSCV uses the outer-year expectancy matrix. Sample floors, year concentration, 0.70 win haircut, 2x costs, LOYO, XAU seam/nightly swaps, and BTC `LOCK_A` funding annotation fail closed.", "",
-              "## Phase 4/5 disposition", "", "FTMO Monte Carlo and final reporting remain blocked until all BTC configurations, then all XAU configurations, complete the gauntlet. No gate has been weakened and no synthetic control has been substituted."]
+              "## Phase 4/5 disposition", "", "STEP 4 FTMO Monte Carlo is written to `PHASE4_FTMO_ECONOMICS.md` after both BTC and XAU complete. Until then it remains blocked. No gate has been weakened and no synthetic control has been substituted."]
     REPORT.write_text("\n".join(lines)+"\n")
 
 
