@@ -3,7 +3,7 @@ name: Round 4 resumable gauntlet
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -54,18 +54,54 @@ jobs:
         if: steps.state.outputs.done != 'true'
         run: python -m pip install --requirement requirements.txt
 
-      - name: Assert seals and run one resumable compute window
+      - name: Assert seals and run checkpoint-driven compute windows
         if: steps.state.outputs.done != 'true'
         run: |
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
-          # The runner checks its deadline only between atomic config groups. The
-          # job retains an hour for manifesting, audits, rebase, and publication.
-          python -m src.validation.round4_gauntlet \
-            --instrument "${{ steps.state.outputs.instrument }}" \
-            --controls top-quartile --max-runtime-seconds 17400
+          # Spend at most 290 minutes in the runner. Each invocation is capped at
+          # 40 minutes so checkpoint publication is frequent and cancellation
+          # loses no more than one atomic configuration group.
+          deadline=$((SECONDS + 17400))
+          instrument="${{ steps.state.outputs.instrument }}"
+          while (( SECONDS < deadline )); do
+            remaining=$((deadline - SECONDS))
+            slice=$((remaining < 2400 ? remaining : 2400))
+            python -m src.validation.round4_gauntlet \
+              --instrument "$instrument" \
+              --controls top-quartile --max-runtime-seconds "$slice"
+
+            read -r status instrument verdict_written < <(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          checkpoint = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          print(checkpoint.get("status"), checkpoint.get("instrument"), checkpoint.get("verdict_written"))
+          PY
+            )
+            if [[ "$status" == complete && "$verdict_written" == True ]]; then
+              break
+            fi
+          done
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
+
+      - name: Publish end-of-run summary
+        if: always() && steps.state.outputs.done != 'true'
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+
+          checkpoint = json.loads(Path("reports/phase3_round4_checkpoint.json").read_text())
+          print("## Round 4 gauntlet")
+          print()
+          print(f"- Status: `{checkpoint.get('status')}`")
+          print(f"- Next instrument: `{checkpoint.get('instrument')}`")
+          print(f"- Stage: `{checkpoint.get('stage')}`")
+          print(f"- Completed configs: `{checkpoint.get('completed_configs')}/{checkpoint.get('total_configs')}`")
+          print(f"- Verdict written: `{checkpoint.get('verdict_written')}`")
+          PY
 
       - name: Regenerate manifest and audit source checkout
         if: steps.state.outputs.done != 'true'
