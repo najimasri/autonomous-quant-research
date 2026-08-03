@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "manifests" / "MANIFEST_SHA256.json"
-EXCLUDED_PARTS = {".git", ".pytest_cache", "__pycache__"}
+EXCLUDED_PARTS = {".git", ".pytest_cache", "__pycache__", "phase3_round4_returns"}
 EXCLUDED_FILES = {OUTPUT}
 EXCLUDED_SUFFIXES = {".zip", ".bi5", ".parquet", ".part"}
 

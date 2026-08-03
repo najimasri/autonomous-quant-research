@@ -204,19 +204,16 @@ def _finish_controls(row: dict) -> dict:
 
 
 def _return_path(instrument: str, config_id: int) -> Path:
-    return RETURNS / f"{instrument.lower()}_{config_id:02d}.json"
+    return RETURNS / f"{instrument.lower()}_{config_id:02d}.npy"
 
 
 def _persist_returns(instrument: str, config_id: int, returns: np.ndarray) -> None:
-    """Persist Phase-4 inputs independently so the resume cache stays compact."""
+    """Persist Phase-4 inputs atomically without retaining them in the cache."""
     RETURNS.mkdir(parents=True, exist_ok=True)
     path = _return_path(instrument, config_id)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    with temporary.open("w") as stream:
-        stream.write("[")
-        for index, value in enumerate(returns):
-            stream.write(("," if index else "") + json.dumps(float(value)))
-        stream.write("]\n")
+    with temporary.open("wb") as stream:
+        np.save(stream, np.asarray(returns, dtype=np.float64), allow_pickle=False)
     temporary.replace(path)
 
 
@@ -252,11 +249,15 @@ def _phase4(rows: list[dict]) -> None:
     rng = np.random.default_rng(SEED)
     for row in survivors:
         path = _return_path(row["instrument"], row["config_id"])
-        returns = np.asarray(json.loads(path.read_text()), dtype=float) if path.exists() else np.array([])
+        returns = np.load(path, mmap_mode="r", allow_pickle=False) if path.exists() else np.array([])
         if not len(returns):
             continue
         for scenario, multiplier in (("base", 1.0), ("2x-cost proxy", .75), ("30% win haircut proxy", .70)):
-            paths = rng.choice(returns * multiplier, size=(10_000, len(returns)), replace=True).sum(axis=1)
+            paths = np.empty(10_000, dtype=np.float64)
+            for start in range(0, len(paths), 256):
+                stop = min(start + 256, len(paths))
+                sampled = rng.choice(returns, size=(stop-start, len(returns)), replace=True)
+                paths[start:stop] = (sampled * multiplier).sum(axis=1)
             lines.append(f"|{row['instrument']}|{row['config_id']}|{scenario}|{np.mean(paths >= 10):.4f}|{np.mean(paths >= 5):.4f}|{np.mean(paths <= -10):.4f}|{np.median(paths):.4f}|")
     if not survivors:
         lines += ["", "No Round-4 candidate survived; STEP 4 terminates on the governed empty-set branch."]
@@ -337,14 +338,15 @@ def main() -> None:
         if row["config_id"] not in completed:
             append_trial({"kind": KIND, "grid_sha256": grid_sha, "selection_scope": "outer_actions_only",
                           "confirmation_used_for_selection": False, **_public(row)})
+    _write_json(CACHE, cache)
     subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
     all_records = existing + [{"kind": KIND, **_public(r)} for r in rows]
     _checkpoint(args.instrument, "complete", len(grid), len(grid))
     write_report(all_records)
     if args.instrument == "XAU":
-        # Include compact return vectors from both instruments when available.
-        phase4_rows = [item for values_ in cache["controls"].values() for item in values_.values()]
-        _phase4(phase4_rows)
+        # Ledger rows carry the final survivor flags for both instruments; vectors
+        # remain local, regenerable inputs and are never embedded in the cache.
+        _phase4([row for row in all_records if row.get("kind") == KIND])
 
 
 def write_report(records: list[dict]) -> None:

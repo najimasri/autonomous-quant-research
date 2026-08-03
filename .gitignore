@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+reports/phase3_round4_returns/
 data/raw/**/*.zip
 data/raw/**/*.bi5
 data/raw/xau_ticks/
