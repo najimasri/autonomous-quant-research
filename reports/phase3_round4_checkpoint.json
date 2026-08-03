@@ -1,5 +1,5 @@
 {
-  "completed_configs": 24,
+  "completed_configs": 48,
   "holdout_asserted_this_run": true,
   "instrument": "XAU",
   "resume_command": "python -m src.validation.round4_gauntlet --instrument XAU",
