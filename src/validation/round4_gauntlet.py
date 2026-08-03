@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import hashlib
 import itertools
 import json
@@ -40,6 +41,7 @@ CACHE = ROOT / "reports/phase3_round4_resume.json"
 KIND = "PHASE3_R4_CONFIG"
 _PREPARED: dict[tuple[str, str], tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series]] = {}
 _PREDICTIONS: dict[tuple, list] = {}
+RETURNS_DIR = ROOT / "reports/round4_returns"
 
 
 def load_year(instrument: str, year: int) -> pd.DataFrame:
@@ -129,6 +131,12 @@ def _outer_actions(instrument: str, tapes: dict[int, pd.DataFrame], config: dict
                                               COST[instrument], MAX_HOLDING_BARS))
             if year in YEARS[instrument]["development"] and year != min(YEARS[instrument]["development"]):
                 bars_for_controls.append(local)
+        # The caller consumes one decision timeframe at a time.  Explicitly
+        # release its large feature/candidate matrices before constructing the
+        # next timeframe (model predictions are compact records).
+        del bars, features, candidates, target
+        _PREPARED.pop(prepared_key, None)
+        gc.collect()
     unique_hashes = sorted({json.dumps(x, sort_keys=True) for x in fold_hashes})
     return trades, pd.concat(bars_for_controls, ignore_index=True), [json.loads(x) for x in unique_hashes]
 
@@ -163,7 +171,13 @@ def _base_row(instrument: str, config_id: int, config: dict, tapes: dict, full_t
 
 def _finish_controls(row: dict) -> dict:
     instrument = row["instrument"]; config = row["config"]; dev = row.pop("_dev")
-    row["_mc_returns"] = dev.tolist()
+    RETURNS_DIR.mkdir(parents=True, exist_ok=True)
+    returns_path = RETURNS_DIR / f"{instrument.lower()}_{row['config_id']}.npy"
+    temporary = returns_path.with_suffix(".npy.tmp")
+    with temporary.open("wb") as stream:
+        np.save(stream, np.asarray(dev, dtype=np.float64), allow_pickle=False)
+    temporary.replace(returns_path)
+    row["_mc_returns_path"] = str(returns_path.relative_to(ROOT))
     raw = row.pop("_raw"); yearly = row.pop("_yearly"); trades = row.pop("_trades")
     bars = row.pop("_control_bars"); years = row["outer_years"]
     null = random_entry_controls(bars, trades, instrument, config["target_r"], members=200)
@@ -219,6 +233,22 @@ def _write_json(path: Path, value: object) -> None:
     temporary.replace(path)
 
 
+def _localize_return_vectors(cache: dict) -> None:
+    """Migrate legacy inline vectors to ignored atomic local mmap files."""
+    for instrument, controls in cache.get("controls", {}).items():
+        for config_id, row in controls.items():
+            values_ = row.pop("_mc_returns", None)
+            if values_ is None:
+                continue
+            RETURNS_DIR.mkdir(parents=True, exist_ok=True)
+            path = RETURNS_DIR / f"{instrument.lower()}_{config_id}.npy"
+            temporary = path.with_suffix(".npy.tmp")
+            with temporary.open("wb") as stream:
+                np.save(stream, np.asarray(values_, dtype=np.float64), allow_pickle=False)
+            temporary.replace(path)
+            row["_mc_returns_path"] = str(path.relative_to(ROOT))
+
+
 def _checkpoint(instrument: str, stage: str, completed: int, total: int) -> None:
     next_instrument = "XAU" if instrument == "BTC" and stage == "complete" else instrument
     status = "complete" if instrument == "XAU" and stage == "complete" else "in_progress"
@@ -239,11 +269,17 @@ def _phase4(rows: list[dict]) -> None:
              "|---|---:|---|---:|---:|---:|---:|"]
     rng = np.random.default_rng(SEED)
     for row in survivors:
-        returns = np.asarray(row.get("_mc_returns", []), dtype=float)
+        returns_path = row.get("_mc_returns_path")
+        returns = np.load(ROOT / returns_path, mmap_mode="r") if returns_path else np.asarray([], dtype=float)
         if not len(returns):
             continue
         for scenario, multiplier in (("base", 1.0), ("2x-cost proxy", .75), ("30% win haircut proxy", .70)):
-            paths = rng.choice(returns * multiplier, size=(10_000, len(returns)), replace=True).sum(axis=1)
+            # Bound bootstrap allocation independently of trade count.  Return
+            # vectors stay local and memory-mapped; only 256 paths are resident.
+            paths = np.empty(10_000, dtype=np.float64)
+            for start in range(0, len(paths), 256):
+                stop = min(start + 256, len(paths))
+                paths[start:stop] = rng.choice(returns, size=(stop-start, len(returns)), replace=True).sum(axis=1) * multiplier
             lines.append(f"|{row['instrument']}|{row['config_id']}|{scenario}|{np.mean(paths >= 10):.4f}|{np.mean(paths >= 5):.4f}|{np.mean(paths <= -10):.4f}|{np.median(paths):.4f}|")
     if not survivors:
         lines += ["", "No Round-4 candidate survived; STEP 4 terminates on the governed empty-set branch."]
@@ -278,16 +314,29 @@ def main() -> None:
         return
     tapes = {y: load_year(args.instrument, y) for y in YEARS[args.instrument]["development"]+[YEARS[args.instrument]["confirmation"]]}
     cache = json.loads(CACHE.read_text()) if CACHE.exists() else {"version": 1, "ranking": {}, "controls": {}}
+    _localize_return_vectors(cache)
     ranking = cache["ranking"].setdefault(args.instrument, {})
     controls = cache["controls"].setdefault(args.instrument, {})
-    # One atomic write follows every fitted configuration. A cancellation can
-    # therefore discard no more than the currently executing config group.
+    # Configurations sharing a fitted estimator form one atomic ranking group
+    # (target/threshold affect execution only).  Publish the whole group in one
+    # rename, then discard its predictions before fitting the next estimator.
+    group_axes = ("model", "max_depth", "min_samples_leaf", "n_estimators", "seed")
+    groups: dict[tuple, list[tuple[int, dict]]] = {}
     for cid, cfg in enumerate(grid):
-        if str(cid) not in ranking:
-            row = _base_row(args.instrument, cid, cfg, tapes, full_trials)
-            ranking[str(cid)] = _public(row)
+        groups.setdefault(tuple(cfg[key] for key in group_axes), []).append((cid, cfg))
+    for group in groups.values():
+        pending = [(cid, cfg) for cid, cfg in group if str(cid) not in ranking]
+        if pending:
+            completed_group = {
+                str(cid): _public(_base_row(args.instrument, cid, cfg, tapes, full_trials))
+                for cid, cfg in pending
+            }
+            ranking.update(completed_group)
             _write_json(CACHE, cache)
             _checkpoint(args.instrument, "outer_expectancy_ranking", len(ranking), len(grid))
+        _PREDICTIONS.clear()
+        _PREPARED.clear()
+        gc.collect()
         if time.monotonic() >= deadline:
             subprocess.run([sys.executable, str(ROOT/"src/audit/audit_holdout_seal.py")], check=True)
             return
@@ -299,7 +348,7 @@ def main() -> None:
         cid = summary["config_id"]
         if str(cid) not in controls:
             row = _finish_controls(_base_row(args.instrument, cid, grid[cid], tapes, full_trials))
-            controls[str(cid)] = {**_public(row), "_mc_returns": row["_mc_returns"]}
+            controls[str(cid)] = {**_public(row), "_mc_returns_path": row["_mc_returns_path"]}
             _write_json(CACHE, cache)
             _checkpoint(args.instrument, "top_quartile_controls", len(controls), len(selected))
         if time.monotonic() >= deadline:

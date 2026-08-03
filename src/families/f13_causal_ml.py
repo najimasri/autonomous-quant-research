@@ -75,7 +75,10 @@ def build_features(tape: pd.DataFrame, instrument: str) -> pd.DataFrame:
             raise ValueError("BTC feature registration requires volume")
         vmean = p.volume.rolling(48, min_periods=48).mean(); vstd = p.volume.rolling(48, min_periods=48).std()
         out["volume_z"] = (p.volume-vmean)/vstd; out["volume_ratio"] = p.volume/vmean
-    return out.loc[:, feature_names(instrument)].replace([np.inf, -np.inf], np.nan)
+    # Tree estimators consume float32 internally.  Keeping the registered matrix
+    # in that representation halves the peak resident set without changing the
+    # feature registration or any fitted decision.
+    return out.loc[:, feature_names(instrument)].replace([np.inf, -np.inf], np.nan).astype(np.float32)
 
 
 def assert_shift_audit(tape: pd.DataFrame, instrument: str) -> None:
@@ -134,9 +137,19 @@ def walk_forward_outer(features: pd.DataFrame, candidates: pd.DataFrame, target:
         test_rows = valid[years.loc[valid].to_numpy() == outer_year]
         if not len(train_rows) or not len(test_rows):
             continue
-        model = _model(config); model.fit(features.loc[train_rows], target.loc[train_rows])
+        # Materialise only this fold.  In particular, do not retain a list of
+        # train/test matrices for every outer year on long XAU histories.
+        train_x = features.loc[train_rows].to_numpy(dtype=np.float32, copy=True)
+        train_y = target.loc[train_rows].to_numpy(copy=True)
+        model = _model(config); model.fit(train_x, train_y)
+        del train_x, train_y
         model_sha = hashlib.sha256(pickle.dumps(model, protocol=5)).hexdigest()
-        scores = model.predict(features.loc[test_rows])
+        test_x = features.loc[test_rows].to_numpy(dtype=np.float32, copy=True)
+        scores = np.concatenate([
+            model.predict(test_x[start:start + 16_384])
+            for start in range(0, len(test_x), 16_384)
+        ])
+        del test_x
         sides_by_row = candidates[candidates.bar_index.isin(test_rows)].groupby("bar_index").side.apply(list)
         for row, score in zip(test_rows, scores):
             for side in sides_by_row.loc[row]:
