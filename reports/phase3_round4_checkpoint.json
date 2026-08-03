@@ -1,10 +1,10 @@
 {
-  "completed_configs": 48,
+  "completed_configs": 24,
   "holdout_asserted_this_run": true,
   "instrument": "XAU",
   "resume_command": "python -m src.validation.round4_gauntlet --instrument XAU",
   "round": 4,
-  "stage": "complete",
+  "stage": "outer_expectancy_ranking",
   "status": "in_progress",
   "total_configs": 48,
   "verdict_written": false
