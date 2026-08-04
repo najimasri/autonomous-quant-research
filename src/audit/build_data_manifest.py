@@ -20,7 +20,8 @@ def sha256(path: Path) -> str:
 def main() -> int:
     files = []
     for base, patterns in ((ROOT / "data/raw", ("*.zip", "*.bi5")),
-                           (ROOT / "data/canonical", ("*.parquet",))):
+                           (ROOT / "data/canonical", ("*.parquet",)),
+                           (ROOT / "data/derivatives", ("*.parquet",))):
         for pattern in patterns:
             files.extend(base.rglob(pattern))
     inventory = {str(path.relative_to(ROOT)): sha256(path) for path in sorted(files)}
