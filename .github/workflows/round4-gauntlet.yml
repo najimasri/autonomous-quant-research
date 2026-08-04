@@ -74,6 +74,11 @@ jobs:
             python -m src.validation.round4_gauntlet \
               --instrument "$instrument" \
               --controls top-quartile --max-runtime-seconds "$slice"
+            slice_rc=$?
+            if (( slice_rc != 0 )); then
+              echo "SLICE FAILED rc=$slice_rc — banking failure"
+              break
+            fi
 
             read -r status instrument verdict_written < <(python - <<'PY'
           import json
@@ -89,6 +94,7 @@ jobs:
           done
           python src/audit/verify_trials.py
           python src/audit/audit_holdout_seal.py
+          exit "${slice_rc:-0}"
           } 2>&1 | tee /tmp/round4-compute.log >&3
           compute_status=${PIPESTATUS[0]}
           echo "status=$compute_status" >> "$GITHUB_OUTPUT"
