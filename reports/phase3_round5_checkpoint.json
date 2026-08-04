@@ -1,0 +1,10 @@
+{
+  "blocker": "BTC derivatives acquisition has not yet committed all required yearly shards",
+  "completed_configs": 0,
+  "resume_command": "python -m src.validation.round5_gauntlet --max-runtime-seconds 2400",
+  "round": 5,
+  "stage": "configs",
+  "status": "waiting_for_data",
+  "total_configs": 128,
+  "verdict_written": false
+}

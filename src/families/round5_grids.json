@@ -1,0 +1,6 @@
+{
+  "F14A": {"timeframe": ["1h", "4h"], "funding_z": [1.5, 2.0], "min_streak": [1, 2], "atr_window": [24], "stop_atr": [2.0, 3.0], "target_r": [2.5, 3.0]},
+  "F14B": {"timeframe": ["1h", "4h"], "mode": ["continuation", "exhaustion"], "burst_multiple": [3.0, 5.0], "momentum_bars": [3, 6], "atr_window": [24], "stop_atr": [2.5], "target_r": [2.5, 3.0]},
+  "F14C": {"timeframe": ["1h", "4h"], "breakout_window": [12, 24], "oi_change": [0.005, 0.01], "max_long_short_z": [1.0, 2.0], "atr_window": [24], "stop_atr": [2.5], "target_r": [2.5, 3.0]},
+  "F14D": {"timeframe": ["1h", "4h"], "model": ["random_forest", "gradient_boosting"], "max_depth": [3, 4], "min_samples_leaf": [50, 100], "atr_window": [24], "volatility_floor": [0.001], "target_r": [2.5, 3.0]}
+}

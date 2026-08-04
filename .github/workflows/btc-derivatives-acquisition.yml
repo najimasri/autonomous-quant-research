@@ -1,0 +1,86 @@
+name: BTC derivatives acquisition
+
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: First candidate date (YYYY-MM-DD)
+        required: true
+        default: "2019-09-01"
+        type: string
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: btc-derivatives-acquisition
+  cancel-in-progress: false
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install pinned requirements
+        run: python -m pip install --requirement requirements.txt
+      - name: Acquire verified archives and build yearly shards
+        env:
+          START: ${{ inputs.start || '2019-09-01' }}
+        run: |
+          python src/ingest/download_btc_derivatives.py --start "$START"
+          python src/tape/build_btc_derivatives.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path.cwd()
+          data_path = root / "manifests/DATA_SHA256.json"
+          data = json.loads(data_path.read_text())
+          manifest = json.loads((root / "manifests/btc_derivatives_manifest.json").read_text())
+          prefix = "data/derivatives/btc_"
+          data = {key: value for key, value in data.items() if not key.startswith(prefix)}
+          for source in manifest["sources"].values():
+              for relative, shard in source["shards"].items():
+                  data[relative] = shard["sha256"]
+          data_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+          PY
+          python src/audit/build_manifest.py
+      - name: Audit before publish
+        run: |
+          python src/audit/audit_btc_derivatives.py
+          python src/audit/audit_governance.py
+          python src/audit/build_manifest.py --check
+      - name: Commit, rebase, re-audit, and push yearly shards to main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/derivatives/btc_*.parquet
+          git add manifests/btc_derivatives_manifest.json manifests/DATA_SHA256.json manifests/MANIFEST_SHA256.json
+          if git diff --cached --quiet; then
+            echo "Verified derivatives shards are already current."
+            exit 0
+          fi
+          git commit -m "data: refresh BTC derivatives yearly shards"
+          git pull --rebase origin main
+          python src/audit/build_manifest.py
+          git add manifests/MANIFEST_SHA256.json
+          git diff --cached --quiet || git commit --amend --no-edit
+          python src/audit/audit_btc_derivatives.py
+          python src/audit/audit_governance.py
+          python src/audit/build_manifest.py --check
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+      - name: Remove uncommitted raw archives
+        if: always()
+        run: rm -rf data/raw/btc_derivatives
