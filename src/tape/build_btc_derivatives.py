@@ -75,8 +75,12 @@ def normalize(frame: pd.DataFrame, source: str) -> pd.DataFrame:
     frame.columns = [str(column).strip().lower().replace(" ", "_") for column in frame.columns]
     column = timestamp_column(frame)
     numeric = pd.to_numeric(frame[column], errors="coerce")
-    unit = "us" if numeric.dropna().median() > 10**14 else "ms"
-    frame["timestamp"] = pd.to_datetime(numeric, unit=unit, utc=True, errors="coerce")
+    if numeric.notna().mean() >= 0.5:
+        unit = "us" if numeric.dropna().median() > 10**14 else "ms"
+        frame["timestamp"] = pd.to_datetime(numeric, unit=unit, utc=True, errors="coerce")
+    else:
+        # metrics archives carry string datetimes ("YYYY-MM-DD HH:MM:SS"), not epochs
+        frame["timestamp"] = pd.to_datetime(frame[column], utc=True, errors="coerce", format="mixed")
     frame = frame.dropna(subset=["timestamp"]).sort_values("timestamp")
     frame.insert(0, "source", source)
     return frame.drop_duplicates(subset=["timestamp"], keep="last")
