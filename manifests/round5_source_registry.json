@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "instrument": "BTCUSDT",
+  "venue": "Binance USD-M Futures",
+  "archive_root": "https://data.binance.vision/data/futures/um",
+  "sources": {
+    "fundingRate": {
+      "status": "AVAILABLE",
+      "archive_path": "monthly/fundingRate/BTCUSDT/"
+    },
+    "perp_klines": {
+      "status": "AVAILABLE",
+      "archive_path": "monthly/klines/BTCUSDT/"
+    },
+    "metrics": {
+      "status": "AVAILABLE",
+      "archive_path": "monthly/metrics/BTCUSDT/"
+    },
+    "liquidationSnapshot": {
+      "status": "DATA_UNAVAILABLE_STATIC",
+      "finding": "NO_STATIC_ARCHIVES_FOUND",
+      "archive_path": null,
+      "proxy_permitted": false
+    }
+  },
+  "gauntlet_required_sources": [
+    "fundingRate",
+    "perp_klines",
+    "metrics"
+  ]
+}
