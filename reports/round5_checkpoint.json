@@ -1,8 +1,11 @@
 {
-  "completed_step": 0,
-  "next_step": 1,
+  "completed_step": 1,
+  "next_step": 2,
   "round": 5,
-  "status": "F14_REGISTERED",
-  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && PYTHONPATH=. python src/audit/audit_governance.py",
-  "next_action": "Implement the checksum-verified BTC derivatives acquisition workflow and yearly shard manifests."
+  "status": "F14B_DATA_UNAVAILABLE_STATIC",
+  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && PYTHONPATH=. python -m src.validation.round5_gauntlet",
+  "next_action": "Acquire and verify the three available registered sources before evaluating F14A/F14C/F14D.",
+  "finding": "NO_STATIC_ARCHIVES_FOUND",
+  "retired_family": "F14B_liquidation_cascade",
+  "verdict": "DATA_UNAVAILABLE_STATIC"
 }

@@ -14,7 +14,6 @@ def test_round5_registration_and_round4_retirement():
     assert registration["retired_families"]["F13_causal_ml"]["verdict"] == "EMPTY_SET_ROUND4"
     assert set(registration["families"]) == {
         "F14A_funding_extreme_mean_reversion_carry",
-        "F14B_liquidation_cascade",
         "F14C_oi_confirmed_breakout",
         "F14D_derivatives_causal_ml",
     }

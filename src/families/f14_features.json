@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen_before_evaluation": true,
+  "supersession_note": "Re-frozen under the operator-authorized Round 5 data-reality amendment before evaluation; liquidation-burst features removed and no other features changed.",
+  "source_order": [
+    "fundingRate",
+    "perp_klines",
+    "metrics"
+  ],
+  "feature_order": [
+    "funding_rate_level",
+    "funding_rate_zscore_30",
+    "funding_rate_positive_streak",
+    "funding_rate_negative_streak",
+    "perp_return_1",
+    "perp_return_4",
+    "perp_atr_14",
+    "perp_breakout_20",
+    "perp_volume_zscore_30",
+    "open_interest",
+    "open_interest_change_1",
+    "open_interest_zscore_30",
+    "long_short_ratio",
+    "long_short_ratio_zscore_30"
+  ]
+}

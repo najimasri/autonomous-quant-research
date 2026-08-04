@@ -1,60 +1,94 @@
 # Round 5 registration — operator-authorized 2026-08-04.
-# Supersedes the Round 4 F13 registration after EMPTY_SET_ROUND4.
-operator_authorized_registration_verbatim: >-
-  Register F14 derivatives-conditioned BTC families, instruments [BTC], decision timeframes [1h, 4h], budget ≤48 combos each:
-  F14A funding-extreme mean reversion/carry (funding-rate level, z-score, streaks); F14B liquidation-cascade continuation and exhaustion-fade (liquidation volume bursts); F14C OI-confirmed breakout (price break + open-interest expansion + long/short-ratio filter); F14D causal-ML on the derivatives feature set under the existing v1.3 A28I-grade protocol (frozen hashed features, outer actions only, nested selection). All round-3 hard rules remain (cost-to-stop ≤0.15, real 200-member re-simulated controls, prior-only inputs, frozen hashed grids before evaluation, SWING_REQUIRED flags, trial cap).
+# Data-reality amendment supersedes F14B and the original four-source prerequisite.
+operator_authorized_registration_verbatim: 'Register F14 derivatives-conditioned BTC families, instruments [BTC], decision
+  timeframes [1h, 4h], budget ≤48 combos each: F14A funding-extreme mean reversion/carry (funding-rate level, z-score, streaks);
+  F14B liquidation-cascade continuation and exhaustion-fade (liquidation volume bursts); F14C OI-confirmed breakout (price
+  break + open-interest expansion + long/short-ratio filter); F14D causal-ML on the derivatives feature set under the existing
+  v1.3 A28I-grade protocol (frozen hashed features, outer actions only, nested selection). All round-3 hard rules remain (cost-to-stop
+  ≤0.15, real 200-member re-simulated controls, prior-only inputs, frozen hashed grids before evaluation, SWING_REQUIRED flags,
+  trial cap).'
 retired_families:
-  F1_session_breakout: {verdict: EMPTY_SET_ROUND1}
-  F2_vol_compression_expansion: {verdict: EMPTY_SET_ROUND1}
-  F3_momentum_continuation: {verdict: EMPTY_SET_ROUND1}
-  F4_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND1_GROSS_POSITIVE}
-  F5_htf_session_range_breakout: {verdict: EMPTY_SET_ROUND2}
-  F6_htf_trend_continuation: {verdict: EMPTY_SET_ROUND2}
-  F7_htf_extreme_mean_reversion: {verdict: EMPTY_SET_ROUND2}
-  F8_htf_compression_expansion: {verdict: EMPTY_SET_ROUND2}
-  F9_confluence_vote: {verdict: EMPTY_SET_ROUND3}
-  F10_trend_conditioned_breakout: {verdict: EMPTY_SET_ROUND3}
-  F11_trend_conditioned_mean_reversion: {verdict: EMPTY_SET_ROUND3}
-  F12_calendar_conditioned: {verdict: EMPTY_SET_ROUND3}
-  F13_causal_ml: {verdict: EMPTY_SET_ROUND4}
+  F1_session_breakout:
+    verdict: EMPTY_SET_ROUND1
+  F2_vol_compression_expansion:
+    verdict: EMPTY_SET_ROUND1
+  F3_momentum_continuation:
+    verdict: EMPTY_SET_ROUND1
+  F4_extreme_mean_reversion:
+    verdict: EMPTY_SET_ROUND1_GROSS_POSITIVE
+  F5_htf_session_range_breakout:
+    verdict: EMPTY_SET_ROUND2
+  F6_htf_trend_continuation:
+    verdict: EMPTY_SET_ROUND2
+  F7_htf_extreme_mean_reversion:
+    verdict: EMPTY_SET_ROUND2
+  F8_htf_compression_expansion:
+    verdict: EMPTY_SET_ROUND2
+  F9_confluence_vote:
+    verdict: EMPTY_SET_ROUND3
+  F10_trend_conditioned_breakout:
+    verdict: EMPTY_SET_ROUND3
+  F11_trend_conditioned_mean_reversion:
+    verdict: EMPTY_SET_ROUND3
+  F12_calendar_conditioned:
+    verdict: EMPTY_SET_ROUND3
+  F13_causal_ml:
+    verdict: EMPTY_SET_ROUND4
+  F14B_liquidation_cascade:
+    description: Liquidation-cascade continuation and exhaustion fade using prior liquidation-volume bursts.
+    instruments:
+    - BTC
+    decision_timeframes:
+    - 1h
+    - 4h
+    param_budget_max_combos: 48
+    verdict: DATA_UNAVAILABLE_STATIC
+    finding: NO_STATIC_ARCHIVES_FOUND
+    retirement_reason: No static BTCUSDT liquidationSnapshot archive exists at data.binance.vision; the no-proxy rule forbids
+      substitution.
 families:
   F14A_funding_extreme_mean_reversion_carry:
-    description: >-
-      Funding-extreme mean reversion and carry using prior funding-rate level,
-      z-score, and streak state.
-    instruments: [BTC]
-    decision_timeframes: [1h, 4h]
-    param_budget_max_combos: 48
-  F14B_liquidation_cascade:
-    description: >-
-      Liquidation-cascade continuation and exhaustion fade using prior
-      liquidation-volume bursts.
-    instruments: [BTC]
-    decision_timeframes: [1h, 4h]
+    description: Funding-extreme mean reversion and carry using prior funding-rate level, z-score, and streak state.
+    instruments:
+    - BTC
+    decision_timeframes:
+    - 1h
+    - 4h
     param_budget_max_combos: 48
   F14C_oi_confirmed_breakout:
-    description: >-
-      Price breakout confirmed by open-interest expansion and filtered by the
-      prior long/short ratio.
-    instruments: [BTC]
-    decision_timeframes: [1h, 4h]
+    description: Price breakout confirmed by open-interest expansion and filtered by the prior long/short ratio.
+    instruments:
+    - BTC
+    decision_timeframes:
+    - 1h
+    - 4h
     param_budget_max_combos: 48
   F14D_derivatives_causal_ml:
-    description: >-
-      Causal ML on the frozen derivatives feature set under the existing v1.3
-      A28I-grade protocol.
-    instruments: [BTC]
-    decision_timeframes: [1h, 4h]
+    description: Causal ML on the frozen derivatives feature set under the existing v1.3 A28I-grade protocol.
+    instruments:
+    - BTC
+    decision_timeframes:
+    - 1h
+    - 4h
     param_budget_max_combos: 48
-    protocol: >-
-      Frozen and hashed prior-only feature order; expanding-window outer
-      predictions; economics, controls, and gates computed on outer actions
-      only; hyperparameter selection nested within development folds.
+    protocol: Frozen and hashed prior-only feature order; expanding-window outer predictions; economics, controls, and gates
+      computed on outer actions only; hyperparameter selection nested within development folds.
 hard_rules_addendum:
-  - cost-to-stop ratio must be <= 0.15
-  - controls use real 200-member re-simulated ensembles
-  - every input is prior-only and shift-audited
-  - grids and feature order are frozen and hashed before evaluation
-  - overnight or weekend-dependent candidates carry SWING_REQUIRED flags
-  - total mission trial cap remains 2000 configurations
-  - no validation gate may be weakened to manufacture survivors
+- cost-to-stop ratio must be <= 0.15
+- controls use real 200-member re-simulated ensembles
+- every input is prior-only and shift-audited
+- grids and feature order are frozen and hashed before evaluation
+- overnight or weekend-dependent candidates carry SWING_REQUIRED flags
+- total mission trial cap remains 2000 configurations
+- no validation gate may be weakened to manufacture survivors
+operator_authorized_round5_data_reality_verbatim: NO_STATIC_ARCHIVES_FOUND
+round5_data_reality:
+  source: data.binance.vision BTCUSDT liquidationSnapshot static archives
+  finding: NO_STATIC_ARCHIVES_FOUND
+  no_proxy_rule: true
+  supersession_note: This operator-authorized Round 5 data-reality amendment supersedes the original F14B registration and
+    the original four-source prerequisite; it changes no other feature, grid, or gate.
+  available_registered_sources:
+  - fundingRate
+  - perp_klines
+  - metrics

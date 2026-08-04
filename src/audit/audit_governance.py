@@ -9,8 +9,9 @@ EXPECTED = {
     "ee44588619b3bba8132514a12eb484536bc8162c88af59e9ef3b85b0f270c3a8",
     "4ece447a8125fdf45b5f29bb4a01ac640693ac3674928d38edb0c5fb06f8b1f0",
     # governance/families.yaml: Round 5 operator registration supersedes the
-    # Round 4 F13 pin (EMPTY_SET_ROUND4); all other governance pins are intact.
-    "3bc58288d588a5af7aa9852bc05e6fb550122597c65703a0de4111456762f79d",
+    # original Round 5 pin: F14B is DATA_UNAVAILABLE_STATIC after
+    # NO_STATIC_ARCHIVES_FOUND; all other governance pins remain intact.
+    "2d19d235280ba5887e97416912348cb36ede2f95bb75b0742df528c7fd129962",
     "61681018cf7fdc8b60076971e81a9a06cdafc444b10bd35ef42c14cf0e25646a",
     "ebd72b025b8a7aceed8fab1eecc5a98b1f12629e7c3d3a1ec3a3ed457f21ea73",
 }
