@@ -22,17 +22,48 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+HEADERLESS_NAMES = {
+    12: ["open_time", "open", "high", "low", "close", "volume", "close_time",
+         "quote_volume", "count", "taker_buy_volume", "taker_buy_quote_volume", "ignore"],
+    3: ["symbol", "funding_time", "last_funding_rate"],
+}
+
+
+def _is_number(token: str) -> bool:
+    try:
+        float(token)
+        return True
+    except ValueError:
+        return False
+
+
 def read_archive(path: Path) -> pd.DataFrame:
+    """Binance Vision CSVs are headerless in older archives and headered in newer
+    ones (mixed across history) — sniff the first row instead of assuming."""
     with zipfile.ZipFile(path) as bundle:
         members = [name for name in bundle.namelist() if name.endswith(".csv")]
         if len(members) != 1:
             raise ValueError(f"expected one CSV in {path}")
         with bundle.open(members[0]) as handle:
-            return pd.read_csv(handle)
+            first = handle.readline().decode("utf-8-sig").strip()
+        tokens = [token.strip() for token in first.split(",")]
+        has_header = not all(_is_number(token) or token == "" for token in tokens[1:]) \
+            and any(not _is_number(token) and token for token in tokens)
+        # a headerless fundingRate row starts with the symbol string; detect by
+        # known layouts: header rows contain no purely-numeric epoch in column 2
+        if not has_header and tokens and not _is_number(tokens[0]) and len(tokens) in HEADERLESS_NAMES:
+            has_header = False  # symbol-first headerless layout (fundingRate)
+        with bundle.open(members[0]) as handle:
+            if has_header:
+                return pd.read_csv(handle)
+            names = HEADERLESS_NAMES.get(len(tokens))
+            if names is None:
+                raise ValueError(f"unrecognized headerless layout ({len(tokens)} columns) in {path}")
+            return pd.read_csv(handle, header=None, names=names)
 
 
 def timestamp_column(frame: pd.DataFrame) -> str:
-    candidates = ("timestamp", "open_time", "create_time", "time", "calc_time")
+    candidates = ("timestamp", "open_time", "create_time", "time", "calc_time", "funding_time")
     lowered = {str(column).lower(): column for column in frame.columns}
     for candidate in candidates:
         if candidate in lowered:
