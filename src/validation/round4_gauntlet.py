@@ -226,10 +226,23 @@ def _public(row: dict) -> dict:
     return {k: v for k, v in row.items() if not k.startswith("_")}
 
 
+def _json_safe(value: object) -> object:
+    """Coerce NumPy scalars/arrays to plain JSON types (gold controls emit them)."""
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return float(value)
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
+
+
 def _write_json(path: Path, value: object) -> None:
     """Atomically persist a compact, diffable resume artifact."""
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    temporary.write_text(json.dumps(value, indent=2, sort_keys=True, default=_json_safe) + "\n")
     temporary.replace(path)
 
 
