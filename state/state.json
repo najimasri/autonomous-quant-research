@@ -2,12 +2,15 @@
   "mission": "GOLDBTC-A1",
   "contract_version": "1.1",
   "phase": 3,
-  "status": "COMPLETE_EMPTY_SET",
+  "status": "ROUND5_STEP3_WAITING_FOR_DERIVATIVES_DATA",
   "random_seed": 20260801,
   "completed_phases": [
     0,
     1,
     2,
     3
-  ]
+  ],
+  "active_round": 5,
+  "round5_completed_step": 2,
+  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && python -m src.validation.round5_gauntlet --max-runtime-seconds 2400"
 }

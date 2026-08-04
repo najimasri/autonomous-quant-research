@@ -1,0 +1,16 @@
+{
+  "completed_step": 1,
+  "next_step": 2,
+  "round": 5,
+  "status": "DERIVATIVES_ACQUISITION_WORKFLOW_READY",
+  "coverage_contract": {
+    "fundingRate_candidate_start": "2020-01-01",
+    "perp_klines_1m_candidate_start": "2020-01-01",
+    "metrics_candidate_start": "2020-09-01",
+    "liquidationSnapshot_candidate_start": "2019-09-01",
+    "holdout": "2025-07-01 through present remains sealed from research code",
+    "note": "Each source records its observed first available static archive. A source with no published static archives is retained as NO_STATIC_ARCHIVES_FOUND rather than substituted with an API. Derivatives coverage is shorter than spot and governance development-year/sample floors remain binding."
+  },
+  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && PYTHONPATH=. pytest -q tests/test_btc_derivatives.py",
+  "next_action": "Build and freeze prior-only derivatives features and F14 grids."
+}

@@ -8,7 +8,9 @@ ROOT = Path(__file__).resolve().parents[2]
 EXPECTED = {
     "ee44588619b3bba8132514a12eb484536bc8162c88af59e9ef3b85b0f270c3a8",
     "4ece447a8125fdf45b5f29bb4a01ac640693ac3674928d38edb0c5fb06f8b1f0",
-    "8fe50f5b9e7dd8768a2279a5b7e426e8318989f8dd00eb9fd1691ffe5f4a81a8",
+    # governance/families.yaml: Round 5 operator registration supersedes the
+    # Round 4 F13 pin (EMPTY_SET_ROUND4); all other governance pins are intact.
+    "3bc58288d588a5af7aa9852bc05e6fb550122597c65703a0de4111456762f79d",
     "61681018cf7fdc8b60076971e81a9a06cdafc444b10bd35ef42c14cf0e25646a",
     "ebd72b025b8a7aceed8fab1eecc5a98b1f12629e7c3d3a1ec3a3ed457f21ea73",
 }

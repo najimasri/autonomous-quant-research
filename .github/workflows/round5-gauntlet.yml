@@ -1,0 +1,72 @@
+name: Round 5 resumable gauntlet
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+permissions:
+  contents: write
+concurrency:
+  group: round5-gauntlet-main
+  cancel-in-progress: false
+jobs:
+  gauntlet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v5
+        with: {ref: main, fetch-depth: 0}
+      - id: state
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          c=json.load(open('reports/phase3_round5_checkpoint.json'))
+          print('done=' + ('true' if c.get('verdict_written') else 'false'))
+          PY
+      - if: steps.state.outputs.done != 'true'
+        uses: actions/setup-python@v6
+        with: {python-version: "3.11", cache: pip}
+      - if: steps.state.outputs.done != 'true'
+        run: python -m pip install --requirement requirements.txt
+      - name: Run audited 290-minute compute window in 40-minute slices
+        if: steps.state.outputs.done != 'true'
+        id: compute
+        run: |
+          set +e; exec 3>&1
+          {
+            python src/audit/verify_trials.py
+            python src/audit/audit_holdout_seal.py
+            deadline=$((SECONDS + 17400)); rc=0
+            while (( SECONDS < deadline )); do
+              remaining=$((deadline-SECONDS)); slice=$((remaining<2400 ? remaining : 2400))
+              python -m src.validation.round5_gauntlet --controls all --max-runtime-seconds "$slice" || { rc=$?; break; }
+              done=$(python -c "import json; print(json.load(open('reports/phase3_round5_checkpoint.json')).get('verdict_written',False))")
+              [[ "$done" == True ]] && break
+            done
+            python src/audit/verify_trials.py
+            python src/audit/audit_holdout_seal.py
+            exit "$rc"
+          } 2>&1 | tee /tmp/round5.log >&3
+          rc=${PIPESTATUS[0]}; echo "status=$rc" >> "$GITHUB_OUTPUT"
+          if ((rc)); then tail -n 200 /tmp/round5.log > reports/round5_last_failure.log.tmp; mv reports/round5_last_failure.log.tmp reports/round5_last_failure.log; else rm -f reports/round5_last_failure.log; fi
+          exit 0
+      - name: Audit-gated checkpoint publish
+        if: always() && steps.state.outputs.done != 'true'
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: |
+          python src/audit/build_manifest.py
+          python src/audit/audit_ci.py
+          python src/audit/audit_phase0_data.py --source-checkout
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manifests/MANIFEST_SHA256.json reports trials/trials.jsonl
+          if ! git diff --cached --quiet; then
+            git commit -m "validation: advance resumable Round 5 gauntlet"
+            git pull --rebase origin main
+            python src/audit/build_manifest.py; git add manifests/MANIFEST_SHA256.json
+            git diff --cached --quiet || git commit --amend --no-edit
+            python src/audit/audit_ci.py
+            python src/audit/audit_phase0_data.py --source-checkout
+            git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+          fi
+      - if: always() && steps.state.outputs.done != 'true'
+        run: exit "${{ steps.compute.outputs.status || '1' }}"

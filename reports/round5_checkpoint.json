@@ -1,0 +1,8 @@
+{
+  "completed_step": 0,
+  "next_step": 1,
+  "round": 5,
+  "status": "F14_REGISTERED",
+  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && PYTHONPATH=. python src/audit/audit_governance.py",
+  "next_action": "Implement the checksum-verified BTC derivatives acquisition workflow and yearly shard manifests."
+}

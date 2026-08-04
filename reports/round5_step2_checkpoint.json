@@ -1,0 +1,9 @@
+{
+  "completed_step": 2,
+  "next_step": 3,
+  "round": 5,
+  "status": "F14_FEATURES_AND_GRIDS_FROZEN",
+  "feature_contract": "All derivatives sources are aggregated to completed decision buckets and shifted one full bucket before admission decisions.",
+  "resume_command": "cd /workspace/autonomous-quant-research && git checkout work && PYTHONPATH=. pytest -q tests/test_round5_families.py",
+  "next_action": "Run the resumable Round 5 gauntlet without changing any gate or frozen artifact."
+}

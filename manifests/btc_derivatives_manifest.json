@@ -1,0 +1,11 @@
+{
+  "instrument": "BTCUSDT USDT-M perpetual",
+  "source_domain": "data.binance.vision",
+  "sources": {
+    "fundingRate": {"availability_status": "PENDING", "first_available_archive": null, "first_available_date": null, "shards": {}},
+    "liquidationSnapshot": {"availability_status": "PENDING", "first_available_archive": null, "first_available_date": null, "shards": {}},
+    "metrics": {"availability_status": "PENDING", "first_available_archive": null, "first_available_date": null, "shards": {}},
+    "perp_klines_1m": {"availability_status": "PENDING", "first_available_archive": null, "first_available_date": null, "shards": {}}
+  },
+  "status": "pending_first_acquisition"
+}
