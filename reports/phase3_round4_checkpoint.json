@@ -4,8 +4,8 @@
   "instrument": "XAU",
   "resume_command": "python -m src.validation.round4_gauntlet --instrument XAU",
   "round": 4,
-  "stage": "outer_expectancy_ranking",
-  "status": "in_progress",
+  "stage": "complete",
+  "status": "complete",
   "total_configs": 48,
-  "verdict_written": false
+  "verdict_written": true
 }

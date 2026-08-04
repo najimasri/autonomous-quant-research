@@ -1,7 +1,7 @@
 {
   ".github/workflows/audit.yml": "d502294bb894a492c7468373f52180a3bddc68617979d15f992e5de62f5dac37",
   ".github/workflows/btc-data-acquisition.yml": "98c6407b9355905346c6cbbcb5b06c7ed38c374c734bef0826257d8b18efdc6e",
-  ".github/workflows/round4-gauntlet.yml": "822ef55fd4e90bb5b6451a40e4873c172f83a746e355c9876ca1a61951341ae1",
+  ".github/workflows/round4-gauntlet.yml": "ac3b57e898132635521af5f0e7574d04374bed5fe6775827ca9b43f2b3cc4e6f",
   ".github/workflows/xau-data-acquisition.yml": "6d670c687c862d50dae3a81733a00a79ac906644f9780d0f26bc6f0ba6a35758",
   ".gitignore": "a845344582b5ce66eb715b1a73b5d5cb89a827566112e3a9fa846e7d56c832af",
   ".gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -135,7 +135,8 @@
   "reports/PHASE3_REPORT.md": "fb61e9eea382ef1d250f1ac08b194269dad67a684ae202d2db99d747f290ab76",
   "reports/PHASE3_ROUND2_REPORT.md": "781734fe1c3155e1f9583bedfba3b3e50ced02ddd40ecc7b38411681d39f4224",
   "reports/PHASE3_ROUND3_REPORT.md": "1794389274f5af71a60855203fff565124e3a0c11de2b74a2b9d0d2302356a99",
-  "reports/PHASE3_ROUND4_REPORT.md": "4f3b84c8c622124158c6966e4c1ca803f6b192f0daabd0a24ee71f8e870de528",
+  "reports/PHASE3_ROUND4_REPORT.md": "8be72b2971c22fdf0deff1ff0e74799f338bfc612218d20e496d43cb1ef945b6",
+  "reports/PHASE4_FTMO_ECONOMICS.md": "1bbdca7e9475cba26fdeba2c3eaf5f4acf9e4fe8e94c6c754e5d0415e9a81d83",
   "reports/phase0_ingest_attempt.json": "ef7112bd2f35ca6d7bbd940bff77d97eec2ef681f8650e3884f302b152bf4575",
   "reports/phase1_tables/btc_gap_windows.csv": "06ad860ddc57171c3be3b0caa1a223835749ad536e8b232b66f0b41752339720",
   "reports/phase1_tables/gap_census_btc.csv": "31edf61860cc9e76fce3f931aad27c68255c538a91b73201aae022e375721cea",
@@ -148,8 +149,8 @@
   "reports/phase3_forensics_tables/stop_cost_summary.csv": "0062dd577047927590a2e02411f54f8c8e9f3a73ce773f901483604fb66d4c93",
   "reports/phase3_round2_checkpoint.json": "429cd8599b9ef3323901ea9113da91577b1c491237dd51a8bcf62cd5051781b1",
   "reports/phase3_round3_checkpoint.json": "e0934ee66e78dbade24558116cc190a688d21ec16dfb5f99da57286d6931e219",
-  "reports/phase3_round4_checkpoint.json": "94a17bb3b4597bebba34d150de03c7c5c11bbddf41a65278719e78a8572f4468",
-  "reports/phase3_round4_resume.json": "e34fa00acf7e9e434b5c54f49c9709348f28bdae94bad6b69d1fd6c4c270e488",
+  "reports/phase3_round4_checkpoint.json": "577ff561b605a8ae3564a3bb9aeaf79c08ac03be2f6c9920afcd371c286d4338",
+  "reports/phase3_round4_resume.json": "cc5090ce8572939172a7e1a0b370bcedf78bb7782bb355f2f0da41926f669c42",
   "requirements.txt": "f36b7204bf9760274620038ce125ca443e445939e93a5af6da1227fd75b533d6",
   "src/audit/audit_ci.py": "5cc167d89abc337154c292f331adc1157fa7613427046fe367176726683cc743",
   "src/audit/audit_governance.py": "6c59fd17f9479c822e95325845740565c5f9a75413ee3b9f395a62e468745c67",
@@ -198,7 +199,7 @@
   "src/validation/__init__.py": "dbe869103450e52ba89fdf0207e729120082f70d110904e84c88e3353e8f4802",
   "src/validation/phase3_gauntlet.py": "85bef7fa82aaec117e0f4d699630b1552537fe193e64d033b722ba2aa5183759",
   "src/validation/round3_gauntlet.py": "1d12eaa448bd612e219f819ec5c5d0a3087dfdb4e503ecb845bbc406fa599c8f",
-  "src/validation/round4_gauntlet.py": "c64a9cedb9764e8dda86b23a998aa58d2a1055e45bfbf661054ce1b3a1e490d7",
+  "src/validation/round4_gauntlet.py": "a9dd2ffecb0976db030b1a7172a9a4d4b61cb9304ac12d329b596cf6a4c6584c",
   "state/approvals.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
   "state/state.json": "5abdff1528a8f46457cc40d461674c7857bb0bda4eaccb3ee3dc9e3b6a663b3a",
   "tests/test_decision_bars.py": "5512d7494402ff0a1a2832d333a6863de90d936fb535e59a9807f3e1b7e5caba",
@@ -208,5 +209,5 @@
   "tests/test_round4_workflow.py": "52fe14d78c44c2e268f6cc978e633245bfd75c17a7e8cdb288915a90c4523bce",
   "tests/test_session_map.py": "6efa731cb1300799333baa424d78b2687b80053610c2b089d2cc52d4bde0664a",
   "tests/test_xau_ingest.py": "84e4a96e78dc28ecf020ec521887c38b255ec4c05812e6fe7972da0417259178",
-  "trials/trials.jsonl": "c543eb5a811ccf0f19aa420f9898c0e58e996762d3c9a246853d0c25ca548a39"
+  "trials/trials.jsonl": "6f4eeb74da893a91a2c248a7ab8a11006aad82a94788e0471eb6a8f7910aecf3"
 }

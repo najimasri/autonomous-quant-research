@@ -1913,7 +1913,3334 @@
         "years_contributing": 5
       }
     },
-    "XAU": {}
+    "XAU": {
+      "10": {
+        "_mc_returns_path": "reports/round4_returns/xau_10.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.15,
+          "max_depth": 3,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 10,
+        "confirmation_expectancy": 0.07139840320175243,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10684430886489112,
+        "cost_to_stop_p05": 0.04144662572715588,
+        "cost_to_stop_p95": 0.14702642892024803,
+        "development_expectancy": 0.020141984552175276,
+        "development_trades": 4093,
+        "dsr_confidence": 0.04814172277876305,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14712827796924166,
+        "haircut_expectancy": -0.2627229130516829,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.004363121081692689,
+        "max_year_share": 0.12948937209870512,
+        "median_cost_to_stop": 0.09634590529902441,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "06f83f8201f725171f896e3eb45edb2ee31defdafb0ea1993b426d462fedfd84",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "074756eb50df3d003adae8bfb4d0f5340061f346b4f1d17bef3bb34c3ac9c184",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "12c6c3c23302bd3c24c9e343c57fada87ba883aaebffbafe725e46a79b43ee31",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2071c4b5d72ea37c1d898afa9b53c61717b93bc64b60061d837af9ddcc344847",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3c594b64566da8855e140e20e13e22dd7572b2285913cc8f813ef5fb2083c184",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4c89c2901c7bc4f71134ac95594e51465c0826a7ef10280c990078119ad6874e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4fdb872d098085ddeae80c8c6fd42b4114e65ff74f7636c678ac47e88995da58",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "57229acedab3bf7b3419848123c7301b21131fc1d370f47f45efaf57b93d2753",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5b7a91c55b1234b9b01aea0100a5b8f0a18cbf8296dd2a4259818c52120b2a8c",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6cd3735b66c709800e9b6be4c18a45f833fc69e59a3f0a4bc0c45232f9c7a7ac",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6df8edbb601b554b7c6a29b1f5769b675d695dd25a9694804c610d5e500f380b",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "74addeb58d9b2663a3567efa06055b9b3d5f7a6f90c419fef0e92f421d8ff980",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7da1f959d2750dfe0b5eff6803791a7ca9582a6e36f37dcdcf3515ff633c2fc1",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "85f6b56c20415eaef9599c1e11cdf03a467f754401437cc1dac0e4904a6604fb",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8f013268dbb67cacf33e73d72b5d41af7aa65697f2d061d17c702eebce8dc861",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "929f816d3d11cf76549a6721542c164fe5edbcaff3e0834e6ad866fd115ab53d",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9c8fad34c8f97a44d0bd090c5f23eec8b42712c31c2d43994f1ea52ee20738a6",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ba54555cf27d16cb551796978c749ab1c5caef7dabcdaf5c31dcd87de7ef7638",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c3f5faf4bafe20f8cc178423dce753281b0b3ca5e2cda38e683a618e05f4a9ee",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ceb410ed88e91123071bb85e099d8d81085b324cd2d86e53628af2bec5345ba7",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d1f317da75ec726a74ea9f5da36fed2ee40b732d8b941bcef01c392cb4217432",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d819573ed8306da79d64db7d6e2101f4a2fb615c7d5ecb7f74db2cbebc10133f",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d9508a73430048fa07a89ee6b8f6bdc4c98fc1e2121e2916cab0ff08d577658a",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4ce5a4bd5c146615bd9ff8788b45ec14440c88b1f138e3a091ed46119d3dda8",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f4e703c9e97c81a0fce1f4126ccf9dd45a1be3bea4614d0c2d9e1abcd78bab00",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fbd36c8394cf488b8ae00b92bf5b536b2f1edb52aeaf9984fbc082ba27bbd3f0",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.023826115381742376,
+        "shuffle_95": 0.020141984552175276,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 530,
+          "2012": 502,
+          "2013": 475,
+          "2014": 332,
+          "2015": 276,
+          "2016": 303,
+          "2017": 212,
+          "2018": 200,
+          "2019": 219,
+          "2020": 316,
+          "2021": 387,
+          "2022": 341
+        },
+        "year_expectancy": {
+          "2011": 0.1262176270905327,
+          "2012": 0.045164019749037276,
+          "2013": -0.06947743183922314,
+          "2014": -0.05480658740563287,
+          "2015": 0.06320035927125428,
+          "2016": 0.024827942674112178,
+          "2017": 0.06838708686496686,
+          "2018": -0.13088546035416704,
+          "2019": -0.04132757810480002,
+          "2020": 0.09526900065412974,
+          "2021": 0.08034686147225875,
+          "2022": -0.06265280493496846
+        },
+        "years_contributing": 12
+      },
+      "11": {
+        "_mc_returns_path": "reports/round4_returns/xau_11.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 3,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 11,
+        "confirmation_expectancy": 0.08746519849914858,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.09882109463424149,
+        "cost_to_stop_p05": 0.043614382548124074,
+        "cost_to_stop_p95": 0.147428225383402,
+        "development_expectancy": 0.03244473749110994,
+        "development_trades": 2707,
+        "dsr_confidence": 0.08804560903003722,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.16371056961646135,
+        "haircut_expectancy": -0.2656124090777308,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.015957103993792625,
+        "max_year_share": 0.15626154414480975,
+        "median_cost_to_stop": 0.10249267909435016,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "06f83f8201f725171f896e3eb45edb2ee31defdafb0ea1993b426d462fedfd84",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "074756eb50df3d003adae8bfb4d0f5340061f346b4f1d17bef3bb34c3ac9c184",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "12c6c3c23302bd3c24c9e343c57fada87ba883aaebffbafe725e46a79b43ee31",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2071c4b5d72ea37c1d898afa9b53c61717b93bc64b60061d837af9ddcc344847",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3c594b64566da8855e140e20e13e22dd7572b2285913cc8f813ef5fb2083c184",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4c89c2901c7bc4f71134ac95594e51465c0826a7ef10280c990078119ad6874e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4fdb872d098085ddeae80c8c6fd42b4114e65ff74f7636c678ac47e88995da58",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "57229acedab3bf7b3419848123c7301b21131fc1d370f47f45efaf57b93d2753",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5b7a91c55b1234b9b01aea0100a5b8f0a18cbf8296dd2a4259818c52120b2a8c",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6cd3735b66c709800e9b6be4c18a45f833fc69e59a3f0a4bc0c45232f9c7a7ac",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6df8edbb601b554b7c6a29b1f5769b675d695dd25a9694804c610d5e500f380b",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "74addeb58d9b2663a3567efa06055b9b3d5f7a6f90c419fef0e92f421d8ff980",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7da1f959d2750dfe0b5eff6803791a7ca9582a6e36f37dcdcf3515ff633c2fc1",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "85f6b56c20415eaef9599c1e11cdf03a467f754401437cc1dac0e4904a6604fb",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8f013268dbb67cacf33e73d72b5d41af7aa65697f2d061d17c702eebce8dc861",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "929f816d3d11cf76549a6721542c164fe5edbcaff3e0834e6ad866fd115ab53d",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9c8fad34c8f97a44d0bd090c5f23eec8b42712c31c2d43994f1ea52ee20738a6",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ba54555cf27d16cb551796978c749ab1c5caef7dabcdaf5c31dcd87de7ef7638",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c3f5faf4bafe20f8cc178423dce753281b0b3ca5e2cda38e683a618e05f4a9ee",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ceb410ed88e91123071bb85e099d8d81085b324cd2d86e53628af2bec5345ba7",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d1f317da75ec726a74ea9f5da36fed2ee40b732d8b941bcef01c392cb4217432",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d819573ed8306da79d64db7d6e2101f4a2fb615c7d5ecb7f74db2cbebc10133f",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d9508a73430048fa07a89ee6b8f6bdc4c98fc1e2121e2916cab0ff08d577658a",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4ce5a4bd5c146615bd9ff8788b45ec14440c88b1f138e3a091ed46119d3dda8",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f4e703c9e97c81a0fce1f4126ccf9dd45a1be3bea4614d0c2d9e1abcd78bab00",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fbd36c8394cf488b8ae00b92bf5b536b2f1edb52aeaf9984fbc082ba27bbd3f0",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.05018152396620049,
+        "shuffle_95": 0.03244473749110994,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 423,
+          "2012": 330,
+          "2013": 277,
+          "2014": 252,
+          "2015": 206,
+          "2016": 232,
+          "2017": 162,
+          "2018": 148,
+          "2019": 135,
+          "2020": 143,
+          "2021": 249,
+          "2022": 150
+        },
+        "year_expectancy": {
+          "2011": 0.0701615930890193,
+          "2012": 0.15120566119754408,
+          "2013": -0.01959840159972003,
+          "2014": 0.006242259777553732,
+          "2015": 0.14168774214120985,
+          "2016": 0.0021695482245991517,
+          "2017": 0.12910926670678846,
+          "2018": -0.15209628532204827,
+          "2019": -0.0916206052075336,
+          "2020": 0.05458595636942029,
+          "2021": 0.04733984227543341,
+          "2022": -0.1547580115777133
+        },
+        "years_contributing": 12
+      },
+      "14": {
+        "_mc_returns_path": "reports/round4_returns/xau_14.npy",
+        "admission_rejections": [
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 4,
+          "min_samples_leaf": 50,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 2.5
+        },
+        "config_id": 14,
+        "confirmation_expectancy": 0.07519577153534372,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10416630102591122,
+        "cost_to_stop_p05": 0.041729759966153974,
+        "cost_to_stop_p95": 0.14692519364742052,
+        "development_expectancy": 0.022670819485960326,
+        "development_trades": 3176,
+        "dsr_confidence": 0.04742030096150707,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "sequence_shuffle",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14950793999783188,
+        "haircut_expectancy": -0.24947116211986453,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.01496344111750512,
+        "max_year_share": 0.14011335012594459,
+        "median_cost_to_stop": 0.09848836047564286,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "02eff61ba3e66fe86b52a4e37edb8e469e759085bc48f3108d97af2f8ab37c12",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b8e429c10084c225f882cf1970aa0f297485c0cfcc4a04adfbc4e3df55e5378",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2d64c0c7e89289ad90b212588ed85aaa5434ac7904cc162e4e965ee6df8f153f",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2f1d63d9139bea3016dde3fb64931523a1f25e79862e343434be47390081f2ec",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "324f19776814eb81130b721820127be8a65974e2320688e68012ddb40c5ea9ea",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "370c0b3cc0ab6ed08270e828d1cda32b14e71cd2d157c521d8c450843ec5ac8f",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "40f3c47f71c3bd93098a7b2be35bb9880fc5cbe05a7aab67a252329f0612b1eb",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4b2b82ed177cd31492dd17992d07d6e909df7d6a1379f19336ba2e2dfbe3597c",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "514d75ce856d3fe1f372a37380c1a443504f439f9011d1de6265fe0bd9014831",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5a8460850b2e8093dc0f508295552b1c6a4eac8b70929ea949d26660a8c92595",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6898f04397fd8b3950f8add48e6ea98740dce6dd1cd8636cb5c496eee61d610c",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6bb4f48d873419f11df6aa2a2776eeaf3e9d64629e521c7fa0b49dec6833e741",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7f87a412569dcf0f75978083e4d083d9cc2a3ffef346e742b6037bbf8974c4da",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9f7dc74d7e66a147f88a2d0aabd0b96da42a6d57bc187b8014cb786a439b15fa",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b4630e09175c69f5474873a14955e17d69c5190f5737af9652d7f7c1100ca307",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b7e9175efd485ab0e61dddfdcde1e00f88ae8520295481d55a6d1939392cbb37",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bc79e56a3c896e5396e266874028b3252062e4817bd0572d61f126603feea482",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bf9478586c5383f978f6ab6eaa96fb0f2d21c2911c7bef5fb81538541981b84c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c14183cca31a13ad5e29db068684dfc95e4877f74973d319bfa177f74a7bacf1",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c76a600472daef0e1d18966c6fe13f941947cf1c1f417bc5e7462ed011a377d2",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "de22d17b0276250c8dfea1dc29d00962c73748a571e07d0f00f78743c1886187",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "eb63c5309371d4167ad299215872b1f16ee7fe825aaedeeaf88334f85ca54ca4",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec451efd43b3785d75c5dfd1b773edf1197171feab472efd0a1005777eb6d6e1",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec576fd517fa56f0737fccdad4601d538825cf3f2951e98e72caf9fc95f72f80",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee0f6d676cd78e9f3a1e2343b46075b17d1f975a3cf2299e09486e9702e3cd6e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee7df238045feff7c287bbd567dd851b4df444e0d640e73458177d010b54b029",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.020326461381415504,
+        "shuffle_95": 0.022670819485960333,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 445,
+          "2012": 405,
+          "2013": 353,
+          "2014": 275,
+          "2015": 215,
+          "2016": 244,
+          "2017": 190,
+          "2018": 154,
+          "2019": 170,
+          "2020": 222,
+          "2021": 293,
+          "2022": 210
+        },
+        "year_expectancy": {
+          "2011": 0.05217485015140097,
+          "2012": 0.06640185070290919,
+          "2013": -0.01317427130393557,
+          "2014": 0.0035344825302680957,
+          "2015": 0.12881755134175507,
+          "2016": -0.03669114768182551,
+          "2017": 0.13530156380877797,
+          "2018": -0.13400548957841393,
+          "2019": -0.06379124920121895,
+          "2020": 0.024231979822815348,
+          "2021": 0.09744260245876378,
+          "2022": -0.10156549999883654
+        },
+        "years_contributing": 12
+      },
+      "16": {
+        "_mc_returns_path": "reports/round4_returns/xau_16.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.15,
+          "max_depth": 4,
+          "min_samples_leaf": 50,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 16,
+        "confirmation_expectancy": 0.07805022730015616,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10422036117518041,
+        "cost_to_stop_p05": 0.04045700914159238,
+        "cost_to_stop_p95": 0.14685565163997247,
+        "development_expectancy": 0.019473352769828672,
+        "development_trades": 4481,
+        "dsr_confidence": 0.04959662553076166,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14316706671483778,
+        "haircut_expectancy": -0.2529650921320392,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.012894867604878868,
+        "max_year_share": 0.12742691363534925,
+        "median_cost_to_stop": 0.09476012810776853,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "02eff61ba3e66fe86b52a4e37edb8e469e759085bc48f3108d97af2f8ab37c12",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b8e429c10084c225f882cf1970aa0f297485c0cfcc4a04adfbc4e3df55e5378",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2d64c0c7e89289ad90b212588ed85aaa5434ac7904cc162e4e965ee6df8f153f",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2f1d63d9139bea3016dde3fb64931523a1f25e79862e343434be47390081f2ec",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "324f19776814eb81130b721820127be8a65974e2320688e68012ddb40c5ea9ea",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "370c0b3cc0ab6ed08270e828d1cda32b14e71cd2d157c521d8c450843ec5ac8f",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "40f3c47f71c3bd93098a7b2be35bb9880fc5cbe05a7aab67a252329f0612b1eb",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4b2b82ed177cd31492dd17992d07d6e909df7d6a1379f19336ba2e2dfbe3597c",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "514d75ce856d3fe1f372a37380c1a443504f439f9011d1de6265fe0bd9014831",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5a8460850b2e8093dc0f508295552b1c6a4eac8b70929ea949d26660a8c92595",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6898f04397fd8b3950f8add48e6ea98740dce6dd1cd8636cb5c496eee61d610c",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6bb4f48d873419f11df6aa2a2776eeaf3e9d64629e521c7fa0b49dec6833e741",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7f87a412569dcf0f75978083e4d083d9cc2a3ffef346e742b6037bbf8974c4da",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9f7dc74d7e66a147f88a2d0aabd0b96da42a6d57bc187b8014cb786a439b15fa",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b4630e09175c69f5474873a14955e17d69c5190f5737af9652d7f7c1100ca307",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b7e9175efd485ab0e61dddfdcde1e00f88ae8520295481d55a6d1939392cbb37",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bc79e56a3c896e5396e266874028b3252062e4817bd0572d61f126603feea482",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bf9478586c5383f978f6ab6eaa96fb0f2d21c2911c7bef5fb81538541981b84c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c14183cca31a13ad5e29db068684dfc95e4877f74973d319bfa177f74a7bacf1",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c76a600472daef0e1d18966c6fe13f941947cf1c1f417bc5e7462ed011a377d2",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "de22d17b0276250c8dfea1dc29d00962c73748a571e07d0f00f78743c1886187",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "eb63c5309371d4167ad299215872b1f16ee7fe825aaedeeaf88334f85ca54ca4",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec451efd43b3785d75c5dfd1b773edf1197171feab472efd0a1005777eb6d6e1",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec576fd517fa56f0737fccdad4601d538825cf3f2951e98e72caf9fc95f72f80",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee0f6d676cd78e9f3a1e2343b46075b17d1f975a3cf2299e09486e9702e3cd6e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee7df238045feff7c287bbd567dd851b4df444e0d640e73458177d010b54b029",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.035702714725320474,
+        "shuffle_95": 0.019473352769828676,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 571,
+          "2012": 534,
+          "2013": 512,
+          "2014": 372,
+          "2015": 305,
+          "2016": 346,
+          "2017": 224,
+          "2018": 202,
+          "2019": 244,
+          "2020": 367,
+          "2021": 417,
+          "2022": 387
+        },
+        "year_expectancy": {
+          "2011": 0.06452042281353046,
+          "2012": 0.050066636523096134,
+          "2013": -0.00755522882477477,
+          "2014": -0.04987629447488195,
+          "2015": -0.00545898621573178,
+          "2016": 0.019248492568511983,
+          "2017": 0.09940887533899147,
+          "2018": -0.10649255350414522,
+          "2019": 0.014795628529275287,
+          "2020": 0.055610168464721686,
+          "2021": 0.056523835164473464,
+          "2022": -0.018695031570029365
+        },
+        "years_contributing": 12
+      },
+      "17": {
+        "_mc_returns_path": "reports/round4_returns/xau_17.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 4,
+          "min_samples_leaf": 50,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 17,
+        "confirmation_expectancy": 0.08727174957969777,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.09261915412037125,
+        "cost_to_stop_p05": 0.04164642851255918,
+        "cost_to_stop_p95": 0.14692632191737323,
+        "development_expectancy": 0.03453812525115959,
+        "development_trades": 3153,
+        "dsr_confidence": 0.12951102716747503,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.16169540462269041,
+        "haircut_expectancy": -0.26176691860984797,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.02647905297914327,
+        "max_year_share": 0.14018395179194418,
+        "median_cost_to_stop": 0.0985154037586882,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "02eff61ba3e66fe86b52a4e37edb8e469e759085bc48f3108d97af2f8ab37c12",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b8e429c10084c225f882cf1970aa0f297485c0cfcc4a04adfbc4e3df55e5378",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2d64c0c7e89289ad90b212588ed85aaa5434ac7904cc162e4e965ee6df8f153f",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2f1d63d9139bea3016dde3fb64931523a1f25e79862e343434be47390081f2ec",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "324f19776814eb81130b721820127be8a65974e2320688e68012ddb40c5ea9ea",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "370c0b3cc0ab6ed08270e828d1cda32b14e71cd2d157c521d8c450843ec5ac8f",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "40f3c47f71c3bd93098a7b2be35bb9880fc5cbe05a7aab67a252329f0612b1eb",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4b2b82ed177cd31492dd17992d07d6e909df7d6a1379f19336ba2e2dfbe3597c",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "514d75ce856d3fe1f372a37380c1a443504f439f9011d1de6265fe0bd9014831",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5a8460850b2e8093dc0f508295552b1c6a4eac8b70929ea949d26660a8c92595",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6898f04397fd8b3950f8add48e6ea98740dce6dd1cd8636cb5c496eee61d610c",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6bb4f48d873419f11df6aa2a2776eeaf3e9d64629e521c7fa0b49dec6833e741",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7f87a412569dcf0f75978083e4d083d9cc2a3ffef346e742b6037bbf8974c4da",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9f7dc74d7e66a147f88a2d0aabd0b96da42a6d57bc187b8014cb786a439b15fa",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b4630e09175c69f5474873a14955e17d69c5190f5737af9652d7f7c1100ca307",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b7e9175efd485ab0e61dddfdcde1e00f88ae8520295481d55a6d1939392cbb37",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bc79e56a3c896e5396e266874028b3252062e4817bd0572d61f126603feea482",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "bf9478586c5383f978f6ab6eaa96fb0f2d21c2911c7bef5fb81538541981b84c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c14183cca31a13ad5e29db068684dfc95e4877f74973d319bfa177f74a7bacf1",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c76a600472daef0e1d18966c6fe13f941947cf1c1f417bc5e7462ed011a377d2",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "de22d17b0276250c8dfea1dc29d00962c73748a571e07d0f00f78743c1886187",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "eb63c5309371d4167ad299215872b1f16ee7fe825aaedeeaf88334f85ca54ca4",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec451efd43b3785d75c5dfd1b773edf1197171feab472efd0a1005777eb6d6e1",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec576fd517fa56f0737fccdad4601d538825cf3f2951e98e72caf9fc95f72f80",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee0f6d676cd78e9f3a1e2343b46075b17d1f975a3cf2299e09486e9702e3cd6e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ee7df238045feff7c287bbd567dd851b4df444e0d640e73458177d010b54b029",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.05982808975087321,
+        "shuffle_95": 0.0345381252511596,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 442,
+          "2012": 403,
+          "2013": 351,
+          "2014": 273,
+          "2015": 213,
+          "2016": 243,
+          "2017": 190,
+          "2018": 150,
+          "2019": 167,
+          "2020": 219,
+          "2021": 292,
+          "2022": 210
+        },
+        "year_expectancy": {
+          "2011": 0.0649144766673967,
+          "2012": 0.0888837324072836,
+          "2013": 0.010343537399790971,
+          "2014": -0.011631397691786222,
+          "2015": 0.14577602421701877,
+          "2016": -0.024891515823675228,
+          "2017": 0.108492374005315,
+          "2018": -0.1350513318707588,
+          "2019": -0.026004080521343332,
+          "2020": 0.050740873113739794,
+          "2021": 0.10611306431467568,
+          "2022": -0.09133778393278734
+        },
+        "years_contributing": 12
+      },
+      "2": {
+        "_mc_returns_path": "reports/round4_returns/xau_2.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "confirmation_firewall",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 3,
+          "min_samples_leaf": 50,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 2.5
+        },
+        "config_id": 2,
+        "confirmation_expectancy": -0.024009869570345246,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10701597340482547,
+        "cost_to_stop_p05": 0.042718656876076705,
+        "cost_to_stop_p95": 0.1476371624014301,
+        "development_expectancy": 0.023637661614244843,
+        "development_trades": 2702,
+        "dsr_confidence": 0.04352960342119733,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.15429129663331517,
+        "haircut_expectancy": -0.2465746493261016,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.010016753538731119,
+        "max_year_share": 0.15618060695780903,
+        "median_cost_to_stop": 0.10159563668716745,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "030c3cd3f03fcff29a903ee7fe1616dec4d90a9ad1d734cbdb2968fda5ab5881",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "04b77efb4d0cf9dbe3cd95dec7c0a509d9fff1d4c26b4f1b2e60926ef7a38c71",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0d50304990a9b0fcd56ace2b052a64aef5a07728bc6305a1cffa4d517914cd11",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "11ae929c61e527badd971c8167e1a64493016376404b982c89c59ed302475a95",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1480425666fedc6eb2a8cfd2de0c4a37b4cb9bb2aa481065981e34fd44048c32",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2e02684b99d85746a29f6ba306a40fdc45040bd237c78d9eaa9d78912bd064a5",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3125a6f0fa1293a7b353e5f7070c5226e8d1a151a59f960e820c8e5bb3648a20",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "32f0b9c6d396088ef1a7eccd76b1ba2cd9c07a4f7498e50481e20b848eed95f2",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "371a13146fc71b6fa6ae03248583485e3fda1416e387e5577963c2305271ddf3",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "39aa405bc2ea7358575adc1d71d596ea42fbbf9a1259a02fe89366521be0ea91",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "42706b495ada83f8d76c9bdb15fe94bc90fded6fe2446e29793d4dda14c70d59",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4ec1855aa324f4947071d675c1ade0284fd2dbc02c5f90b89db3a70b1ccd677c",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "66d1e18d365aeb5d8ad0a708050fbe31496771bca93397fec50a0a8bb40beb6a",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6d08e8ec5267fc5f94ebfecbd53ae250e375545d1e9a431e23d59143f3e7683b",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7b5d139c28b02a10a4c2bdf1db217996d9fadbb9184d221eb182bf1e8ff01135",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7efd7cb7721918a3ae3336f8d62f4eb66d3805ab28882803f359c37127fccc86",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "99acf3117582a2d626926d00d87e7d3a016ba40834d9ecdca795e6dde416d315",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9af7045f2c7dc4a84dca766b316eff4d20c4c970dbc70a5fc02c68511b507088",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ad69f4a6c055311aa4acf03cb32d6d6ae94f337700a4cd9e045db53c03d3047f",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c1b74a66f8a48e45ff5c20024daa62e4997ee98b61940bed6bcab7091ca9d852",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "cf9dad857297dec19d43be1665ad759938d40f29bb702b75a40366e7014f4feb",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e903529234b2bf72db545e8ff28876bfcd7136bbff363c170d6623477be336e8",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec30bec704cd0e4fc5618fb5acb8c8130631159a8a473c0dd4fdda4ce465b94a",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f35bc64e88a05b9b27ea9294e7625ac2d6aff015201c1535e31c5be9d1c11bbd",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f4ddea5ed8ecd6f6694feedccce3a55b255e5167301acf852a333debd18996aa",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f53f1ef089e5877dd604a34df16269346758a1947ac9151e0b6cf1ba563eef9a",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.0480326423251151,
+        "shuffle_95": 0.023637661614244854,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 422,
+          "2012": 360,
+          "2013": 273,
+          "2014": 255,
+          "2015": 197,
+          "2016": 237,
+          "2017": 163,
+          "2018": 148,
+          "2019": 129,
+          "2020": 137,
+          "2021": 246,
+          "2022": 135
+        },
+        "year_expectancy": {
+          "2011": 0.04653772153222388,
+          "2012": 0.11224923581661474,
+          "2013": -0.0014358949789206354,
+          "2014": 0.026808503723031937,
+          "2015": 0.11849352083797952,
+          "2016": -0.001695452603500919,
+          "2017": 0.1271260764523116,
+          "2018": -0.1838102368006085,
+          "2019": -0.14820635809949465,
+          "2020": 0.10528068111130796,
+          "2021": 0.043617258161644155,
+          "2022": -0.18605604590730251
+        },
+        "years_contributing": 12
+      },
+      "20": {
+        "_mc_returns_path": "reports/round4_returns/xau_20.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 4,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 2.5
+        },
+        "config_id": 20,
+        "confirmation_expectancy": 0.07170323067580606,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10814468099958273,
+        "cost_to_stop_p05": 0.041750696912137994,
+        "cost_to_stop_p95": 0.14691673280187972,
+        "development_expectancy": 0.019022973974198918,
+        "development_trades": 3188,
+        "dsr_confidence": 0.031720928459732234,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14619062894798054,
+        "haircut_expectancy": -0.2503534681302569,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.009182034894194916,
+        "max_year_share": 0.1411543287327478,
+        "median_cost_to_stop": 0.09821787634793064,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0f4492f638bdd9a0fc1eba32469d0ab0f1ad6bfa8f00aa838263fe80c1d8d971",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1078b9794fc6fdc6915d707aa6b07cf57ba0c75ce58abe5d096906884125c0b5",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "139a6394c1a03dacd936b21f1be5d83b750f797670ffb1f0e94f6cd2449293a3",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "16c6ed40ff59304a5b4775100bef6e6de46d1e5f89d240c84454db7b83193918",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b39d1b41d8c187b2a4785b9fb6f740abeda4957c829eb67a865aacca0bbda02",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "30fbf8f748d127612b9f48f750901ffd9c77ecb36cbd0c2a49e1869f4badcce2",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "362ed882a7a0f368a712bca710cb7a936953319eecff80eda32d75943ecc19c6",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4072e1fa273fa4e4d40be3a9cbf5d6be4249334cc37046d9dd396b5b79a7cb80",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4f26ada94f09d1fea373dafec2f8ba609359a2b67d36498b4d7ab009c1d99aee",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6441ce3c3fb99d68f208f039e59c28ca3d963fb0e9601f272de6ebf3c828ccf1",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "67706a934ed202b97816ebeb86b44b44be68c1d49cc4604d131812d0dd25d28d",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6c7ad87dabb8b8ff4b3c940531929a7a49f3e5dfef1032d2f1be41de57583e1e",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "72d6a3475b62c899148a5a6efc352232e5be33672151118212db5d7aa3859a61",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "78eadb192b9273734e6dd091681566c563e5bf51676ba420d55b6fca9fdbbc39",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "840523e66a5ff728aac82f27f5116afefe8a61b895c862f11d62ba8fc96a8a41",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "86acd13eecdab6565cf1452b366c1048c78948a002d7a951f478e9d9831a7274",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8736cb5b3f030a6719476c5168d3ee1614ef9e4da702ff71dbc241d917236055",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b813d9b7b5854f77c1cc427f0811918cd1befb289e638dceda1a4f0ee8d5c355",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ce6a2a6643913170787be17a5669980aa4d2e9c69d3c48f8ac6ed0ca0181d286",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d06a4547971b363f5632cf4f507f3074f0a43f48e4255e18627448534e2ae0bd",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "df5e37fcf45873e6d9ce9304df4b8ad43d8b8e8dabb7b8b0ccaa8c867ad47311",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e34fad8156a615c1a4717f5f4c3a3e7f855dd94bc937888341d5422c8ce742bf",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4e9b9091d14baca73d760458e0aca2cfeee5b12754336b736437ad7d3cc303c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e6f73d74040c83f6669e48ab69e58271a0275896004488b0ae1141c63bd32cbd",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fa35d0f1a7f112c7f511870ac2c2e9c05becb2155f712aa58d4d0df4f64c7435",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fc46956f3154e34b3af3b1f5537683ea885958d98cf4288a0168410e7b09744f",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.03161329783410374,
+        "shuffle_95": 0.01902297397419892,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 450,
+          "2012": 408,
+          "2013": 346,
+          "2014": 270,
+          "2015": 218,
+          "2016": 243,
+          "2017": 188,
+          "2018": 151,
+          "2019": 169,
+          "2020": 225,
+          "2021": 301,
+          "2022": 219
+        },
+        "year_expectancy": {
+          "2011": 0.06602253891683524,
+          "2012": 0.08607643143108892,
+          "2013": -0.02163650296908727,
+          "2014": -0.011004218481925886,
+          "2015": 0.08594437089334461,
+          "2016": 0.006412923461709756,
+          "2017": 0.1308919699910399,
+          "2018": -0.11019326901735278,
+          "2019": -0.06617715153724879,
+          "2020": 0.011948585530329242,
+          "2021": 0.023870669705846743,
+          "2022": -0.09442466300419425
+        },
+        "years_contributing": 12
+      },
+      "22": {
+        "_mc_returns_path": "reports/round4_returns/xau_22.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.15,
+          "max_depth": 4,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 22,
+        "confirmation_expectancy": 0.07186809496573614,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10453469288081603,
+        "cost_to_stop_p05": 0.04074122254793873,
+        "cost_to_stop_p95": 0.14677022407271412,
+        "development_expectancy": 0.019583910929549437,
+        "development_trades": 4496,
+        "dsr_confidence": 0.05108711925216963,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14370251473991494,
+        "haircut_expectancy": -0.2511166604850215,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.006005043636451342,
+        "max_year_share": 0.12388790035587188,
+        "median_cost_to_stop": 0.09474292319161104,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0f4492f638bdd9a0fc1eba32469d0ab0f1ad6bfa8f00aa838263fe80c1d8d971",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1078b9794fc6fdc6915d707aa6b07cf57ba0c75ce58abe5d096906884125c0b5",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "139a6394c1a03dacd936b21f1be5d83b750f797670ffb1f0e94f6cd2449293a3",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "16c6ed40ff59304a5b4775100bef6e6de46d1e5f89d240c84454db7b83193918",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b39d1b41d8c187b2a4785b9fb6f740abeda4957c829eb67a865aacca0bbda02",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "30fbf8f748d127612b9f48f750901ffd9c77ecb36cbd0c2a49e1869f4badcce2",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "362ed882a7a0f368a712bca710cb7a936953319eecff80eda32d75943ecc19c6",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4072e1fa273fa4e4d40be3a9cbf5d6be4249334cc37046d9dd396b5b79a7cb80",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4f26ada94f09d1fea373dafec2f8ba609359a2b67d36498b4d7ab009c1d99aee",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6441ce3c3fb99d68f208f039e59c28ca3d963fb0e9601f272de6ebf3c828ccf1",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "67706a934ed202b97816ebeb86b44b44be68c1d49cc4604d131812d0dd25d28d",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6c7ad87dabb8b8ff4b3c940531929a7a49f3e5dfef1032d2f1be41de57583e1e",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "72d6a3475b62c899148a5a6efc352232e5be33672151118212db5d7aa3859a61",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "78eadb192b9273734e6dd091681566c563e5bf51676ba420d55b6fca9fdbbc39",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "840523e66a5ff728aac82f27f5116afefe8a61b895c862f11d62ba8fc96a8a41",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "86acd13eecdab6565cf1452b366c1048c78948a002d7a951f478e9d9831a7274",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8736cb5b3f030a6719476c5168d3ee1614ef9e4da702ff71dbc241d917236055",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b813d9b7b5854f77c1cc427f0811918cd1befb289e638dceda1a4f0ee8d5c355",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ce6a2a6643913170787be17a5669980aa4d2e9c69d3c48f8ac6ed0ca0181d286",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d06a4547971b363f5632cf4f507f3074f0a43f48e4255e18627448534e2ae0bd",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "df5e37fcf45873e6d9ce9304df4b8ad43d8b8e8dabb7b8b0ccaa8c867ad47311",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e34fad8156a615c1a4717f5f4c3a3e7f855dd94bc937888341d5422c8ce742bf",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4e9b9091d14baca73d760458e0aca2cfeee5b12754336b736437ad7d3cc303c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e6f73d74040c83f6669e48ab69e58271a0275896004488b0ae1141c63bd32cbd",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fa35d0f1a7f112c7f511870ac2c2e9c05becb2155f712aa58d4d0df4f64c7435",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fc46956f3154e34b3af3b1f5537683ea885958d98cf4288a0168410e7b09744f",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.026988979773361912,
+        "shuffle_95": 0.019583910929549444,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 557,
+          "2012": 536,
+          "2013": 514,
+          "2014": 378,
+          "2015": 309,
+          "2016": 336,
+          "2017": 223,
+          "2018": 203,
+          "2019": 243,
+          "2020": 368,
+          "2021": 442,
+          "2022": 387
+        },
+        "year_expectancy": {
+          "2011": 0.11561112505434908,
+          "2012": 0.022843263695918384,
+          "2013": -0.010680313185713795,
+          "2014": -0.046140705889383425,
+          "2015": -0.012967116551387768,
+          "2016": 0.04254892111718017,
+          "2017": 0.07409879370225561,
+          "2018": -0.15361245463082107,
+          "2019": -0.015210623632200207,
+          "2020": 0.07221648688470382,
+          "2021": 0.06767083599395511,
+          "2022": -0.036381268682690315
+        },
+        "years_contributing": 12
+      },
+      "23": {
+        "_mc_returns_path": "reports/round4_returns/xau_23.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 4,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 23,
+        "confirmation_expectancy": 0.08577841151569184,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.09497180359824423,
+        "cost_to_stop_p05": 0.04183650798027637,
+        "cost_to_stop_p95": 0.1469186129149139,
+        "development_expectancy": 0.03237020280333481,
+        "development_trades": 3166,
+        "dsr_confidence": 0.10972696436259516,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.1597122092049138,
+        "haircut_expectancy": -0.2530257927342218,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.020972959677734444,
+        "max_year_share": 0.14118761844598862,
+        "median_cost_to_stop": 0.09829019616287948,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0f4492f638bdd9a0fc1eba32469d0ab0f1ad6bfa8f00aa838263fe80c1d8d971",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1078b9794fc6fdc6915d707aa6b07cf57ba0c75ce58abe5d096906884125c0b5",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "139a6394c1a03dacd936b21f1be5d83b750f797670ffb1f0e94f6cd2449293a3",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "16c6ed40ff59304a5b4775100bef6e6de46d1e5f89d240c84454db7b83193918",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1b39d1b41d8c187b2a4785b9fb6f740abeda4957c829eb67a865aacca0bbda02",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "30fbf8f748d127612b9f48f750901ffd9c77ecb36cbd0c2a49e1869f4badcce2",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "362ed882a7a0f368a712bca710cb7a936953319eecff80eda32d75943ecc19c6",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4072e1fa273fa4e4d40be3a9cbf5d6be4249334cc37046d9dd396b5b79a7cb80",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4f26ada94f09d1fea373dafec2f8ba609359a2b67d36498b4d7ab009c1d99aee",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6441ce3c3fb99d68f208f039e59c28ca3d963fb0e9601f272de6ebf3c828ccf1",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "67706a934ed202b97816ebeb86b44b44be68c1d49cc4604d131812d0dd25d28d",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6c7ad87dabb8b8ff4b3c940531929a7a49f3e5dfef1032d2f1be41de57583e1e",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "72d6a3475b62c899148a5a6efc352232e5be33672151118212db5d7aa3859a61",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "78eadb192b9273734e6dd091681566c563e5bf51676ba420d55b6fca9fdbbc39",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "840523e66a5ff728aac82f27f5116afefe8a61b895c862f11d62ba8fc96a8a41",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "86acd13eecdab6565cf1452b366c1048c78948a002d7a951f478e9d9831a7274",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8736cb5b3f030a6719476c5168d3ee1614ef9e4da702ff71dbc241d917236055",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b813d9b7b5854f77c1cc427f0811918cd1befb289e638dceda1a4f0ee8d5c355",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ce6a2a6643913170787be17a5669980aa4d2e9c69d3c48f8ac6ed0ca0181d286",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d06a4547971b363f5632cf4f507f3074f0a43f48e4255e18627448534e2ae0bd",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "df5e37fcf45873e6d9ce9304df4b8ad43d8b8e8dabb7b8b0ccaa8c867ad47311",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e34fad8156a615c1a4717f5f4c3a3e7f855dd94bc937888341d5422c8ce742bf",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4e9b9091d14baca73d760458e0aca2cfeee5b12754336b736437ad7d3cc303c",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e6f73d74040c83f6669e48ab69e58271a0275896004488b0ae1141c63bd32cbd",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fa35d0f1a7f112c7f511870ac2c2e9c05becb2155f712aa58d4d0df4f64c7435",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fc46956f3154e34b3af3b1f5537683ea885958d98cf4288a0168410e7b09744f",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.04876372243945152,
+        "shuffle_95": 0.03237020280333481,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 447,
+          "2012": 405,
+          "2013": 344,
+          "2014": 268,
+          "2015": 215,
+          "2016": 241,
+          "2017": 188,
+          "2018": 149,
+          "2019": 169,
+          "2020": 221,
+          "2021": 300,
+          "2022": 219
+        },
+        "year_expectancy": {
+          "2011": 0.08909108110816168,
+          "2012": 0.11006844544477323,
+          "2013": -0.0058022352533028095,
+          "2014": -0.01889731080469877,
+          "2015": 0.10281548359741886,
+          "2016": 0.014700004440478125,
+          "2017": 0.10980995997325868,
+          "2018": -0.12275226774695815,
+          "2019": -0.05435730121194229,
+          "2020": 0.05056929817987459,
+          "2021": 0.042921807709060254,
+          "2022": -0.08093658124317929
+        },
+        "years_contributing": 12
+      },
+      "47": {
+        "_mc_returns_path": "reports/round4_returns/xau_47.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 4,
+          "min_samples_leaf": 100,
+          "model": "gradient_boosting",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 47,
+        "confirmation_expectancy": 0.018103277208495718,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.10063722097993864,
+        "cost_to_stop_p05": 0.037847592889608664,
+        "cost_to_stop_p95": 0.14714024986076477,
+        "development_expectancy": 0.016410936911076292,
+        "development_trades": 5935,
+        "dsr_confidence": 0.048832243185364166,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.13345909480209123,
+        "haircut_expectancy": -0.24237280242690928,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.007053415232059644,
+        "max_year_share": 0.10614995787700084,
+        "median_cost_to_stop": 0.09581518019596981,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0260f99432e8c84465f806799f04ebc074888127fb3fd45a265cacccfa7be45a",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "04db24c82b0ca589039998fbac55ed2fe6a15f12122ecdcf3fb15598deacfc77",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "135c0a1f46f6e160c37abbb4fc2a4389ad1298774c9afe34734d54e77905e77b",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "205462df7c8c57b3c05c4224139b6828c347b639482dbcafa8f951652634a38a",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "255e5ef98921ca93290bfa4dbc6fd37ee4011c15b5dfe5ff44ca0e3943cbaa46",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "26f9b75eca41733c9b6375f063733af9d3710c12fbbd892b3a9088289d225e35",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2ae46a0b47635415d3f90f4aa6d9a02deec7b7c66b0ceadd5d00502f54337fc0",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3582ea37f26dbaca950cf44e567981b9ab4708a298010f97a3eae5bf3cd63f46",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4890a9409dea01b59bd9a7d5e23d9585cc97f2c0e413a01b8377659066dbb9e5",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4c8a0c238fedaa76a7355590b81e369f0e77c79c664cf0819dbad79bcafdb5ad",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "51b72a0887a51bb07e9877e8a8ffd293ba8ee5ce55424e16a47f305071df129a",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "52338bc4e3856bb3f603cceca1217ac2fda0c5f59506da7c0d8c1deed3460ee3",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5288b71a21c2113d38a2d99e1a1f90d5e1c71aee48ddc9d6b568febcd738d0ec",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "60e445ee91a366196789008564d47ccd0d2dd821afab690144bfe6969fe40a6c",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "674f43b42038ea51ebd7a06ba96eff4ae8c15d92d5dda5a9762fe379251bb933",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "78c6225835b9c424658775e8a892565887d271cfc5c02942d480db807821d567",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7a71c585536f0ed1429aaecde55d86e26519c47a36a008d1625cb0c8f279242e",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "81cb98d75ef859b8f18edf7cd1e3014d69bb162c6c761e2715a72bc3a903ba02",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "87b9b6a857532d8306131c741d10a5dff4e70545892cf6b448db307ce2170cb9",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "a56044b1d3221082edb455f66b9e23f953ccaca774f7f236627ebae385f7b802",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "af94c4df9690ead44b3524bb37154058cf00d4c67caefd17ee4f01e4303584fd",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b45d06b54fdc000769e79a8bb6d80afdbcc77d459b94646c9141da46d0e3f123",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "b8c25a779770c50a226581d3e1884b1513f4f8053cfac902ebadacc3853ced23",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "db92af57244931edb4e8f181a9694671f2ed1dfca67f0946dbebce6ca1efb59a",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e153279724dbdc54dc3a1da603dd8f116a851ea41e333869abef712872e88128",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e6bebbac9a88ecbe2a29794a89215ed3868098f3e74fb3ff189c7da59f07e8bb",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.021745294957733793,
+        "shuffle_95": 0.016410936911076295,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": true,
+        "year_counts": {
+          "2011": 630,
+          "2012": 625,
+          "2013": 618,
+          "2014": 462,
+          "2015": 416,
+          "2016": 486,
+          "2017": 279,
+          "2018": 250,
+          "2019": 352,
+          "2020": 592,
+          "2021": 619,
+          "2022": 606
+        },
+        "year_expectancy": {
+          "2011": 0.08793943452963895,
+          "2012": 0.09591244109600171,
+          "2013": -0.052981606995559906,
+          "2014": -0.06355512350100223,
+          "2015": -0.001417685061428552,
+          "2016": 0.07678703066430266,
+          "2017": -0.008189291295696765,
+          "2018": -0.06146797896455169,
+          "2019": -0.06755115329926525,
+          "2020": 0.004472818121888483,
+          "2021": 0.04486270133833523,
+          "2022": 0.030429115362009294
+        },
+        "years_contributing": 12
+      },
+      "5": {
+        "_mc_returns_path": "reports/round4_returns/xau_5.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 3,
+          "min_samples_leaf": 50,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 3.0
+        },
+        "config_id": 5,
+        "confirmation_expectancy": 0.022342187485281818,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.0944986277729399,
+        "cost_to_stop_p05": 0.04267727897406277,
+        "cost_to_stop_p95": 0.14763070722225277,
+        "development_expectancy": 0.03632308847278889,
+        "development_trades": 2679,
+        "dsr_confidence": 0.12083589596235139,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.16714480471851767,
+        "haircut_expectancy": -0.25188726949075396,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.021110493220448202,
+        "max_year_share": 0.15602836879432624,
+        "median_cost_to_stop": 0.1015515807724295,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "030c3cd3f03fcff29a903ee7fe1616dec4d90a9ad1d734cbdb2968fda5ab5881",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "04b77efb4d0cf9dbe3cd95dec7c0a509d9fff1d4c26b4f1b2e60926ef7a38c71",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "0d50304990a9b0fcd56ace2b052a64aef5a07728bc6305a1cffa4d517914cd11",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "11ae929c61e527badd971c8167e1a64493016376404b982c89c59ed302475a95",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "1480425666fedc6eb2a8cfd2de0c4a37b4cb9bb2aa481065981e34fd44048c32",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2e02684b99d85746a29f6ba306a40fdc45040bd237c78d9eaa9d78912bd064a5",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3125a6f0fa1293a7b353e5f7070c5226e8d1a151a59f960e820c8e5bb3648a20",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "32f0b9c6d396088ef1a7eccd76b1ba2cd9c07a4f7498e50481e20b848eed95f2",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "371a13146fc71b6fa6ae03248583485e3fda1416e387e5577963c2305271ddf3",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "39aa405bc2ea7358575adc1d71d596ea42fbbf9a1259a02fe89366521be0ea91",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "42706b495ada83f8d76c9bdb15fe94bc90fded6fe2446e29793d4dda14c70d59",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4ec1855aa324f4947071d675c1ade0284fd2dbc02c5f90b89db3a70b1ccd677c",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "66d1e18d365aeb5d8ad0a708050fbe31496771bca93397fec50a0a8bb40beb6a",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6d08e8ec5267fc5f94ebfecbd53ae250e375545d1e9a431e23d59143f3e7683b",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7b5d139c28b02a10a4c2bdf1db217996d9fadbb9184d221eb182bf1e8ff01135",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7efd7cb7721918a3ae3336f8d62f4eb66d3805ab28882803f359c37127fccc86",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "99acf3117582a2d626926d00d87e7d3a016ba40834d9ecdca795e6dde416d315",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9af7045f2c7dc4a84dca766b316eff4d20c4c970dbc70a5fc02c68511b507088",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ad69f4a6c055311aa4acf03cb32d6d6ae94f337700a4cd9e045db53c03d3047f",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c1b74a66f8a48e45ff5c20024daa62e4997ee98b61940bed6bcab7091ca9d852",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "cf9dad857297dec19d43be1665ad759938d40f29bb702b75a40366e7014f4feb",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e903529234b2bf72db545e8ff28876bfcd7136bbff363c170d6623477be336e8",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ec30bec704cd0e4fc5618fb5acb8c8130631159a8a473c0dd4fdda4ce465b94a",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f35bc64e88a05b9b27ea9294e7625ac2d6aff015201c1535e31c5be9d1c11bbd",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f4ddea5ed8ecd6f6694feedccce3a55b255e5167301acf852a333debd18996aa",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f53f1ef089e5877dd604a34df16269346758a1947ac9151e0b6cf1ba563eef9a",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.04572858925477447,
+        "shuffle_95": 0.03632308847278889,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 418,
+          "2012": 355,
+          "2013": 273,
+          "2014": 254,
+          "2015": 196,
+          "2016": 234,
+          "2017": 162,
+          "2018": 146,
+          "2019": 127,
+          "2020": 135,
+          "2021": 244,
+          "2022": 135
+        },
+        "year_expectancy": {
+          "2011": 0.05886780777009885,
+          "2012": 0.1359120218993797,
+          "2013": 0.02403532391680805,
+          "2014": 0.01816272673768815,
+          "2015": 0.1297175789266959,
+          "2016": 0.005078256028473719,
+          "2017": 0.12741490853386805,
+          "2018": -0.17675534378250846,
+          "2019": -0.13343708671997284,
+          "2020": 0.11415452635633944,
+          "2021": 0.07191536286545915,
+          "2022": -0.17911500280457798
+        },
+        "years_contributing": 12
+      },
+      "8": {
+        "_mc_returns_path": "reports/round4_returns/xau_8.npy",
+        "admission_rejections": [
+          "random_entry_95",
+          "sequence_shuffle",
+          "dsr",
+          "haircut",
+          "cost_2x",
+          "xau_seam"
+        ],
+        "btc_funding_note": null,
+        "config": {
+          "go_threshold": 0.3,
+          "max_depth": 3,
+          "min_samples_leaf": 100,
+          "model": "random_forest",
+          "n_estimators": 300,
+          "seed": 1304,
+          "target_r": 2.5
+        },
+        "config_id": 8,
+        "confirmation_expectancy": 0.050821113186116144,
+        "controls": {
+          "random_entry_members": 200,
+          "random_entry_method": "tape replay; matched empirical risk and holding; stop/target; costs and swaps",
+          "shuffle_members": 200,
+          "shuffle_method": "realized outer net-trade sequence permutation"
+        },
+        "cost_2x_expectancy": -0.11196932653783757,
+        "cost_to_stop_p05": 0.04363999634044287,
+        "cost_to_stop_p95": 0.14742519622822012,
+        "development_expectancy": 0.018878027394751914,
+        "development_trades": 2731,
+        "dsr_confidence": 0.025933726004527036,
+        "family": "F13",
+        "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+        "first_failing_gate": "random_entry_95",
+        "full_trial_count_for_dsr": 448,
+        "gross_expectancy": 0.14972538132734142,
+        "haircut_expectancy": -0.26412223331288975,
+        "instrument": "XAU",
+        "loyo_min_expectancy": 0.005567062203785375,
+        "max_year_share": 0.15562065177590625,
+        "median_cost_to_stop": 0.1025146449492777,
+        "model_folds": [
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "06f83f8201f725171f896e3eb45edb2ee31defdafb0ea1993b426d462fedfd84",
+            "outer_year": 2020,
+            "timeframe": "4h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "074756eb50df3d003adae8bfb4d0f5340061f346b4f1d17bef3bb34c3ac9c184",
+            "outer_year": 2013,
+            "timeframe": "4h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "12c6c3c23302bd3c24c9e343c57fada87ba883aaebffbafe725e46a79b43ee31",
+            "outer_year": 2018,
+            "timeframe": "4h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "2071c4b5d72ea37c1d898afa9b53c61717b93bc64b60061d837af9ddcc344847",
+            "outer_year": 2015,
+            "timeframe": "4h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "3c594b64566da8855e140e20e13e22dd7572b2285913cc8f813ef5fb2083c184",
+            "outer_year": 2017,
+            "timeframe": "1h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4c89c2901c7bc4f71134ac95594e51465c0826a7ef10280c990078119ad6874e",
+            "outer_year": 2019,
+            "timeframe": "4h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "4fdb872d098085ddeae80c8c6fd42b4114e65ff74f7636c678ac47e88995da58",
+            "outer_year": 2023,
+            "timeframe": "1h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "57229acedab3bf7b3419848123c7301b21131fc1d370f47f45efaf57b93d2753",
+            "outer_year": 2014,
+            "timeframe": "1h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "5b7a91c55b1234b9b01aea0100a5b8f0a18cbf8296dd2a4259818c52120b2a8c",
+            "outer_year": 2016,
+            "timeframe": "4h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6cd3735b66c709800e9b6be4c18a45f833fc69e59a3f0a4bc0c45232f9c7a7ac",
+            "outer_year": 2012,
+            "timeframe": "4h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "6df8edbb601b554b7c6a29b1f5769b675d695dd25a9694804c610d5e500f380b",
+            "outer_year": 2016,
+            "timeframe": "1h",
+            "train_through_year": 2015
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "74addeb58d9b2663a3567efa06055b9b3d5f7a6f90c419fef0e92f421d8ff980",
+            "outer_year": 2021,
+            "timeframe": "1h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "7da1f959d2750dfe0b5eff6803791a7ca9582a6e36f37dcdcf3515ff633c2fc1",
+            "outer_year": 2012,
+            "timeframe": "1h",
+            "train_through_year": 2011
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "85f6b56c20415eaef9599c1e11cdf03a467f754401437cc1dac0e4904a6604fb",
+            "outer_year": 2021,
+            "timeframe": "4h",
+            "train_through_year": 2020
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "8f013268dbb67cacf33e73d72b5d41af7aa65697f2d061d17c702eebce8dc861",
+            "outer_year": 2018,
+            "timeframe": "1h",
+            "train_through_year": 2017
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "929f816d3d11cf76549a6721542c164fe5edbcaff3e0834e6ad866fd115ab53d",
+            "outer_year": 2014,
+            "timeframe": "4h",
+            "train_through_year": 2013
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "9c8fad34c8f97a44d0bd090c5f23eec8b42712c31c2d43994f1ea52ee20738a6",
+            "outer_year": 2011,
+            "timeframe": "4h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ba54555cf27d16cb551796978c749ab1c5caef7dabcdaf5c31dcd87de7ef7638",
+            "outer_year": 2017,
+            "timeframe": "4h",
+            "train_through_year": 2016
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "c3f5faf4bafe20f8cc178423dce753281b0b3ca5e2cda38e683a618e05f4a9ee",
+            "outer_year": 2019,
+            "timeframe": "1h",
+            "train_through_year": 2018
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "ceb410ed88e91123071bb85e099d8d81085b324cd2d86e53628af2bec5345ba7",
+            "outer_year": 2011,
+            "timeframe": "1h",
+            "train_through_year": 2010
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d1f317da75ec726a74ea9f5da36fed2ee40b732d8b941bcef01c392cb4217432",
+            "outer_year": 2015,
+            "timeframe": "1h",
+            "train_through_year": 2014
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d819573ed8306da79d64db7d6e2101f4a2fb615c7d5ecb7f74db2cbebc10133f",
+            "outer_year": 2022,
+            "timeframe": "4h",
+            "train_through_year": 2021
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "d9508a73430048fa07a89ee6b8f6bdc4c98fc1e2121e2916cab0ff08d577658a",
+            "outer_year": 2023,
+            "timeframe": "4h",
+            "train_through_year": 2022
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "e4ce5a4bd5c146615bd9ff8788b45ec14440c88b1f138e3a091ed46119d3dda8",
+            "outer_year": 2020,
+            "timeframe": "1h",
+            "train_through_year": 2019
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "f4e703c9e97c81a0fce1f4126ccf9dd45a1be3bea4614d0c2d9e1abcd78bab00",
+            "outer_year": 2013,
+            "timeframe": "1h",
+            "train_through_year": 2012
+          },
+          {
+            "feature_sha256": "322ee5b566f91e23615b2c2fac8dbbc20184e77ebf16f3c8a1437633e0f3ecb5",
+            "model_sha256": "fbd36c8394cf488b8ae00b92bf5b536b2f1edb52aeaf9984fbc082ba27bbd3f0",
+            "outer_year": 2022,
+            "timeframe": "1h",
+            "train_through_year": 2021
+          }
+        ],
+        "outer_years": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "pre_pbo_pass": false,
+        "random_entry_95": 0.03101827844951316,
+        "shuffle_95": 0.018878027394751917,
+        "swing_required": true,
+        "xau_nightly_swaps_applied": true,
+        "xau_seam_pass": false,
+        "year_counts": {
+          "2011": 425,
+          "2012": 336,
+          "2013": 277,
+          "2014": 254,
+          "2015": 209,
+          "2016": 233,
+          "2017": 163,
+          "2018": 150,
+          "2019": 138,
+          "2020": 146,
+          "2021": 250,
+          "2022": 150
+        },
+        "year_expectancy": {
+          "2011": 0.0461883530191661,
+          "2012": 0.11375827034821877,
+          "2013": -0.040964621212674565,
+          "2014": 0.013381167558915424,
+          "2015": 0.11712066542437055,
+          "2016": 0.0014900178498382978,
+          "2017": 0.12608643723370408,
+          "2018": -0.15584011843007345,
+          "2019": -0.0745542172716053,
+          "2020": 0.05677209529117105,
+          "2021": 0.02520192540029412,
+          "2022": -0.16433828370349868
+        },
+        "years_contributing": 12
+      }
+    }
   },
   "ranking": {
     "BTC": {

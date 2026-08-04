@@ -2,7 +2,7 @@
 
 ## Verdict
 
-`PHASE3_R4_IN_PROGRESS`
+`PHASE3_R4_EMPTY_SET`
 
 All economics are from expanding-window **outer actions only**. Costs are **COSTS_PROVISIONAL**.
 
@@ -22,6 +22,18 @@ All economics are from expanding-window **outer actions only**. Costs are **COST
 |BTC|46|2114|-0.0126|0.0222|0.0003|0.4000|-0.2325|-0.0959|-0.0363|year_concentration|KILL|
 |BTC|10|1906|-0.0127|0.0151|0.0003|0.4000|-0.2447|-0.0977|-0.0808|year_concentration|KILL|
 |BTC|35|2074|-0.0142|-0.0054|0.0002|0.4000|-0.2547|-0.0975|-0.0366|year_concentration|KILL|
+|XAU|5|2679|0.0363|0.0223|0.1208|0.7240|-0.2519|-0.0945|0.0211|random_entry_95|KILL|
+|XAU|17|3153|0.0345|0.0873|0.1295|0.7240|-0.2618|-0.0926|0.0265|random_entry_95|KILL|
+|XAU|11|2707|0.0324|0.0875|0.0880|0.7240|-0.2656|-0.0988|0.0160|random_entry_95|KILL|
+|XAU|23|3166|0.0324|0.0858|0.1097|0.7240|-0.2530|-0.0950|0.0210|random_entry_95|KILL|
+|XAU|2|2702|0.0236|-0.0240|0.0435|0.7240|-0.2466|-0.1070|0.0100|random_entry_95|KILL|
+|XAU|14|3176|0.0227|0.0752|0.0474|0.7240|-0.2495|-0.1042|0.0150|sequence_shuffle|KILL|
+|XAU|10|4093|0.0201|0.0714|0.0481|0.7240|-0.2627|-0.1068|0.0044|random_entry_95|KILL|
+|XAU|22|4496|0.0196|0.0719|0.0511|0.7240|-0.2511|-0.1045|0.0060|random_entry_95|KILL|
+|XAU|16|4481|0.0195|0.0781|0.0496|0.7240|-0.2530|-0.1042|0.0129|random_entry_95|KILL|
+|XAU|20|3188|0.0190|0.0717|0.0317|0.7240|-0.2504|-0.1081|0.0092|random_entry_95|KILL|
+|XAU|8|2731|0.0189|0.0508|0.0259|0.7240|-0.2641|-0.1120|0.0056|random_entry_95|KILL|
+|XAU|47|5935|0.0164|0.0181|0.0488|0.7240|-0.2424|-0.1006|0.0071|random_entry_95|KILL|
 
 ## Audit status
 
